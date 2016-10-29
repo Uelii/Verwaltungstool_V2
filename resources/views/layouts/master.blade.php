@@ -29,8 +29,13 @@
         </div>
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li><a href="{{ url('/home') }}">Home</a></li>
+            <ul class="nav navbar-nav navbar-left">
+                <!--Check if visitor is a guest or a logged in user-->
+                @if (!Auth::guest())
+                    <li class="active"><a href="{{ url('/home') }}"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+                    <li><a href="#">Liegenschaften</a></li>
+                    <li><a href="#">Wohnungen</a></li>
+                @endif
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <!--Check if visitor is a guest or a logged in user-->
@@ -39,7 +44,8 @@
                     <li><a href="{{ url('/register') }}">Register</a></li>
                 @else
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            <span class="glyphicon glyphicon-user"></span> {{ Auth::user()->name }}<span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="{{ url('/logout') }}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
                         </ul>

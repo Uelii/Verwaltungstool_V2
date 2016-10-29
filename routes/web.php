@@ -38,7 +38,3 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/home', 'HomeController@index');
 });
 
-Route::get('env', function() {
-    dd(env('APP_ENV'));
-});
-
