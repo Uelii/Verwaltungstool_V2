@@ -73,7 +73,7 @@
 <footer>
     <nav class="navbar navbar-default navbar-fixed-bottom">
         <div class="container">
-            ©Plebian
+            <p>© Plebians - Web Engineering HS16/17</p>
         </div>
     </nav>
 </footer>
