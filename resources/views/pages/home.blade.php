@@ -8,7 +8,7 @@
                 <div class="panel-heading">Dashboard</div>
 
                 <div class="panel-body">
-                    Sie sind nun eingeloggt. Beste Grüsse, die Plebians.
+                    Sie sind nun eingeloggt. Beste Grüsse, die Plebians. Du Pleb.
                 </div>
             </div>
         </div>
