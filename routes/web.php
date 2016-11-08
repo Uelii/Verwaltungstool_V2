@@ -38,3 +38,10 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/home', 'HomeController@index');
 });
 
+/*Nachfolgende Routen können nur dann aufgerufen werden, wenn der User eingeloggt ist
+ *Andernfalls wird der User zur Home-Route (Login) umgeleitet
+ */
+Route::group(['middleware' => 'auth'], function () {
+    Route::resource('buildings', 'BuildingsController');
+});
+

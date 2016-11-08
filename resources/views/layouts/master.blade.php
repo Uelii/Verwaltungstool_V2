@@ -33,7 +33,7 @@
                 <!--Check if visitor is a guest or a logged in user-->
                 @if (!Auth::guest())
                     <li class="active"><a href="{{ url('/home') }}"><span class="glyphicon glyphicon-home"></span> Home</a></li>
-                    <li><a href="#">Liegenschaften</a></li>
+                    <li><a href="{{ url('/buildings') }}">Liegenschaften</a></li>
                     <li><a href="#">Wohnungen</a></li>
                 @endif
             </ul>
