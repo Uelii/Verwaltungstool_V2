@@ -35,9 +35,9 @@
                         <td>{{$building->zip_code}}</td>
                         <td>{{$building->city}}</td>
                         <td>
-                            <a href="{{ route('buildings.show', $building->id) }}" class="btn btn-info">Show</a>
-                            <a href="{{ route('buildings.edit', $building->id) }}" class="btn btn-primary">Edit</a>
-                            <a href="#modalDelete_{{ $building->id }}" class="btn btn-danger" data-toggle="modal">Delete</a>
+                            <a href="{{ route('buildings.show', $building->id) }}" class="btn btn-info"><i class="fa fa-eye" aria-hidden="true"></i> Show</a>
+                            <a href="{{ route('buildings.edit', $building->id) }}" class="btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
+                            <a href="#modalDelete_{{ $building->id }}" class="btn btn-danger" data-toggle="modal"><i class="fa fa-trash" aria-hidden="true"></i> Delete</a>
 
 
                             <!-- Modal -->
@@ -78,7 +78,7 @@
                     </tr>
                 @endforeach
             </table>
-            <a href="{{ url('/buildings/create')}}" class="btn btn-primary">Add new building</a>
+            <a href="{{ url('/buildings/create')}}" class="btn btn-primary"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add new building</a>
         </div>
         <!--Pagination-->
         <div class="col-md-12">

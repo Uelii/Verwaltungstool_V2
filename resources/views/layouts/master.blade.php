@@ -11,6 +11,7 @@
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script> <!--Für Modals!-->
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ URL::asset("css/font-awesome.css") }}" type="text/css">
     <link rel="stylesheet" href="{{ URL::asset("css/main.css") }}" type="text/css">
 
 </head>
@@ -25,29 +26,29 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Online-Verwaltungstool</a>
+            <a class="navbar-brand" href="#">Online Administration Tool</a>
         </div>
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-left">
                 <!--Check if visitor is a guest or a logged in user-->
                 @if (!Auth::guest())
-                    <li class="active"><a href="{{ url('/home') }}"><span class="glyphicon glyphicon-home"></span> Home</a></li>
-                    <li><a href="{{ url('/buildings') }}">Liegenschaften</a></li>
-                    <li><a href="#">Wohnungen</a></li>
+                    <li><a href="{{ url('/home') }}"><i class="fa fa-home" aria-hidden="true"></i> Home</a></li>
+                    <li><a href="{{ url('/buildings') }}"><i class="fa fa-building-o" aria-hidden="true"></i> Buildings</a></li>
+                    <li><a href="#"><i class="fa fa-bed" aria-hidden="true"></i> Objects</a></li>
                 @endif
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <!--Check if visitor is a guest or a logged in user-->
                 @if (Auth::guest())
-                    <li><a href="{{ url('/') }}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-                    <li><a href="{{ url('/register') }}">Register</a></li>
+                    <li><a href="{{ url('/') }}"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a></li>
+                    <li><a href="{{ url('/register') }}"><i class="fa fa-user-plus" aria-hidden="true"></i> Register</a></li>
                 @else
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                            <span class="glyphicon glyphicon-user"></span> {{ Auth::user()->name }}<span class="caret"></span></a>
+                            <i class="fa fa-user" aria-hidden="true"></i> {{ Auth::user()->name }} <i class="fa fa-caret-down" aria-hidden="true"></i></a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="{{ url('/logout') }}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                            <li><a href="{{ url('/logout') }}"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></li>
                         </ul>
                     </li>
                 @endif
@@ -73,7 +74,7 @@
 <footer>
     <nav class="navbar navbar-default navbar-fixed-bottom">
         <div class="container">
-            <p>© Plebians - Web Engineering HS16/17</p>
+            <p><i class="fa fa-copyright" aria-hidden="true"></i> Plebians - Web Engineering HS16/17</p>
         </div>
     </nav>
 </footer>

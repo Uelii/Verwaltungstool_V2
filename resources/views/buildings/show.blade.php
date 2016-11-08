@@ -20,8 +20,8 @@
                         <p>Maybe add a building description?</p>
                     </div>
                     <div class="panel-footer">
-                        <a href="{{ url('/buildings') }}" class="btn btn-info">Back to overview</a>
-                        <a href="#modalDelete_{{ $building->id }}" class="btn btn-danger" data-toggle="modal">Delete</a>
+                        <a href="{{ url('/buildings') }}" class="btn btn-info"><i class="fa fa-chevron-left" aria-hidden="true"></i> Back to overview</a>
+                        <a href="#modalDelete_{{ $building->id }}" class="btn btn-danger" data-toggle="modal"><i class="fa fa-trash" aria-hidden="true"></i> Delete</a>
 
 
                         <!-- Modal -->

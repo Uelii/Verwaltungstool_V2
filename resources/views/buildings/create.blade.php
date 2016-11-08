@@ -96,7 +96,7 @@
                         </form>
                     </div>
                   <div class="panel-footer">
-                      <a href="{{ url('/buildings') }}" class="btn btn-info">Back to overview</a>
+                      <a href="{{ url('/buildings') }}" class="btn btn-info"><i class="fa fa-chevron-left" aria-hidden="true"></i> Back to overview</a>
                   </div>
                 </div>
             </div>

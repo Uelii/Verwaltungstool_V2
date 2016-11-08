@@ -90,14 +90,14 @@
                             <div class="form-group">
                                 <div class="col-md-8 col-md-offset-4">
                                     <button type="submit" class="btn btn-primary">
-                                        Update
+                                        <i class="fa fa-wrench" aria-hidden="true"></i> Update
                                     </button>
                                 </div>
                             </div>
                         </form>
                     </div>
                     <div class="panel-footer">
-                        <a href="{{ url('/buildings') }}" class="btn btn-info">Back to overview</a>
+                        <a href="{{ url('/buildings') }}" class="btn btn-info"><i class="fa fa-chevron-left" aria-hidden="true"></i> Back to overview</a>
                     </div>
                 </div>
             </div>
