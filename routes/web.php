@@ -45,3 +45,4 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('buildings', 'BuildingsController');
 });
 
+Route::get('/generate_pdf', 'ReportController@createBuildingsPDF');

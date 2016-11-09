@@ -1,27 +1,28 @@
-# Laravel PHP Framework
+# CMD-commands
 
-[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
-[![Total Downloads](https://poser.pugx.org/laravel/framework/d/total.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
+Directory: cd c:/xampp/htdocs/verwaltungstool_v2
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, queueing, and caching.
+Create new migration file: php artisan make:migration name_of_migration --table="..." (if already existing)
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+Migration: php artisan migrate
 
-## Official Documentation
+New controller: php artisan make:controller name_of_controller
+
+New CRUD-Controller: php artisan make:controller name_of_controller --resource
+
+# Installation of WKHTMLTOPDF and its wrapper
+
+[Github website](https://github.com/KnpLabs/snappy#wkhtmltopdf-binary-as-composer-dependencies)
+
+1) CMD: composer require knplabs/knp-snappy
+2) maybe add "h4cc/wkhtmltopdf-amd64": "0.12.x" and "h4cc/wkhtmltoimage-amd64": "0.12.x" to composer.json
+3) CMD: composer require barryvdh/laravel-snappy
+4) add "Barryvdh\Snappy\ServiceProvider::class," to "providers" in file config/app.php
+5) add "'PDF' => Barryvdh\Snappy\Facades\SnappyPdf::class," and "'SnappyImage' => Barryvdh\Snappy\Facades\SnappyImage::class," to "aliases" in file config/app.php
+6) CMD: php artisan vendor:publish --provider="Barryvdh\Snappy\ServiceProvider"
+7) copy "wkhtmltopdf.exe" and "wkhtmltoimage.exe" from local folder to corrsponding folder "vendor\...\bin\" (topdf or toimage)
+8) change 'binary' in new generated file config/snappy.php to "'binary' => base_path('vendor\h4cc\wkhtmltopdf-amd64\bin\wkhtmltopdf.exe')" and "'binary' => base_path('vendor\h4cc\wkhtmltoimage-amd64\bin\wkhtmltoimage.exe')"
+
+# Official Documentation
 
 Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
