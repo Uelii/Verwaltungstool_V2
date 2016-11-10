@@ -8,12 +8,18 @@ use Session;
 
 class BuildingsController extends Controller
 {
+    private $building;
+
+    public function __constructor(Building $building)
+    {
+        $this->building = $building;
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $buildings = Building::paginate(3);
 

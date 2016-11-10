@@ -86,5 +86,4 @@
             {{ $buildings->links() }}
         </div>
     </section>
-
 @endsection
