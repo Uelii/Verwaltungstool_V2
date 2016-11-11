@@ -8,21 +8,15 @@ use Session;
 
 class BuildingsController extends Controller
 {
-    private $building;
-
-    public function __constructor(Building $building)
-    {
-        $this->building = $building;
-    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $buildings = Building::paginate(3);
-
+        $buildings = Building::all();
+        /*$buildings = Building::paginate(3);*/
         return view('buildings.index')->with('buildings', $buildings);
     }
 

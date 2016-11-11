@@ -12,16 +12,17 @@
             <h1>Overview Buildings</h1>
             <hr>
 
-            <table id="buildings_data" class="table table-hover table-condensed buildings_data">
+            <div class="table-responsive">
+            <table id="buildings_data" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                 <thead>
                 <tr>
-                    <th class="col-md-1">ID</th>
-                    <th class="col-md-2">Name</th>
-                    <th class="col-md-2">Street</th>
-                    <th class="col-md-1">Street number</th>
-                    <th class="col-md-1">Zip code</th>
-                    <th class="col-md-2">City</th>
-                    <th class="col-md-3">Action</th>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Street</th>
+                    <th>Street number</th>
+                    <th>Zip code</th>
+                    <th>City</th>
+                    <th>Action</th>
                 </tr>
                 </thead>
 
@@ -81,18 +82,18 @@
                 </tbody>
             </table>
 
+            <!--jQuery option to sort table data-->
             <script>
                 $(document).ready(function(){
-                    $("#buildings_data").DataTable();
+                    $("#buildings_data").DataTable( {
+                        responsive: true
+                    });
                 });
             </script>
 
             <a href="{{ url('/buildings/create')}}" class="btn btn-primary"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add new building</a>
             <a href="{{ url('/generate_pdf')}}" target="_blank" class="btn btn-primary"> <i class="fa fa-file-pdf-o" aria-hidden="true"></i> Generate PDF</a>
-        </div>
-        <!--Pagination-->
-        <div class="col-md-12">
-            {{ $buildings->links() }}
-        </div>
+            </div>
+            </div>
     </section>
 @endsection

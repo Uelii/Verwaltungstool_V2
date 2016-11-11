@@ -16,7 +16,7 @@
                         <form class="form-horizontal" role="form" method="POST" action="{{ route('buildings.store') }}">
                             {{ csrf_field() }}
 
-                            <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                            <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                                 <label for="name" class="col-md-4 control-label">Name</label>
 
                                 <div class="col-md-6">
@@ -72,7 +72,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-group{{ $errors->has('cty') ? ' has-error' : '' }}">
+                            <div class="form-group{{ $errors->has('city') ? ' has-error' : '' }}">
                                 <label for="city" class="col-md-4 control-label">City</label>
 
                                 <div class="col-md-6">
