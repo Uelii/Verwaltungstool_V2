@@ -12,7 +12,7 @@
             <h1>Overview Buildings</h1>
             <hr>
 
-            <table class="table table-hover table-condensed buildings_data">
+            <table id="buildings_data" class="table table-hover table-condensed buildings_data">
                 <thead>
                 <tr>
                     <th class="col-md-1">ID</th>
@@ -26,8 +26,9 @@
                 </thead>
 
                 <!--Display data-->
+                <tbody>
                 @foreach($buildings as $building)
-                    <tr class="buildings_data">
+                    <tr>
                         <td>{{$building->id}}</td>
                         <td>{{$building->name}}</td>
                         <td>{{$building->street}}</td>
@@ -77,7 +78,15 @@
                         </td>
                     </tr>
                 @endforeach
+                </tbody>
             </table>
+
+            <script>
+                $(document).ready(function(){
+                    $("#buildings_data").DataTable();
+                });
+            </script>
+
             <a href="{{ url('/buildings/create')}}" class="btn btn-primary"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add new building</a>
             <a href="{{ url('/generate_pdf')}}" target="_blank" class="btn btn-primary"> <i class="fa fa-file-pdf-o" aria-hidden="true"></i> Generate PDF</a>
         </div>

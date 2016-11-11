@@ -60,7 +60,7 @@ class BuildingsController extends Controller
 
         Session::flash('flash_message', 'Building successfully added!');
 
-        $buildings = Building::paginate(3);
+        /*$buildings = Building::paginate(3);*/
 
         return view('buildings.index')->with('buildings', $buildings);
     }
