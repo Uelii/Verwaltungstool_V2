@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Object;
+use App\Building;
 use Illuminate\Http\Request;
 use Session;
 
@@ -16,7 +17,9 @@ class ObjectsController extends Controller
     public function index()
     {
         $objects = Object::all();
-        return view('objects.index')->with('objects', $objects);
+        $buildings = Building::all();
+
+        return view('objects.index', compact('objects', 'buildings'));
     }
 
     /**
@@ -26,7 +29,9 @@ class ObjectsController extends Controller
      */
     public function create()
     {
-        return view('objects.create');
+        $buildings = Building::all();
+
+        return view('objects.create')->with('buildings', $buildings);
     }
 
     /**
@@ -37,7 +42,25 @@ class ObjectsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //Validate Input
+        $this->validate($request, [
+            'building_id' => 'required',
+            'name' => 'required|unique:objects',
+            'description' => 'required',
+            'size' => 'required|numeric|min:1',
+            'room' => 'required|numeric',
+        ]);
+        
+        //Create record in database
+        $input = $request->all();
+        Object::create($input);
+
+        //Return whole array and display Success-Message
+        $objects = Object::all();
+        $buildings = Building::all();
+        Session::flash('success_message', 'Object successfully added!');
+
+        return view('objects.index', compact('objects', 'buildings'));
     }
 
     /**
@@ -48,7 +71,10 @@ class ObjectsController extends Controller
      */
     public function show($id)
     {
-        //
+        //If the record has been found, access view
+        $object = Object::findOrFail($id);
+
+        return view('objects.show')->with('object', $object);
     }
 
     /**
@@ -59,7 +85,11 @@ class ObjectsController extends Controller
      */
     public function edit($id)
     {
-        //
+        //If the record has been found, access view
+        $object = Object::findOrFail($id);
+        $buildings = Building::all();
+
+        return view('objects.edit', compact('object', 'buildings'));
     }
 
     /**
@@ -71,7 +101,25 @@ class ObjectsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $object = Object::findOrFail($id);
+
+        //Validate Input
+        $this->validate($request, [
+            'building_id' => 'required',
+            'name' => 'required',
+            'description' => 'required',
+            'size' => 'required|numeric|min:1',
+            'room' => 'required|numeric',
+        ]);
+
+        //Update record in database
+        $input = $request->all();
+        $object->fill($input)->save();
+
+        //Display Success-Message
+        Session::flash('success_message', 'Object successfully updated!');
+
+        return redirect()->back();
     }
 
     /**
@@ -82,6 +130,13 @@ class ObjectsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        //Delete record in database
+        $object = Object::findOrFail($id);
+        $object->delete();
+
+        //Display Success-Message
+        Session::flash('success_message', 'Object successfully deleted!');
+
+        return redirect()->route('objects.index');
     }
 }

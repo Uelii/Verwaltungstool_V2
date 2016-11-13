@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Building;
+use App\Object;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Session;
 
@@ -16,8 +18,9 @@ class BuildingsController extends Controller
     public function index()
     {
         $buildings = Building::all();
-        /*$buildings = Building::paginate(3);*/
-        return view('buildings.index')->with('buildings', $buildings);
+        $objects = Object::all();
+
+        return view('buildings.index', compact('buildings', 'objects'));
     }
 
     /**
@@ -42,21 +45,21 @@ class BuildingsController extends Controller
         $this->validate($request, [
             'name' => 'required|unique:buildings',
             'street' => 'required',
-            'street_number' => 'required',
-            'zip_code' => 'required',
+            'street_number' => 'required|numeric',
+            'zip_code' => 'required|numeric',
             'city' => 'required'
         ]);
 
-        $input = $request->all();
-
         //Create record in database
+        $input = $request->all();
         Building::create($input);
 
-        Session::flash('flash_message', 'Building successfully added!');
+        //Return whole array and display Success-Message
+        $buildings = Building::all();
+        $objects = Object::all();
+        Session::flash('success_message', 'Building successfully added!');
 
-        /*$buildings = Building::paginate(3);*/
-
-        return view('buildings.index')->with('buildings', $buildings);
+        return view('buildings.index', compact('buildings', 'objects'));
     }
 
     /**
@@ -80,7 +83,7 @@ class BuildingsController extends Controller
      */
     public function edit($id)
     {
-        //If the record is found, access view
+        //If the record has been found, access view
         $building = Building::findOrFail($id);
         return view('buildings.edit')->with('building', $building);
     }
@@ -100,17 +103,17 @@ class BuildingsController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'street' => 'required',
-            'street_number' => 'required',
-            'zip_code' => 'required',
+            'street_number' => 'required|numeric',
+            'zip_code' => 'required|numeric',
             'city' => 'required'
         ]);
 
-        $input = $request->all();
-
         //Update record in database
+        $input = $request->all();
         $building->fill($input)->save();
 
-        Session::flash('flash_message', 'Building successfully updated!');
+        //Display Success-Message
+        Session::flash('success_message', 'Building successfully updated!');
 
         return redirect()->back();
     }
@@ -123,11 +126,19 @@ class BuildingsController extends Controller
      */
     public function destroy($id)
     {
-        $building = Building::findOrFail($id);
-        $building->delete();
+        try {
+            //Delete record in database
+            $building = Building::findOrFail($id);
+            $building->delete();
 
-        Session::flash('flash_message', 'Building successfully deleted!');
+            //Display Success-Message
+            Session::flash('success_message', 'Building successfully deleted!');
 
-        return redirect()->route('buildings.index');
+            return redirect()->route('buildings.index');
+        } catch(QueryException $e) {
+            Session::flash('error_message', 'This building cannot be deleted!');
+            return redirect()->route('buildings.index');
+        }
+
     }
 }

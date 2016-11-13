@@ -1,25 +1,24 @@
-<!--Layout to add a new object-->
+<!--Layout to edit an object-->
 
 @extends('layouts.master')
 
 @section('title')
-    CREATE-Objects
+    EDIT-Object
 @endsection
 
 @section('content')
     <section class="row">
         <div class="col-md-12">
-            <h2>Add a new object</h2>
-            <hr>
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Add object</div>
+                    <div class="panel-heading">Edit object</div>
                     <div class="panel-body">
-                        <form class="form-horizontal" role="form" method="POST" action="{{ route('objects.store') }}">
-                            {{ csrf_field() }}
+                        <form class="form-horizontal" role="form" method="POST" action="{{ route('objects.update', $object->id) }}">
+                            <input type="hidden" name="_method" value="PATCH">
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}" />
 
-                            <div class="form-group{{ $errors->has('building_id') ? 'has-error' : '' }}">
-                                <label for="building_id" class="col-md-4 control-label">Building</label>
+                            <div class="form-group{{ $errors->has('building_id') ? ' has-error' : '' }}">
+                                <label for="name" class="col-md-4 control-label">Building</label>
 
                                 <div class="col-md-6">
                                     <select id="building_id" class="form-control" name="building_id" required autofocus>
@@ -42,7 +41,7 @@
                                 <label for="name" class="col-md-4 control-label">Name</label>
 
                                 <div class="col-md-6">
-                                    <input id="name" type="text" class="form-control" name="name" required autofocus>
+                                    <input id="name" type="text" class="form-control" name="name" value="{{ $object->name }}" required autofocus>
 
                                     @if ($errors->has('name'))
                                         <span class="help-block">
@@ -56,7 +55,7 @@
                                 <label for="description" class="col-md-4 control-label">Description</label>
 
                                 <div class="col-md-6">
-                                    <textarea id="description" class="form-control" rows="5" name="description" required></textarea>
+                                    <input id="description" type="text" class="form-control" name="description" value="{{ $object->description }}" required>
 
                                     @if ($errors->has('description'))
                                         <span class="help-block">
@@ -70,7 +69,7 @@
                                 <label for="size" class="col-md-4 control-label">Size</label>
 
                                 <div class="col-md-6">
-                                    <input id="size" type="number" class="form-control" name="size" step="any" required>
+                                    <input id="size" type="number" class="form-control" name="size" value="{{ $object->size }}" step="any" required>
 
                                     @if ($errors->has('size'))
                                         <span class="help-block">
@@ -84,7 +83,7 @@
                                 <label for="room" class="col-md-4 control-label">Room</label>
 
                                 <div class="col-md-6">
-                                    <input id="room" type="number" class="form-control" name="room" step="any" required>
+                                    <input id="room" type="number" class="form-control" name="room" value="{{ $object->room }}" step="any" required>
 
                                     @if ($errors->has('room'))
                                         <span class="help-block">
@@ -97,7 +96,7 @@
                             <div class="form-group">
                                 <div class="col-md-8 col-md-offset-4">
                                     <button type="submit" class="btn btn-primary">
-                                        Add
+                                        <i class="fa fa-wrench" aria-hidden="true"></i> Update
                                     </button>
                                 </div>
                             </div>

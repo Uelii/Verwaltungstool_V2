@@ -15,6 +15,11 @@ class Object extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'description', 'size', 'room'
+        'name', 'description', 'size', 'room', 'building_id'
     ];
+
+    /*One-to-many relation between buildings and objects*/
+    public function building() {
+        return $this->belongsTo('app\Building');
+    }
 }

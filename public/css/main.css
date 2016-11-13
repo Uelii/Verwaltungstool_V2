@@ -1,17 +1,25 @@
-body {
+/*---------------------------------------------------------------------------------------------------------------
+Other custom css settings
+---------------------------------------------------------------------------------------------------------------*/
+
+/*body {
     background: url("http://www.imgbase.info/images/safe-wallpapers/miscellaneous/funny/58345_funny_funny_trump.jpg") repeat 0 0;
+}*/
+
+.navbar {
+    margin-bottom: 5px;
 }
 
-/*---------------------------------------------------------------------------------------------------------------*/
-/*Sticky footer css settings*/
-
+/*---------------------------------------------------------------------------------------------------------------
+Sticky footer css settings
+---------------------------------------------------------------------------------------------------------------*/
 html {
     position: relative;
     min-height: 100%;
 }
 body {
     /* Margin bottom by footer height */
-    margin-bottom: 60px;
+    margin-bottom: 50px;
 }
 .footer {
     position: absolute;
@@ -20,19 +28,15 @@ body {
     /* Set the fixed height of the footer here */
     height: 30px;
     background-color: #f5f5f5;
-
-    display: table;
-
 }
 
-footer > nav > div {
-    display:table-cell;
-    vertical-align:middle;
-    padding:20px;
+.footer .container-fluid p {
+    margin: 5px 0;
 }
-/*---------------------------------------------------------------------------------------------------------------*/
 
-/*---------------------------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------------------------
+Vertical offset css (if needed)
+---------------------------------------------------------------------------------------------------------------*/
 
 /*
 Include this after bootstrap.css. Add class of

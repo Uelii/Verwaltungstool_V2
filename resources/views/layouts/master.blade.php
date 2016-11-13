@@ -41,6 +41,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
+            <img height="50px" width="50px" src="http://i0.wp.com/www.wehuntedthemammoth.com/wp-content/uploads/2016/02/pepetrump-600x600-2.png">
             <a class="navbar-brand" href="#">Grab 'em #maga</a>
         </div>
 
@@ -87,30 +88,35 @@
 <!--End navigation-->
 
 <!--Main content-->
-<main>
-    <div class="container-fluid">
+<section class="container-fluid">
 
-        <!--Success-message output-->
-        @if(Session::has('flash_message'))
-            <div class="alert alert-success">
-                {{ Session::get('flash_message') }}
-            </div>
-        @endif
+    <!--Success-message output-->
+    @if(Session::has('success_message'))
+        <div class="alert alert-success">
+            {{ Session::get('success_message') }}
+        </div>
+    @endif
 
-        @yield('content')
-    </div>
-</main>
+    <!--Error-message output-->
+    @if(Session::has('error_message'))
+        <div class="alert alert-danger">
+            {{ Session::get('error_message') }}
+        </div>
+    @endif
+
+    @yield('content')
+
+</section>
 <!--End main content-->
 
 <!--Footer-->
-<footer>
-    <nav class="navbar navbar-default navbar-fixed-bottom">
-        <div class="container">
-            <p><i class="fa fa-copyright" aria-hidden="true"></i> Plebians - Web Engineering HS16/17</p>
-        </div>
-    </nav>
+<footer class="footer">
+    <div class="container-fluid">
+        <p><i class="fa fa-copyright" aria-hidden="true"></i> Plebians - Web Engineering HS16/17</p>
+    </div>
 </footer>
 <!--End footer-->
+
 
 </body>
 </html>

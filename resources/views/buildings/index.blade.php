@@ -9,14 +9,13 @@
 @section('content')
     <section class="row data">
         <div class="col-md-12">
-            <h1>Overview Buildings</h1>
+            <h2>Overview Buildings</h2>
             <hr>
 
             <div class="table-responsive">
             <table id="buildings_data" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                 <thead>
                 <tr>
-                    <th>ID</th>
                     <th>Name</th>
                     <th>Street</th>
                     <th>Street number</th>
@@ -30,17 +29,28 @@
                 <tbody>
                 @foreach($buildings as $building)
                     <tr>
-                        <td>{{$building->id}}</td>
-                        <td>{{$building->name}}</td>
-                        <td>{{$building->street}}</td>
-                        <td>{{$building->street_number}}</td>
-                        <td>{{$building->zip_code}}</td>
-                        <td>{{$building->city}}</td>
+                        <td>{{ $building->name }}</td>
+                        <td>{{ $building->street }}</td>
+                        <td>{{ $building->street_number }}</td>
+                        <td>{{ $building->zip_code }}</td>
+                        <td>{{ $building->city }}</td>
                         <td>
                             <a href="{{ route('buildings.show', $building->id) }}" class="btn btn-info"><i class="fa fa-eye" aria-hidden="true"></i> Show</a>
                             <a href="{{ route('buildings.edit', $building->id) }}" class="btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
-                            <a href="#modalDelete_{{ $building->id }}" class="btn btn-danger" data-toggle="modal"><i class="fa fa-trash" aria-hidden="true"></i> Delete</a>
 
+                            <!--Check if relation exists-->
+                            @if(count($building->object))
+                                <a href="#" data-toggle="deletion_popover" title="Deletion not possible"
+                                   data-content="Due to foreign key constraints this building cannot be deleted."
+                                   data-trigger="focus">Note</a>
+                                <script>
+                                    $(document).ready(function(){
+                                        $('[data-toggle="deletion_popover"]').popover();
+                                    });
+                                </script>
+                            @else
+                                <a href="#modalDelete_{{ $building->id }}" class="btn btn-danger" data-toggle="modal"><i class="fa fa-trash" aria-hidden="true"></i> Delete</a>
+                            @endif
 
                             <!-- Modal -->
                             <div class="modal fade" id="modalDelete_{{ $building->id }}" tabIndex="-1">
@@ -57,9 +67,12 @@
                                         <div class="modal-body">
                                             Dou you really want to delete this building?
                                             </br>
-                                            </br>
-                                            <b>{{$building->street}} {{$building->street_number}},
-                                                {{$building->zip_code}} {{$building->city}}</b>
+                                            <h3>{{ $building->name }}</h3>
+                                            <hr>
+                                            <p><b>Street: </b>{{ $building->street }}</p>
+                                            <p><b>Street number: </b>{{ $building->street_number }}</p>
+                                            <p><b>Zip code: </b>{{ $building->zip_code }}</p>
+                                            <p><b>City: </b>{{ $building->city }}</p>
                                         </div>
                                         <div class="modal-footer">
 

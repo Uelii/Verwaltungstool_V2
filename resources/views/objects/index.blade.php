@@ -9,18 +9,17 @@
 @section('content')
     <section class="row data">
         <div class="col-md-12">
-            <h1>Overview Objects</h1>
+            <h2>Overview Objects</h2>
             <hr>
-
             <div class="table-responsive">
                 <table id="objects_data" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                     <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>Corresponding building</th>
                         <th>Name</th>
                         <th>Description</th>
                         <th>Size</th>
-                        <th>Room</th>
+                        <th>Room number</th>
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -29,12 +28,12 @@
                     <tbody>
                     @foreach($objects as $object)
                         <tr>
-                            <td>{{$object->id}}</td>
-                            <td>{{$object->name}}</td>
-                            <td>{{$object->street}}</td>
-                            <td>{{$object->street_number}}</td>
-                            <td>{{$object->zip_code}}</td>
-                            <td>{{$object->city}}</td>
+                            <td>{{ $object->building->name }} </br><i>{{ $object->building->street }} {{ $object->building->street_number }},
+                                {{ $object->building->zip_code }} {{ $object->building->city }}</i></td>
+                            <td>{{ $object->name }}</td>
+                            <td>{{ $object->description }}</td>
+                            <td>{{ $object->size }}-room</td>
+                            <td>{{ $object->room }}</td>
                             <td>
                                 <a href="{{ route('objects.show', $object->id) }}" class="btn btn-info"><i class="fa fa-eye" aria-hidden="true"></i> Show</a>
                                 <a href="{{ route('objects.edit', $object->id) }}" class="btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
@@ -56,9 +55,11 @@
                                             <div class="modal-body">
                                                 Dou you really want to delete this object?
                                                 </br>
-                                                </br>
-                                                <b>{{$object->street}} {{$object->street_number}},
-                                                    {{$object->zip_code}} {{$object->city}}</b>
+                                                <h3>{{ $object->name }}</h3>
+                                                <hr>
+                                                <p><b>Description: </b>{{ $object->description }}</p>
+                                                <p><b>Size: </b>{{ $object->size }}-room</p>
+                                                <p><b>Room number: </b>{{ $object->room }}</p>
                                             </div>
                                             <div class="modal-footer">
 
@@ -86,10 +87,7 @@
                     $(document).ready(function(){
                         $("#objects_data").DataTable( {
                             responsive: true,
-                            ajax:           '/api/data',
-                            scrollY:        200,
-                            deferRender:    true,
-                            scroller:       true
+                            "pageLength": 12
                         });
                     });
                 </script>

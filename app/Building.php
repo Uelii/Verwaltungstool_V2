@@ -17,4 +17,9 @@ class Building extends Model
     protected $fillable = [
         'name', 'street', 'street_number', 'zip_code', 'city'
     ];
+
+    /*One-to-many relation between buildings and objects*/
+    public function object() {
+        return $this->hasMany('app\Object');
+    }
 }
