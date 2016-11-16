@@ -38,11 +38,11 @@
                             <a href="{{ route('buildings.show', $building->id) }}" class="btn btn-info"><i class="fa fa-eye" aria-hidden="true"></i> Show</a>
                             <a href="{{ route('buildings.edit', $building->id) }}" class="btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
 
-                            <!--Check if relation exists-->
+                            <!--Check if relation exists (if so: show a warning button)-->
                             @if(count($building->object))
-                                <a href="#" data-toggle="deletion_popover" title="Deletion not possible"
-                                   data-content="Due to foreign key constraints this building cannot be deleted."
-                                   data-trigger="focus">Note</a>
+                                <button type="button" class="btn btn-warning" data-toggle="deletion_popover"
+                                        title="Deletion not possible." data-content="Due to foreign key constraints this building cannot be deleted."
+                                        data-trigger="focus"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Note</button>
                                 <script>
                                     $(document).ready(function(){
                                         $('[data-toggle="deletion_popover"]').popover();
@@ -99,7 +99,8 @@
             <script>
                 $(document).ready(function(){
                     $("#buildings_data").DataTable( {
-                        responsive: true
+                        responsive: true,
+                        oLanguage: { "sSearch": '<i class="fa fa-search" aria-hidden="true"></i>'}
                     });
                 });
             </script>
