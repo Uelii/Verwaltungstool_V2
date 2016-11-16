@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Session;
 
 class LoginController extends Controller
 {
@@ -35,5 +36,16 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest', ['except' => 'logout']);
+    }
+
+    /**
+     * Override default logout method
+     */
+    public function logout() {
+        $this->guard()->logout();
+        Session::flush();
+        Session::flash('success_message', 'Successfully logged out!');
+
+        return redirect('/');
     }
 }

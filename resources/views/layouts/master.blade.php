@@ -59,7 +59,7 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-file-o" aria-hidden="true"></i> Reports<span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">Link</a></li>
+                            <li><a href="{{ url('/report')}}" target="_blank">Create report</a></li>
                             <li class="dropdown-header">Nav header</li>
                             <li><a href="#">Separated link</a></li>
                         </ul>

@@ -22,7 +22,7 @@
                                 <label for="name" class="col-md-4 control-label">Name</label>
 
                                 <div class="col-md-6">
-                                    <input id="name" type="text" class="form-control" name="name" required autofocus>
+                                    <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
 
                                     @if ($errors->has('name'))
                                         <span class="help-block">
@@ -36,7 +36,7 @@
                                 <label for="street" class="col-md-4 control-label">Street</label>
 
                                 <div class="col-md-6">
-                                    <input id="street" type="text" class="form-control" name="street" required>
+                                    <input id="street" type="text" class="form-control" name="street" value="{{ old('street') }}" required>
 
                                     @if ($errors->has('street'))
                                         <span class="help-block">
@@ -50,7 +50,7 @@
                                 <label for="street_number" class="col-md-4 control-label">Street number</label>
 
                                 <div class="col-md-6">
-                                    <input id="street_number" type="number" class="form-control" name="street_number" required>
+                                    <input id="street_number" type="number" class="form-control" name="street_number" value="{{ old('street_number') }}" required>
 
                                     @if ($errors->has('street_number'))
                                         <span class="help-block">
@@ -64,7 +64,7 @@
                                 <label for="zip_code" class="col-md-4 control-label">Zip code</label>
 
                                 <div class="col-md-6">
-                                    <input id="zip_code" type="number" class="form-control" name="zip_code" required>
+                                    <input id="zip_code" type="number" class="form-control" name="zip_code" value="{{ old('zip_code') }}" required>
 
                                     @if ($errors->has('zip_code'))
                                         <span class="help-block">
@@ -78,7 +78,7 @@
                                 <label for="city" class="col-md-4 control-label">City</label>
 
                                 <div class="col-md-6">
-                                    <input id="city" type="text" class="form-control" name="city" required>
+                                    <input id="city" type="text" class="form-control" name="city" value="{{ old('city') }}" required>
 
                                     @if ($errors->has('city'))
                                         <span class="help-block">

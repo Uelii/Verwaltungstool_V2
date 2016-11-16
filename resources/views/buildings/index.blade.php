@@ -106,7 +106,6 @@
             </script>
 
             <a href="{{ url('/buildings/create')}}" class="btn btn-primary"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add new building</a>
-            <a href="{{ url('/generate_pdf')}}" target="_blank" class="btn btn-primary"> <i class="fa fa-file-pdf-o" aria-hidden="true"></i> Generate PDF</a>
             </div>
             </div>
     </section>

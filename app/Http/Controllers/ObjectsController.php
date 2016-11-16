@@ -46,9 +46,10 @@ class ObjectsController extends Controller
         $this->validate($request, [
             'building_id' => 'required',
             'name' => 'required|unique:objects',
-            'description' => 'required',
-            'size' => 'required|numeric|min:1',
-            'room' => 'required|numeric',
+            'living_space' => 'required|numeric|min:1',
+            'number_of_rooms' => 'required|numeric|',
+            'floor_room_number' => 'required|numeric',
+            'rent' => 'required|numeric|min:0'
         ]);
         
         //Create record in database
@@ -107,9 +108,10 @@ class ObjectsController extends Controller
         $this->validate($request, [
             'building_id' => 'required',
             'name' => 'required',
-            'description' => 'required',
-            'size' => 'required|numeric|min:1',
-            'room' => 'required|numeric',
+            'living_space' => 'required|numeric|min:1',
+            'number_of_rooms' => 'required|numeric|',
+            'floor_room_number' => 'required|numeric',
+            'rent' => 'required|numeric|min:0'
         ]);
 
         //Update record in database

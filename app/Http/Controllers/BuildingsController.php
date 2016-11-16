@@ -43,11 +43,11 @@ class BuildingsController extends Controller
     {
         //Validate Input
         $this->validate($request, [
-            'name' => 'required|unique:buildings',
-            'street' => 'required',
-            'street_number' => 'required|numeric',
-            'zip_code' => 'required|numeric',
-            'city' => 'required'
+            'name' => 'required|alpha|unique:buildings',
+            'street' => 'required|alpha',
+            'street_number' => 'required|numeric|min:0|digits_between:1,3',
+            'zip_code' => 'required|min:0|digits:4',
+            'city' => 'required|alpha'
         ]);
 
         //Create record in database

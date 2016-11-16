@@ -18,49 +18,13 @@
                         <h3>{{ $object->name }}</h3>
                         <hr>
                         <p><b>Description: </b>{{ $object->description }}</p>
-                        <p><b>Size: </b>{{ $object->size }}-room</p>
-                        <p><b>Room number: </b>{{ $object->room }}</p>
+                        <p><b>Living space [sqm]: </b>{{ $object->living_space }}</p>
+                        <p><b>Number of rooms: </b>{{ $object->number_of_rooms }}</p>
+                        <p><b>Floor number / Room number: </b>{{ $object->floor_room_number }}</p>
+                        <p><b>Rent [Fr.], per annum: </b>{{ $object->rent }}</p>
                     </div>
                     <div class="panel-footer">
                         <a href="{{ url('/objects') }}" class="btn btn-info"><i class="fa fa-chevron-left" aria-hidden="true"></i> Back to overview</a>
-                        <a href="#modalDelete_{{ $object->id }}" class="btn btn-danger" data-toggle="modal"><i class="fa fa-trash" aria-hidden="true"></i> Delete</a>
-
-                        <!-- Modal -->
-                        <div class="modal fade" id="modalDelete_{{ $object->id }}" tabIndex="-1">
-                            <div class="modal-dialog">
-
-                                <!-- Modal content-->
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal">
-                                            ×
-                                        </button>
-                                        <h4 class="modal-title">Please confirm</h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        Dou you really want to delete this object?
-                                        </br>
-                                        <h3>{{ $object->name }}</h3>
-                                        <hr>
-                                        <p><b>Description: </b>{{ $object->description }}</p>
-                                        <p><b>Size: </b>{{ $object->size }}-room</p>
-                                        <p><b>Room number: </b>{{ $object->room }}</p>
-                                    </div>
-                                    <div class="modal-footer">
-
-                                        <form class="form-horizontal" role="form" method="POST"
-                                              action="{{ url('/objects', $object->id)}}">
-
-                                            <input type="hidden" name="_method" value="DELETE">
-                                            <input type="hidden" name="_token" value="{{ csrf_token() }}" />
-
-                                            <button class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                            <button type="submit" class="btn btn-danger">Yes</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>

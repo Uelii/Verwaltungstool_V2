@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'AddKeyConstraints' => $baseDir . '/database/migrations/2016_11_12_202018_add_key_constraints.php',
     'ChangeForeignKeyConstraints' => $baseDir . '/database/migrations/2016_11_13_133541_change_foreign_key_constraints.php',
+    'ChangsInObjectsTable' => $baseDir . '/database/migrations/2016_11_16_095052_changs_in_objects_table.php',
     'CreateObjectsTable' => $baseDir . '/database/migrations/2016_11_10_155353_create_objects_table.php',
     'CreatePasswordResetsTable' => $baseDir . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
     'CreateTableBuilding' => $baseDir . '/database/migrations/2016_11_08_145950_create_table_building.php',

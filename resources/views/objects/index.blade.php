@@ -8,7 +8,7 @@
 
 @section('content')
     <section class="row data">
-        <div class="col-md-12">
+        <div class="col-md-12 objects">
             <h2>Overview Objects</h2>
             <hr>
             <div class="table-responsive">
@@ -17,9 +17,11 @@
                     <tr>
                         <th>Corresponding building</th>
                         <th>Name</th>
-                        <th>Description</th>
-                        <th>Size</th>
-                        <th>Room number</th>
+                        <!--<th>Description</th>-->
+                        <th>Sqm</th>
+                        <th>No. of rooms</th>
+                        <th>Floor/room no.</th>
+                        <th>Rent</th>
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -28,12 +30,13 @@
                     <tbody>
                     @foreach($objects as $object)
                         <tr>
-                            <td>{{ $object->building->name }} </br><i>{{ $object->building->street }} {{ $object->building->street_number }},
+                            <td>{{ $object->building->name }} </br><i>{{ $object->building->street }} {{ $object->building->street_number }}, </br>
                                 {{ $object->building->zip_code }} {{ $object->building->city }}</i></td>
                             <td>{{ $object->name }}</td>
-                            <td>{{ $object->description }}</td>
-                            <td>{{ $object->size }}-room</td>
-                            <td>{{ $object->room }}</td>
+                            <td>{{ $object->living_space }}</td>
+                            <td>{{ $object->number_of_rooms }}</td>
+                            <td>{{ $object->floor_room_number }}</td>
+                            <td>p.a. {{ $object->rent }} Fr. </br> p.m. {{number_format(( $object->rent/12 ), 2)}} Fr.</td>
                             <td>
                                 <a href="{{ route('objects.show', $object->id) }}" class="btn btn-info"><i class="fa fa-eye" aria-hidden="true"></i> Show</a>
                                 <a href="{{ route('objects.edit', $object->id) }}" class="btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
@@ -93,7 +96,6 @@
                 </script>
 
                 <a href="{{ url('/objects/create')}}" class="btn btn-primary"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add new object</a>
-                <a href="{{ url('/generate_pdf')}}" target="_blank" class="btn btn-primary"> <i class="fa fa-file-pdf-o" aria-hidden="true"></i> Generate PDF</a>
             </div>
         </div>
     </section>

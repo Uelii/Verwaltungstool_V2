@@ -15,7 +15,7 @@ class Object extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'description', 'size', 'room', 'building_id'
+        'building_id', 'name', 'description', 'living_space', 'number_of_rooms', 'floor_room_number', 'rent'
     ];
 
     /*One-to-many relation between buildings and objects*/

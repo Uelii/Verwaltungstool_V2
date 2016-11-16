@@ -6,6 +6,11 @@ use App\Building;
 
 class ReportController extends Controller {
 
+    public function showReportView()
+    {
+        return view('reports.report');
+    }
+
     /*Generate PDF*/
     public function createBuildingsPDF() {
 
@@ -18,6 +23,9 @@ class ReportController extends Controller {
         $pdf->setOption('title', 'test.pdf');
         $pdf->setOption('orientation', 'landscape');
         $pdf->setOption('minimum-font-size', 18);
+
+        $pdf->setOption('footer-center', 'Created on [date]: [time]');
+        $pdf->setOption('footer-right', 'Page [sitepage]/[sitepages]');
 
         $pdf = PDF::loadView('pdfs.buildings', array('buildings' => $buildings)); //Es muss zwingend ein array übergeben werden
 
