@@ -43,11 +43,11 @@ class BuildingsController extends Controller
     {
         //Validate Input
         $this->validate($request, [
-            'name' => 'required|alpha|unique:buildings',
-            'street' => 'required|alpha',
+            'name' => 'required|regex:/^[(a-zA-Z\s)]+$/u|unique:buildings',
+            'street' => 'required|regex:/^[(a-zA-Z\s)]+$/u',
             'street_number' => 'required|numeric|min:0|digits_between:1,3',
             'zip_code' => 'required|min:0|digits:4',
-            'city' => 'required|alpha'
+            'city' => 'required|regex:/^[(a-zA-Z\s)]+$/u'
         ]);
 
         //Create record in database
@@ -72,7 +72,8 @@ class BuildingsController extends Controller
     {
         //If the record has been found, access view
         $building = Building::findOrFail($id);
-        return view('buildings.show')->with('building', $building);
+
+        return view('buildings.show', compact('building'));
     }
 
     /**
@@ -85,7 +86,8 @@ class BuildingsController extends Controller
     {
         //If the record has been found, access view
         $building = Building::findOrFail($id);
-        return view('buildings.edit')->with('building', $building);
+
+        return view('buildings.edit', compact('building'));
     }
 
     /**
@@ -101,11 +103,11 @@ class BuildingsController extends Controller
 
         //Validate Input
         $this->validate($request, [
-            'name' => 'required',
-            'street' => 'required',
-            'street_number' => 'required|numeric',
-            'zip_code' => 'required|numeric',
-            'city' => 'required'
+            'name' => 'required|regex:/^[(a-zA-Z\s)]+$/u',
+            'street' => 'required|regex:/^[(a-zA-Z\s)]+$/u',
+            'street_number' => 'required|numeric|min:0|digits_between:1,3',
+            'zip_code' => 'required|min:0|digits:4',
+            'city' => 'required|regex:/^[(a-zA-Z\s)]+$/u'
         ]);
 
         //Update record in database

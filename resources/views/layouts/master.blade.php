@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title')</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
 
     <!--JavaScript & jQuery-->
         <!--DataTables-->
@@ -16,6 +17,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <!--Für Modals!<script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>-->
     <script src="https://cdn.datatables.net/responsive/2.1.0/js/responsive.bootstrap.min.js"></script>
+
+    <script src="{{ URL::asset("js/custom.js") }}" type="text/javascript"></script>
 
     <!--CSS-->
         <!--DataTables-->
@@ -52,7 +55,7 @@
                     <li><a href="{{ url('/home') }}"><i class="fa fa-home" aria-hidden="true"></i> Home</a></li>
                     <li><a href="{{ url('/buildings') }}"><i class="fa fa-building-o" aria-hidden="true"></i> Buildings</a></li>
                     <li><a href="{{ url('/objects') }}"><i class="fa fa-bed" aria-hidden="true"></i> Objects</a></li>
-                    <li><a href="#"><i class="fa fa-address-book-o" aria-hidden="true"></i> Renter</a></li>
+                    <li><a href="{{ url('/renter') }}"><i class="fa fa-address-book-o" aria-hidden="true"></i> Renter</a></li>
                     <li><a href="#"><i class="fa fa-file-text-o" aria-hidden="true"></i> Invoices</a></li>
                     <li><a href="#"><i class="fa fa-money" aria-hidden="true"></i> Payments</a></li>
 

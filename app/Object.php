@@ -22,4 +22,9 @@ class Object extends Model
     public function building() {
         return $this->belongsTo('app\Building');
     }
+
+    /*Many-to-many relation between objects and renter*/
+    public function renter() {
+        return $this->belongsToMany('app\Renter', 'object_renter', 'FK_object_id', 'FK_renter_id');
+    }
 }

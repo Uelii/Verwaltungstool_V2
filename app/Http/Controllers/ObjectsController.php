@@ -31,7 +31,7 @@ class ObjectsController extends Controller
     {
         $buildings = Building::all();
 
-        return view('objects.create')->with('buildings', $buildings);
+        return view('objects.create', compact('buildings'));
     }
 
     /**
@@ -45,7 +45,7 @@ class ObjectsController extends Controller
         //Validate Input
         $this->validate($request, [
             'building_id' => 'required',
-            'name' => 'required|unique:objects',
+            'name' => 'required|regex:/^[(a-zA-Z\s)]+$/u|unique:objects',
             'living_space' => 'required|numeric|min:1',
             'number_of_rooms' => 'required|numeric|',
             'floor_room_number' => 'required|numeric',
@@ -75,7 +75,7 @@ class ObjectsController extends Controller
         //If the record has been found, access view
         $object = Object::findOrFail($id);
 
-        return view('objects.show')->with('object', $object);
+        return view('objects.show', compact('object'));
     }
 
     /**
@@ -107,7 +107,7 @@ class ObjectsController extends Controller
         //Validate Input
         $this->validate($request, [
             'building_id' => 'required',
-            'name' => 'required',
+            'name' => 'required|regex:/^[(a-zA-Z\s)]+$/u',
             'living_space' => 'required|numeric|min:1',
             'number_of_rooms' => 'required|numeric|',
             'floor_room_number' => 'required|numeric',

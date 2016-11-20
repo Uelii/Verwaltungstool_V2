@@ -18,7 +18,7 @@
                 <tr>
                     <th>Name</th>
                     <th>Street</th>
-                    <th>Street number</th>
+                    <th>No.</th>
                     <th>Zip code</th>
                     <th>City</th>
                     <th>Action</th>
@@ -95,15 +95,10 @@
                 </tbody>
             </table>
 
-            <!--jQuery option to sort table data-->
-            <script>
-                $(document).ready(function(){
-                    $("#buildings_data").DataTable( {
-                        responsive: true,
-                        oLanguage: { "sSearch": '<i class="fa fa-search" aria-hidden="true"></i>'}
-                    });
-                });
-            </script>
+                <!--jQuery option to sort table data-->
+                <script>
+                    addSortTableOptions('buildings_data');
+                </script>
 
             <a href="{{ url('/buildings/create')}}" class="btn btn-primary"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add new building</a>
             </div>

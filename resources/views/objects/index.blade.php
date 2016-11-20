@@ -87,12 +87,7 @@
 
                 <!--jQuery option to sort table data-->
                 <script>
-                    $(document).ready(function(){
-                        $("#objects_data").DataTable( {
-                            responsive: true
-                            /*"pageLength": 12*/
-                        });
-                    });
+                    addSortTableOptions('objects_data');
                 </script>
 
                 <a href="{{ url('/objects/create')}}" class="btn btn-primary"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add new object</a>
