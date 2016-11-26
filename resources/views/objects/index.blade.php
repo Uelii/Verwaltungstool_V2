@@ -40,8 +40,18 @@
                             <td>
                                 <a href="{{ route('objects.show', $object->id) }}" class="btn btn-info"><i class="fa fa-eye" aria-hidden="true"></i> Show</a>
                                 <a href="{{ route('objects.edit', $object->id) }}" class="btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
-                                <a href="#modalDelete_{{ $object->id }}" class="btn btn-danger" data-toggle="modal"><i class="fa fa-trash" aria-hidden="true"></i> Delete</a>
 
+                                <!--Check if relation exists (if so: show a warning button)-->
+                                @if(count($object->renter))
+                                    <button type="button" class="btn btn-warning" data-toggle="deletion_popover"
+                                            title="Deletion not possible." data-content="There are some renters attached to this object. Therefore this object cannot be deleted."
+                                            data-trigger="focus"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Note</button>
+                                    <script>
+                                        addPopover();
+                                    </script>
+                                @else
+                                    <a href="#modalDelete_{{ $object->id }}" class="btn btn-danger" data-toggle="modal"><i class="fa fa-trash" aria-hidden="true"></i> Delete</a>
+                                @endif
 
                                 <!-- Modal -->
                                 <div class="modal fade" id="modalDelete_{{ $object->id }}" tabIndex="-1">
@@ -61,8 +71,10 @@
                                                 <h3>{{ $object->name }}</h3>
                                                 <hr>
                                                 <p><b>Description: </b>{{ $object->description }}</p>
-                                                <p><b>Size: </b>{{ $object->size }}-room</p>
-                                                <p><b>Room number: </b>{{ $object->room }}</p>
+                                                <p><b>Sqm </b>{{ $object->living_space }}</p>
+                                                <p><b>Number of rooms </b>{{ $object->number_of_rooms }}</p>
+                                                <p><b>Floor/room no. </b>{{ $object->floor_room_number }}</p>
+                                                <p><b>Rent </b>p.a. {{ $object->rent }} Fr. / p.m. {{number_format(( $object->rent/12 ), 2)}} Fr.</p>
                                             </div>
                                             <div class="modal-footer">
 

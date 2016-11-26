@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace grabem;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
@@ -27,6 +27,6 @@ class Renter extends Model
 
     /*Many-to-many relation between renter and objects*/
     public function object() {
-        return $this->belongsToMany('app\Object', 'object_renter', 'FK_object_id', 'FK_renter_id');
+        return $this->belongsToMany('grabem\Object', 'object_renter', 'FK_object_id', 'FK_renter_id');
     }
 }

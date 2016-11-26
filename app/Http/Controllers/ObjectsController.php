@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace grabem\Http\Controllers;
 
-use App\Object;
-use App\Building;
+use grabem\Object;
+use grabem\Building;
+use grabem\Renter;
 use Illuminate\Http\Request;
 use Session;
 
@@ -18,8 +19,9 @@ class ObjectsController extends Controller
     {
         $objects = Object::all();
         $buildings = Building::all();
+        $renter = Renter::all();
 
-        return view('objects.index', compact('objects', 'buildings'));
+        return view('objects.index', compact('objects', 'buildings', 'renter'));
     }
 
     /**
@@ -42,7 +44,7 @@ class ObjectsController extends Controller
      */
     public function store(Request $request)
     {
-        //Validate Input
+        /*Validate Input*/
         $this->validate($request, [
             'building_id' => 'required',
             'name' => 'required|regex:/^[(a-zA-Z\s)]+$/u|unique:objects',
@@ -52,16 +54,16 @@ class ObjectsController extends Controller
             'rent' => 'required|numeric|min:0'
         ]);
         
-        //Create record in database
+        /*Create record in database*/
         $input = $request->all();
         Object::create($input);
 
-        //Return whole array and display Success-Message
+        /*Get data and redirect to specific route with success-message*/
         $objects = Object::all();
         $buildings = Building::all();
-        Session::flash('success_message', 'Object successfully added!');
+        $renter = Renter::all();
 
-        return view('objects.index', compact('objects', 'buildings'));
+        return redirect()->route('objects.index')->with(compact('objects', 'buildings', 'renter'))->with('success_message', 'Object successfully added!');
     }
 
     /**
@@ -72,10 +74,11 @@ class ObjectsController extends Controller
      */
     public function show($id)
     {
-        //If the record has been found, access view
+        /*If the record has been found, access view*/
         $object = Object::findOrFail($id);
+        $renter = Renter::all();
 
-        return view('objects.show', compact('object'));
+        return view('objects.show', compact('object', 'renter'));
     }
 
     /**
@@ -86,7 +89,7 @@ class ObjectsController extends Controller
      */
     public function edit($id)
     {
-        //If the record has been found, access view
+        /*If the record has been found, access view*/
         $object = Object::findOrFail($id);
         $buildings = Building::all();
 
@@ -102,9 +105,7 @@ class ObjectsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $object = Object::findOrFail($id);
-
-        //Validate Input
+        /*Validate Input*/
         $this->validate($request, [
             'building_id' => 'required',
             'name' => 'required|regex:/^[(a-zA-Z\s)]+$/u',
@@ -114,11 +115,12 @@ class ObjectsController extends Controller
             'rent' => 'required|numeric|min:0'
         ]);
 
-        //Update record in database
+        /*Update record in database*/
         $input = $request->all();
+        $object = Object::findOrFail($id);
         $object->fill($input)->save();
 
-        //Display Success-Message
+        /*Display Success-Message*/
         Session::flash('success_message', 'Object successfully updated!');
 
         return redirect()->back();
@@ -132,13 +134,33 @@ class ObjectsController extends Controller
      */
     public function destroy($id)
     {
-        //Delete record in database
+        /*Delete record in database*/
         $object = Object::findOrFail($id);
         $object->delete();
 
-        //Display Success-Message
-        Session::flash('success_message', 'Object successfully deleted!');
+        return redirect()->route('objects.index')->with('success_message', 'Object successfully deleted!');
+    }
 
-        return redirect()->route('objects.index');
+    /**
+     * Delete relation in pivot/junction table 'object_renter'
+     *
+     * @param Request $request
+     * @return array
+     */
+
+    public function deleteObjectRenterRelation(Request $request)
+    {
+        /*Get renter-ID and object-ID from Request*/
+        $renter_id = $request->dataId;
+        $object_id = $request->objectId;
+
+        /*Delete relation in pivot table 'object_renter'*/
+        $object = Object::findOrFail($object_id);
+        $object->renter()->detach($renter_id);
+
+        /*Display Success-Message*/
+        Session::flash('success_message', 'Object-renter relation successfully deleted!');
+
+        return ['url' => url('/objects')];
     }
 }

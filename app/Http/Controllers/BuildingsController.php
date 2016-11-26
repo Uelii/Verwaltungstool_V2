@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace grabem\Http\Controllers;
 
-use App\Building;
-use App\Object;
+use grabem\Building;
+use grabem\Object;
+use grabem\Renter;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Session;
@@ -41,7 +42,7 @@ class BuildingsController extends Controller
      */
     public function store(Request $request)
     {
-        //Validate Input
+        /*Validate Input*/
         $this->validate($request, [
             'name' => 'required|regex:/^[(a-zA-Z\s)]+$/u|unique:buildings',
             'street' => 'required|regex:/^[(a-zA-Z\s)]+$/u',
@@ -50,16 +51,16 @@ class BuildingsController extends Controller
             'city' => 'required|regex:/^[(a-zA-Z\s)]+$/u'
         ]);
 
-        //Create record in database
+        /*Create record in database*/
         $input = $request->all();
         Building::create($input);
 
-        //Return whole array and display Success-Message
+        /*Get data and redirect to specific route with success-message*/
         $buildings = Building::all();
         $objects = Object::all();
         Session::flash('success_message', 'Building successfully added!');
 
-        return view('buildings.index', compact('buildings', 'objects'));
+        return redirect()->route('buildings.index')->with(compact('buildings', 'objects'));
     }
 
     /**
@@ -70,10 +71,12 @@ class BuildingsController extends Controller
      */
     public function show($id)
     {
-        //If the record has been found, access view
+        /*If the record has been found, access view*/
         $building = Building::findOrFail($id);
+        $objects = Object::all();
+        $renter = Renter::all();
 
-        return view('buildings.show', compact('building'));
+        return view('buildings.show', compact('building', 'objects', 'renter'));
     }
 
     /**
@@ -84,7 +87,7 @@ class BuildingsController extends Controller
      */
     public function edit($id)
     {
-        //If the record has been found, access view
+        /*If the record has been found, access view*/
         $building = Building::findOrFail($id);
 
         return view('buildings.edit', compact('building'));
@@ -101,7 +104,7 @@ class BuildingsController extends Controller
     {
         $building = Building::findOrFail($id);
 
-        //Validate Input
+        /*Validate Input*/
         $this->validate($request, [
             'name' => 'required|regex:/^[(a-zA-Z\s)]+$/u',
             'street' => 'required|regex:/^[(a-zA-Z\s)]+$/u',
@@ -110,11 +113,11 @@ class BuildingsController extends Controller
             'city' => 'required|regex:/^[(a-zA-Z\s)]+$/u'
         ]);
 
-        //Update record in database
+        /*Update record in database*/
         $input = $request->all();
         $building->fill($input)->save();
 
-        //Display Success-Message
+        /*Display Success-Message*/
         Session::flash('success_message', 'Building successfully updated!');
 
         return redirect()->back();
@@ -128,19 +131,13 @@ class BuildingsController extends Controller
      */
     public function destroy($id)
     {
-        try {
-            //Delete record in database
-            $building = Building::findOrFail($id);
-            $building->delete();
+        /*Delete record in database*/
+        $building = Building::findOrFail($id);
+        $building->delete();
 
-            //Display Success-Message
-            Session::flash('success_message', 'Building successfully deleted!');
+        /*Display Success-Message*/
+        Session::flash('success_message', 'Building successfully deleted!');
 
-            return redirect()->route('buildings.index');
-        } catch(QueryException $e) {
-            Session::flash('error_message', 'This building cannot be deleted!');
-            return redirect()->route('buildings.index');
-        }
-
+        return redirect()->route('buildings.index');
     }
 }

@@ -175,11 +175,11 @@ return [
         /*
          * Application Service Providers...
          */
-        App\Providers\AppServiceProvider::class,
-        App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
-        App\Providers\EventServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
+        grabem\Providers\AppServiceProvider::class,
+        grabem\Providers\AuthServiceProvider::class,
+        // grabem\Providers\BroadcastServiceProvider::class,
+        grabem\Providers\EventServiceProvider::class,
+        grabem\Providers\RouteServiceProvider::class,
 
     ],
 

@@ -2,7 +2,7 @@ function loadBuildingDataOnDocumentLoad() {
 
     $(document).ready(function() {
         var id = $("#object_id").val();
-        var url = '/verwaltungstool_v2/public/getBuildingData';
+        var url = '/grabem/public/getBuildingData';
 
         if(id != 'NULL') {
             $.ajax({
@@ -28,7 +28,7 @@ function loadBuildingDataOnDropdownSelectionChange() {
     $(document).ready(function() {
         $('#object_id').change(function() {
             var id = $("#object_id").val();
-            var url = '/verwaltungstool_v2/public/getBuildingData';
+            var url = '/grabem/public/getBuildingData';
 
             if(id != 'NULL'){
                 $.ajax({
@@ -71,7 +71,7 @@ function loadBuildingDataOnMainDomicileYes() {
     $(document).ready(function() {
         $('#is_main_domicile_yes').click(function() {
             var id = $("#object_id").val();
-            var url = '/verwaltungstool_v2/public/getBuildingData';
+            var url = '/grabem/public/getBuildingData';
 
             $.ajax({
                 url: url+'/'+id,
@@ -168,6 +168,71 @@ function addSortTableOptions(dataTableId) {
         $("#"+dataTableId).DataTable( {
             responsive: true,
             oLanguage: { "sSearch": '<i class="fa fa-search" aria-hidden="true"></i>'}
+        });
+    });
+}
+
+function addPopover() {
+    $(document).ready(function(){
+        $('[data-toggle="deletion_popover"]').popover();
+    });
+}
+
+function deleteRenterAndRelationFromObjectView(objectId) {
+    $(document).ready(function(){
+        $(document).on('click', '#btnDeleteRenterAndRelation', function(){ //Event delegation
+
+            var dataId = $(this).attr('data-id');
+            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+            var url = '/grabem/public/renter';
+
+            $.ajax({
+                beforeSend: function(xhr){xhr.setRequestHeader('X-CSRF-TOKEN', $("#token").attr('content'));},
+                url: url+'/'+dataId,
+                type: 'DELETE',
+                data: {
+                    'dataId': dataId,
+                    'objectId': objectId,
+                    '_token': CSRF_TOKEN,
+                    '_method': 'DELETE',
+                    'request_from': 'object_view',
+                },
+                dataType: 'JSON',
+                success: function (url) {
+                    var url = url;
+                    console.log(url);
+                    window.location.replace('');
+                }
+            });
+        });
+    });
+}
+
+function deleteRelationFromObjectView(objectId) {
+    $(document).ready(function(){
+        $(document).on('click', '#btnDeleteRelation', function(){ //Event delegation
+
+            var dataId = $(this).attr('data-id');
+            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+            var url = '/grabem/public/deleteObjectRenterRelation';
+            /*var inputData = $('#delete_form').serialize();*/
+
+            $.ajax({
+                beforeSend: function(xhr){xhr.setRequestHeader('X-CSRF-TOKEN', $("#token").attr('content'));},
+                url: url,
+                type: 'POST',
+                data: {
+                    'dataId': dataId,
+                    'objectId': objectId,
+                    '_token': CSRF_TOKEN,
+                },
+                dataType: 'JSON',
+                success: function (url) {
+                    window.location.replace('');
+
+                }
+            });
+
         });
     });
 }

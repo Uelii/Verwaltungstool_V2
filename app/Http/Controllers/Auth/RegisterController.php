@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace grabem\Http\Controllers\Auth;
 
-use App\User;
+use grabem\User;
 use Validator;
-use App\Http\Controllers\Controller;
+use grabem\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller

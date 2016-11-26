@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace grabem\Http\Controllers;
 
-use App\Renter;
-use App\Object;
-use App\Building;
+use grabem\Renter;
+use grabem\Object;
+use grabem\Building;
 use Illuminate\Http\Request;
 use Session;
 use DB;
@@ -63,9 +63,7 @@ class RenterController extends Controller
      */
     public function store(Request $request)
     {
-        /*If object_id= null, dann keine Beziehung in der Hilfstabelle object_renter erstellen*/
-
-        //Validate Input
+        /*Validate Input*/
         $this->validate($request, [
             'title' => 'required|in:Mr.,Ms.',
             'first_name' => 'required|max:255|regex:/^[(a-zäöüéèàA-Z\ÄÖÜs\s\-)]+$/u',
@@ -84,15 +82,15 @@ class RenterController extends Controller
 
         $input = $request->all();
 
-        //Check if a contract end date has been entered
+        /*Check if a contract end date has been entered*/
         if( empty($request->input('end_of_contract'))) {
             $input['end_of_contract'] = null;
         }
 
-
-
-        //Create record in database
-        //Create relationship in table 'object_renter' if an object has been selected
+        /*
+         * Create record in database
+         * Create relationship in table 'object_renter' if an object has been selected, else just create a new renter
+         */
         if( !empty($request->input('object_id'))) {
             Renter::create($input);
             $object = Object::find($request->input('object_id'));
@@ -100,16 +98,14 @@ class RenterController extends Controller
             $object->renter()->attach($renter_id);
 
         } else {
-            dd($request->input('object_id'));
             Renter::create($input);
         }
 
-        //Return whole array and display Success-Message
+        /*Get data and redirect to specific route with success-message*/
         $renter = Renter::all();
         $objects = Object::all();
-        Session::flash('success_message', 'Renter successfully added!');
 
-        return view('renter.index', compact('renter', 'objects'));
+        return redirect()->route('renter.index')->with(compact('renter', 'objects'))->with('success_message', 'Renter successfully added!');
     }
 
     /**
@@ -152,8 +148,36 @@ class RenterController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        if($request->request_from = 'object_view'){
+
+            //Delete relation in pivot/junction table 'object_renter'
+            $renter_id = $request->dataId;
+            $object_id = $request->objectId;
+
+            $object = Object::findOrFail($object_id);
+
+            $object->renter()->detach($renter_id);
+
+            //Delete record in database
+            $renter = Renter::findOrFail($id);
+            $renter->delete();
+
+            //Display Success-Message
+            Session::flash('success_message', 'Renter successfully deleted!');
+
+            return ['url' => url('/objects')];
+        } else {
+
+            //Delete record in database
+            $renter = Renter::findOrFail($id);
+            $renter->delete();
+
+            //Display Success-Message
+            Session::flash('success_message', 'Renter successfully deleted!');
+
+            return redirect()->route('renter.index')->with('success_message', 'Renter successfully deleted!');
+        }
     }
 }

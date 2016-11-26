@@ -50,6 +50,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/building_overview_pdf', 'ReportController@createBuildingsPDF');
 
     Route::get('/getBuildingData/{id}', 'RenterController@fillInBuildingData');
+
+    Route::post('/deleteObjectRenterRelation', 'ObjectsController@deleteObjectRenterRelation');
 });
 
 

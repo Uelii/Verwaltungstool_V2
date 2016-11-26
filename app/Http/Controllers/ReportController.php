@@ -1,8 +1,8 @@
 <?php
-namespace App\Http\Controllers;
+namespace grabem\Http\Controllers;
 use App;
 use PDF;
-use App\Building;
+use grabem\Building;
 
 class ReportController extends Controller {
 
