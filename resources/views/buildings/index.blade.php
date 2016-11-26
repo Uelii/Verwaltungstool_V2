@@ -46,55 +46,56 @@
                                         addPopover();
                                     </script>
                                 @else
-                                    <a href="#modalDelete_{{ $building->id }}" class="btn btn-danger" data-toggle="modal"><i class="fa fa-trash" aria-hidden="true"></i> Delete</a>
+                                    <button type="button" id="btnOpenModal" class="btn btn-danger" data-id="{{ $building->id }}" data-toggle="modal"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
                                 @endif
-
-                                <!-- Modal -->
-                                <div class="modal fade" id="modalDelete_{{ $building->id }}" tabIndex="-1">
-                                    <div class="modal-dialog">
-
-                                        <!-- Modal content-->
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal">
-                                                    ×
-                                                </button>
-                                                <h4 class="modal-title">Please confirm</h4>
-                                            </div>
-                                            <div class="modal-body">
-                                                Dou you really want to delete this building?
-                                                </br>
-                                                <h3>{{ $building->name }}</h3>
-                                                <hr>
-                                                <p><b>Street: </b>{{ $building->street }}</p>
-                                                <p><b>Street number: </b>{{ $building->street_number }}</p>
-                                                <p><b>Zip code: </b>{{ $building->zip_code }}</p>
-                                                <p><b>City: </b>{{ $building->city }}</p>
-                                            </div>
-                                            <div class="modal-footer">
-
-                                                <form class="form-horizontal" role="form" method="POST"
-                                                      action="{{ url('/buildings', $building->id)}}">
-
-                                                    <input type="hidden" name="_method" value="DELETE">
-                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}" />
-
-                                                    <button class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                                    <button type="submit" class="btn btn-danger">Yes</button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </td>
                         </tr>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="modalDelete_{{ $building->id }}" tabIndex="-1">
+                            <div class="modal-dialog">
+
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">
+                                            ×
+                                        </button>
+                                        <h4 class="modal-title">Please confirm</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        Dou you really want to delete this building?
+                                        </br>
+                                        <h3>{{ $building->name }}</h3>
+                                        <hr>
+                                        <p><b>Street: </b>{{ $building->street }}</p>
+                                        <p><b>Street number: </b>{{ $building->street_number }}</p>
+                                        <p><b>Zip code: </b>{{ $building->zip_code }}</p>
+                                        <p><b>City: </b>{{ $building->city }}</p>
+                                    </div>
+                                    <div class="modal-footer">
+
+                                        <form class="form-horizontal" role="form" method="POST"
+                                              action="{{ url('/buildings', $building->id)}}">
+
+                                            <input type="hidden" name="_method" value="DELETE">
+                                            <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+
+                                            <button class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                            <button type="submit" class="btn btn-danger">Yes</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     @endforeach
                     </tbody>
                 </table>
 
-                <!--jQuery option to sort table data-->
+                <!--JavaScript-->
                 <script>
                     addSortTableOptions('buildings_data');
+                    loadBootstrapModal();
                 </script>
 
             <a href="{{ url('/buildings/create')}}" class="btn btn-primary"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add new building</a>

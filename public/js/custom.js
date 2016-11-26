@@ -236,3 +236,12 @@ function deleteRelationFromObjectView(objectId) {
         });
     });
 }
+
+function loadBootstrapModal() {
+    $(document).ready(function(){
+        $(document).on('click', '#btnOpenModal', function(){
+            var dataId = $(this).attr('data-id');
+            $("#modalDelete_"+dataId).modal();
+        });
+    });
+}
