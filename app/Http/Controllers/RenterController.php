@@ -152,7 +152,7 @@ class RenterController extends Controller
     {
         if($request->request_from = 'object_view'){
 
-            //Delete relation in pivot/junction table 'object_renter'
+            /*Delete relation in pivot/junction table 'object_renter'*/
             $renter_id = $request->dataId;
             $object_id = $request->objectId;
 
@@ -160,22 +160,19 @@ class RenterController extends Controller
 
             $object->renter()->detach($renter_id);
 
-            //Delete record in database
+            /*Delete record in database*/
             $renter = Renter::findOrFail($id);
             $renter->delete();
 
-            //Display Success-Message
+            /*Display Success-Message*/
             Session::flash('success_message', 'Renter successfully deleted!');
 
             return ['url' => url('/objects')];
         } else {
 
-            //Delete record in database
+            /*Delete record in database*/
             $renter = Renter::findOrFail($id);
             $renter->delete();
-
-            //Display Success-Message
-            Session::flash('success_message', 'Renter successfully deleted!');
 
             return redirect()->route('renter.index')->with('success_message', 'Renter successfully deleted!');
         }

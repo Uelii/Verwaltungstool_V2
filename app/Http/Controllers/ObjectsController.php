@@ -120,10 +120,7 @@ class ObjectsController extends Controller
         $object = Object::findOrFail($id);
         $object->fill($input)->save();
 
-        /*Display Success-Message*/
-        Session::flash('success_message', 'Object successfully updated!');
-
-        return redirect()->back();
+        return redirect()->back()->with('success_message', 'Object successfully updated!');
     }
 
     /**
@@ -138,7 +135,7 @@ class ObjectsController extends Controller
         $object = Object::findOrFail($id);
         $object->delete();
 
-        return redirect()->route('objects.index')->with('success_message', 'Object successfully deleted!');
+        return redirect()->back()->with('success_message', 'Object successfully deleted!');
     }
 
     /**

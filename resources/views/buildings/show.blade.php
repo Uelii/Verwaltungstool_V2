@@ -68,17 +68,56 @@
                                         addPopover();
                                     </script>
                                 @else
-                                    <a href="#modalDelete_{{ $building->id }}" class="btn btn-danger" data-toggle="modal"><i class="fa fa-trash" aria-hidden="true"></i> Delete</a>
+                                    <button type="button" id="btnOpenModal" class="btn btn-danger" data-id="{{ $object->id }}" data-toggle="modal"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
                                 @endif
                             </td>
                         </tr>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="modalDelete_{{ $object->id }}" tabIndex="-1">
+                            <div class="modal-dialog">
+
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">
+                                            ×
+                                        </button>
+                                        <h4 class="modal-title">Please confirm</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        Do you really want to delete this object?
+                                        </br>
+                                        <h3>{{ $object->name }}</h3>
+                                        <hr>
+                                        <p><b>Description: </b>{{ $object->description }}</p>
+                                        <p><b>Sqm </b>{{ $object->living_space }}</p>
+                                        <p><b>Number of rooms </b>{{ $object->number_of_rooms }}</p>
+                                        <p><b>Floor/room no. </b>{{ $object->floor_room_number }}</p>
+                                        <p><b>Rent </b>p.a. {{ $object->rent }} Fr. / p.m. {{number_format(( $object->rent/12 ), 2)}} Fr.</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <form class="form-horizontal" role="form" method="POST"
+                                              action="{{ url('/objects', $object->id)}}">
+
+                                            <input type="hidden" name="_method" value="DELETE">
+                                            <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+
+                                            <button class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                            <button type="submit" class="btn btn-danger">Yes</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     @endforeach
                     </tbody>
                 </table>
 
-                <!--jQuery option to sort table data-->
+                <!--JavaScript-->
                 <script>
                     addSortTableOptions('objects_data');
+                    loadBootstrapModal();
                 </script>
 
             </div>

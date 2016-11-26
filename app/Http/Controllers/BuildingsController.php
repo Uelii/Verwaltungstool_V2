@@ -58,9 +58,8 @@ class BuildingsController extends Controller
         /*Get data and redirect to specific route with success-message*/
         $buildings = Building::all();
         $objects = Object::all();
-        Session::flash('success_message', 'Building successfully added!');
 
-        return redirect()->route('buildings.index')->with(compact('buildings', 'objects'));
+        return redirect()->route('buildings.index')->with(compact('buildings', 'objects'))->with('success_message', 'Building successfully added!');
     }
 
     /**
@@ -117,10 +116,7 @@ class BuildingsController extends Controller
         $input = $request->all();
         $building->fill($input)->save();
 
-        /*Display Success-Message*/
-        Session::flash('success_message', 'Building successfully updated!');
-
-        return redirect()->back();
+        return redirect()->back()->with('success_message', 'Building successfully updated!');
     }
 
     /**
@@ -135,9 +131,6 @@ class BuildingsController extends Controller
         $building = Building::findOrFail($id);
         $building->delete();
 
-        /*Display Success-Message*/
-        Session::flash('success_message', 'Building successfully deleted!');
-
-        return redirect()->route('buildings.index');
+        return redirect()->route('buildings.index')->with('success_message', 'Building successfully deleted!');
     }
 }

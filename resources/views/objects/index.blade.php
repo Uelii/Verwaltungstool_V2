@@ -47,7 +47,7 @@
                                             title="Deletion not possible." data-content="There are some renters attached to this object. Therefore this object cannot be deleted."
                                             data-trigger="focus"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Note</button>
                                     <script>
-                                        addPopover();
+                                        addPopoverOnIndexView();
                                     </script>
                                 @else
                                     <button type="button" id="btnOpenModal" class="btn btn-danger" data-id="{{ $object->id }}" data-toggle="modal"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
@@ -79,7 +79,6 @@
                                         <p><b>Rent </b>p.a. {{ $object->rent }} Fr. / p.m. {{number_format(( $object->rent/12 ), 2)}} Fr.</p>
                                     </div>
                                     <div class="modal-footer">
-
                                         <form class="form-horizontal" role="form" method="POST"
                                               action="{{ url('/objects', $object->id)}}">
 

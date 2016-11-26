@@ -3,7 +3,7 @@
 @extends('layouts.master')
 
 @section('title')
-    CREATE-Objects
+    CREATE-Renter
 @endsection
 
 @section('content')
@@ -203,7 +203,7 @@
                                 <label for="beginning_of_contract" class="col-md-4 control-label">Beginning of contract</label>
 
                                 <div class="col-md-6">
-                                    <input id="beginning_of_contract" type="date" class="form-control" name="beginning_of_contract" value="{{ old('beginning_of_contract') }}" required>
+                                    <input id="beginning_of_contract" type="text" class="form-control" name="beginning_of_contract" value="{{ old('beginning_of_contract') }}" required>
 
                                     @if ($errors->has('beginning_of_contract'))
                                         <span class="help-block">
@@ -217,7 +217,7 @@
                                 <label for="end_of_contract" class="col-md-4 control-label">End of contract (optional)</label>
 
                                 <div class="col-md-6">
-                                    <input id="end_of_contract" type="date" class="form-control" name="end_of_contract" value="{{ old('end_of_contract') }}">
+                                    <input id="end_of_contract" type="text" class="form-control" name="end_of_contract" value="{{ old('end_of_contract') }}">
 
                                     @if ($errors->has('end_of_contract'))
                                         <span class="help-block">
@@ -251,5 +251,6 @@
         removeBuildingDataOnMainDomicileNo();
         loadBuildingDataOnMainDomicileYes();
         getCityFromZipCode();
+        loadDatepickerOnInputClick();
     </script>
 @endsection

@@ -43,7 +43,7 @@
                                             title="Deletion not possible." data-content="There are some objects attached to this building. Therefore this building cannot be deleted."
                                             data-trigger="focus"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Note</button>
                                     <script>
-                                        addPopover();
+                                        addPopoverOnIndexView();
                                     </script>
                                 @else
                                     <button type="button" id="btnOpenModal" class="btn btn-danger" data-id="{{ $building->id }}" data-toggle="modal"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>

@@ -172,7 +172,7 @@ function addSortTableOptions(dataTableId) {
     });
 }
 
-function addPopover() {
+function addPopoverOnIndexView() {
     $(document).ready(function(){
         $('[data-toggle="deletion_popover"]').popover();
     });
@@ -242,6 +242,17 @@ function loadBootstrapModal() {
         $(document).on('click', '#btnOpenModal', function(){
             var dataId = $(this).attr('data-id');
             $("#modalDelete_"+dataId).modal();
+        });
+    });
+}
+
+function loadDatepickerOnInputClick() {
+    $(document).ready(function(){
+        $("#beginning_of_contract").datepicker({
+            dateFormat: "yy-mm-dd"
+        });
+        $("#end_of_contract").datepicker({
+            dateFormat: "yy-mm-dd"
         });
     });
 }
