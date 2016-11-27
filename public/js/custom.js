@@ -97,20 +97,24 @@ function getCityFromZipCode() {
     $(document).ready(function() {
         var zip_code_input_field = document.getElementById('zip_code');
 
-        //when the user clicks off of the zip field
+        /*when the user clicks off of the zip field*/
         $(zip_code_input_field).keyup(function(){
             if($(this).val().length == 4){
                 var zip_code_value  = $(this).val();
                 var country = 'Switzerland';
 
-                //make a request to the google geocode api
+                $('#zip_code').css({
+                    'border': ''
+                });
+
+                /*make a request to the google geocode api*/
                 $.ajax({
                    url: 'https://maps.googleapis.com/maps/api/geocode/json?address='+country+zip_code_value+'&key=AIzaSyBjWUnjUDNYBIrUpLQa-ZMyX3_I_-H2wSw',
                     dataType: 'json',
                     success: function(response){
                        console.log(response);
 
-                        //find the city
+                        /*find the city*/
                         var address_components = response.results[0].address_components;
                         $.each(address_components, function(index, component){
                             var types = component.types;
@@ -121,7 +125,7 @@ function getCityFromZipCode() {
                                 }
                             });
                         });
-                        //pre-fill the city & check for multiple cities and turn city into a dropdown if necessary
+                        /*pre-fill the city & check for multiple cities and turn city into a dropdown if necessary*/
                         var cities = response.results[0].postcode_localities;
                         if(cities) {
                             var select = document.createElement('select');
@@ -158,6 +162,11 @@ function getCityFromZipCode() {
                         }
                     }
                 });
+            } else {
+                $('#city').val('');
+                $('#zip_code').css({
+                   'border': '1px solid red'
+                });
             }
         });
     });
@@ -165,10 +174,45 @@ function getCityFromZipCode() {
 
 function addSortTableOptions(dataTableId) {
     $(document).ready(function(){
-        $("#"+dataTableId).DataTable( {
-            responsive: true,
-            oLanguage: { "sSearch": '<i class="fa fa-search" aria-hidden="true"></i>'}
-        });
+        var date = new Date();
+
+        var month = date.getMonth()+1;
+        var day = date.getDate();
+
+        var currentDate = date.getFullYear() + '-' +
+            (month<10 ? '0' : '') + month + '-' +
+            (day<10 ? '0' : '') + day;
+
+        if(dataTableId = 'buildings_data'){
+            $("#buildings_data").DataTable({
+                responsive: true,
+                oLanguage: { "sSearch": '<i class="fa fa-search" aria-hidden="true"></i>'},
+                "order": [[0, "asc"]]
+            });
+        }
+        if(dataTableId = 'objects_data'){
+            $("#objects_data").DataTable({
+                responsive: true,
+                oLanguage: { "sSearch": '<i class="fa fa-search" aria-hidden="true"></i>'},
+                "order": [[1, "asc"]]
+            });
+        }
+        if(dataTableId = 'renter_data'){
+            $("#renter_data").DataTable({
+                responsive: true,
+                oLanguage: { "sSearch": '<i class="fa fa-search" aria-hidden="true"></i>'},
+                "columnDefs": [ {
+                    "targets": '_all',
+                    "createdCell": function (td, cellData, rowData, row, col) {
+                        /*make cell red if contract end date has been reached*/
+                        if((cellData < currentDate) && (cellData > rowData[8])){
+                            $(td).css('background-color', 'red');
+                        }
+                    }
+                }],
+                "order": [[1, "asc"]]
+            });
+        }
     });
 }
 

@@ -17,8 +17,8 @@
                     <thead>
                     <tr>
                         <th>Title</th>
-                        <th>First name</th>
                         <th>Last name</th>
+                        <th>First name</th>
                         <th>Contact data</th>
                         <th>Street</th>
                         <th>No.</th>
@@ -35,8 +35,8 @@
                     @foreach($renter as $renter)
                         <tr>
                             <td>{{ $renter->title }}</td>
-                            <td>{{ $renter->first_name }}</td>
                             <td>{{ $renter->last_name }}</td>
+                            <td>{{ $renter->first_name }}</td>
                             <td>{{ $renter->email }} </br> {{$renter->phone_landline}} </br> {{ $renter->phone_mobile_phone }} </br>
                                 @if($renter->is_main_domicile == 1)
                                     <i class="fa fa-check" aria-hidden="true"></i> Main domicile
