@@ -76,6 +76,7 @@ class RenterController extends Controller
             'zip_code' => 'required|min:0|digits:4',
             'city' => 'required|max:255|regex:/^[(a-zäöüéèàA-Z\ÄÖÜs\s\-)]+$/u',
             'is_main_domicile' => 'boolean',
+            'is_main_renter' => 'boolean',
             'beginning_of_contract' => 'required|date',
             'end_of_contract' => 'date'
         ]);

@@ -199,6 +199,22 @@
                                 </div>
                             </div>
 
+                            <div class="form-group{{ $errors->has('is_main_domicile') ? 'has-error' : '' }}">
+                                <label for="is_main_renter" class="col-md-4 control-label">Main renter?</label>
+
+
+                                <div class="col-md-6">
+                                    <label id="is_main_renter_yes" class="radio-inline"><input checked type="radio" name="is_main_renter" value="1">Yes (default)</label>
+                                    <label id="is_main_renter_no" class="radio-inline"><input type="radio" name="is_main_renter" value="0">No</label>
+
+                                    @if ($errors->has('is_main_renter'))
+                                        <span class="help-block">
+                                        <strong>{{ $errors->first('is_main_renter') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+
                             <div class="form-group{{ $errors->has('beginning_of_contract') ? 'has-error' : '' }}">
                                 <label for="beginning_of_contract" class="col-md-4 control-label">Beginning of contract</label>
 
@@ -244,7 +260,7 @@
         </div>
     </section>
 
-    <!--load scripts from custom.js-->
+    <!--JavaScript-->
     <script>
         loadBuildingDataOnDocumentLoad();
         loadBuildingDataOnDropdownSelectionChange();

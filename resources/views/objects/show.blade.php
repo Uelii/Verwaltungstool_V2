@@ -59,6 +59,12 @@
                                 @else
                                     <i class="fa fa-times" aria-hidden="true"></i> Main domicile
                                 @endif
+                                 |
+                                @if($renter->is_main_renter == 1)
+                                    <i class="fa fa-check" aria-hidden="true"></i> Main renter
+                                @else
+                                    <i class="fa fa-times" aria-hidden="true"></i> Main renter
+                                @endif
                             </td>
                             <td>{{ $renter->beginning_of_contract }}</td>
                             <td>{{ $renter->end_of_contract }}</td>

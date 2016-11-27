@@ -19,7 +19,7 @@ class Building extends Model
     ];
 
     /*One-to-many relation between buildings and objects*/
-    public function object() {
+    public function objects() {
         return $this->hasMany('grabem\Object');
     }
 }

@@ -222,6 +222,12 @@ function addPopoverOnIndexView() {
     });
 }
 
+function addPopoverOnShowView() {
+    $(document).ready(function(){
+        $('[data-toggle="deletion_popover"]').popover();
+    });
+}
+
 function deleteRenterAndRelationFromObjectView(objectId) {
     $(document).ready(function(){
         $(document).on('click', '#btnDeleteRenterAndRelation', function(){ //Event delegation

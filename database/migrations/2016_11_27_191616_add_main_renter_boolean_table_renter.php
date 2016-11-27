@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class RenameObjectsTable extends Migration
+class AddMainRenterBooleanTableRenter extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,9 @@ class RenameObjectsTable extends Migration
      */
     public function up()
     {
-        Schema::rename('objects', 'flats');
+        Schema::table('renter', function (Blueprint $table) {
+            $table->boolean('is_main_renter');
+        });
     }
 
     /**
@@ -23,6 +25,8 @@ class RenameObjectsTable extends Migration
      */
     public function down()
     {
-        Schema::rename('flats', 'objects');
+        Schema::table('renter', function (Blueprint $table) {
+            $table->dropColumn('is_main_renter');
+        });
     }
 }

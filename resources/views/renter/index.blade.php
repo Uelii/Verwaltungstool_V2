@@ -43,6 +43,12 @@
                                 @else
                                     <i class="fa fa-times" aria-hidden="true"></i> Main domicile
                                 @endif
+                                 |
+                                @if($renter->is_main_renter == 1)
+                                    <i class="fa fa-check" aria-hidden="true"></i> Main renter
+                                @else
+                                    <i class="fa fa-times" aria-hidden="true"></i> Main renter
+                                @endif
                             </td>
                             <td>{{ $renter->street }}</td>
                             <td>{{ $renter->street_number }}</td>

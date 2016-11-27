@@ -300,6 +300,7 @@ class ComposerStaticInit1ba1be676ec1a3459173a2ba704aec5c
 
     public static $classMap = array (
         'AddKeyConstraints' => __DIR__ . '/../..' . '/database/migrations/2016_11_12_202018_add_key_constraints.php',
+        'AddMainRenterBooleanTableRenter' => __DIR__ . '/../..' . '/database/migrations/2016_11_27_191616_add_main_renter_boolean_table_renter.php',
         'ChangeForeignKeyConstraints' => __DIR__ . '/../..' . '/database/migrations/2016_11_13_133541_change_foreign_key_constraints.php',
         'ChangsInObjectsTable' => __DIR__ . '/../..' . '/database/migrations/2016_11_16_095052_changs_in_objects_table.php',
         'CreateObjectRenterJunctionTable' => __DIR__ . '/../..' . '/database/migrations/2016_11_16_163855_create_object_renter_junction_table.php',

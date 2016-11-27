@@ -45,7 +45,7 @@
                                 @if(count($object->renter))
                                     <button type="button" class="btn btn-warning" data-toggle="deletion_popover"
                                             title="Deletion not possible." data-content="There are some renters attached to this object. Therefore this object cannot be deleted."
-                                            data-trigger="focus"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Note</button>
+                                            data-trigger="focus" data-placement="left"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Note</button>
                                     <script>
                                         addPopoverOnIndexView();
                                     </script>

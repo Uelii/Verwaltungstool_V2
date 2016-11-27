@@ -47,7 +47,7 @@
 
                     <!--Display data-->
                     <tbody>
-                    @foreach($building->object as $object)
+                    @foreach($building->objects as $object)
                         <tr>
                             <td>{{ $object->name }}</td>
                             <td>{{ $object->living_space }}</td>
@@ -62,9 +62,9 @@
                                 @if(count($object->renter))
                                     <button type="button" class="btn btn-warning" data-toggle="deletion_popover"
                                             title="Deletion not possible." data-content="There are some renters attached to this object. Therefore this object cannot be deleted."
-                                            data-trigger="focus"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Note</button>
+                                            data-trigger="focus" data-placement="left"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Note</button>
                                     <script>
-                                        addPopover();
+                                        addPopoverOnShowView();
                                     </script>
                                 @else
                                     <button type="button" id="btnOpenModal" class="btn btn-danger" data-id="{{ $object->id }}" data-toggle="modal"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
@@ -117,6 +117,7 @@
                 <script>
                     addSortTableOptions('objects_data');
                     loadBootstrapModal();
+                    addPopoverOnShowView()
                 </script>
 
                 <a href="{{ url('/buildings') }}" class="btn btn-info"><i class="fa fa-chevron-left" aria-hidden="true"></i> Back to overview</a>

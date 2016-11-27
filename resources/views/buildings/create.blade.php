@@ -104,4 +104,9 @@
             </div>
         </div>
     </section>
+
+    <!--JavaScript-->
+    <script>
+        getCityFromZipCode();
+    </script>
 @endsection
