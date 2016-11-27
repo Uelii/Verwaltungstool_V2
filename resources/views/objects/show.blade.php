@@ -13,18 +13,17 @@
             <hr>
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Object</div>
+                    <div class="panel-heading">{{ $object->name }}</div>
                     <div class="panel-body">
-                        <h3>{{ $object->name }}</h3>
-                        <hr>
-                        <p><b>Description: </b>{{ $object->description }}</p>
-                        <p><b>Living space [sqm]: </b>{{ $object->living_space }}</p>
-                        <p><b>Number of rooms: </b>{{ $object->number_of_rooms }}</p>
-                        <p><b>Floor number / Room number: </b>{{ $object->floor_room_number }}</p>
-                        <p><b>Rent [Fr.], per annum: </b>{{ $object->rent }}</p>
-                    </div>
-                    <div class="panel-footer">
-                        <a href="{{ url('/objects') }}" class="btn btn-info"><i class="fa fa-chevron-left" aria-hidden="true"></i> Back to overview</a>
+                        <div class="col-md-6">
+                            <p><b>Living space [sqm]: </b>{{ $object->living_space }}</p>
+                            <p><b>Number of rooms: </b>{{ $object->number_of_rooms }}</p>
+                            <p><b>Floor number / Room number: </b>{{ $object->floor_room_number }}</p>
+                            <p><b>Rent [Fr.], per annum: </b>{{ $object->rent }}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><b>Description: </b>{{ $object->description }}</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -39,8 +38,8 @@
                     <thead>
                     <tr>
                         <th>Title</th>
-                        <th>First name</th>
                         <th>Last name</th>
+                        <th>First name</th>
                         <th>Contact data</th>
                         <th>Beginning</th>
                         <th>End</th>
@@ -52,8 +51,8 @@
                     @foreach($object->renter as $renter)
                         <tr>
                             <td>{{ $renter->title }}</td>
-                            <td>{{ $renter->first_name }}</td>
                             <td>{{ $renter->last_name }}</td>
+                            <td>{{ $renter->first_name }}</td>
                             <td>{{ $renter->email }} </br> {{$renter->phone_landline}} </br> {{ $renter->phone_mobile_phone }} </br>
                                 @if($renter->is_main_domicile == 1)
                                     <i class="fa fa-check" aria-hidden="true"></i> Main domicile
@@ -111,6 +110,7 @@
                     deleteRelationFromObjectView(id);
                 </script>
 
+                <a href="{{ url('/objects') }}" class="btn btn-info"><i class="fa fa-chevron-left" aria-hidden="true"></i> Back to overview</a>
             </div>
         </div>
     </section>

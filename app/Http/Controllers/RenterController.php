@@ -116,7 +116,10 @@ class RenterController extends Controller
      */
     public function show($id)
     {
-        //
+        /*If the record has been found, access view*/
+        $renter = Renter::findOrFail($id);
+
+        return view('renter.show', compact('renter'));
     }
 
     /**
