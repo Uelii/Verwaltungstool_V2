@@ -55,7 +55,7 @@
             <ul class="nav navbar-nav navbar-left">
                 <!--Check if visitor is a guest or a logged in user-->
                 @if (!Auth::guest())
-                    <li><a href="{{ url('/home') }}"><i class="fa fa-home" aria-hidden="true"></i> Home</a></li>
+                    <li class="active"><a href="{{ url('/home') }}"><i class="fa fa-home" aria-hidden="true"></i> Home</a></li>
                     <li><a href="{{ url('/buildings') }}"><i class="fa fa-building-o" aria-hidden="true"></i> Buildings</a></li>
                     <li><a href="{{ url('/objects') }}"><i class="fa fa-bed" aria-hidden="true"></i> Objects</a></li>
                     <li><a href="{{ url('/renter') }}"><i class="fa fa-address-book-o" aria-hidden="true"></i> Renter</a></li>
@@ -70,7 +70,6 @@
                             <li><a href="#">Separated link</a></li>
                         </ul>
                     </li>
-
                 @endif
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -122,7 +121,6 @@
     </div>
 </footer>
 <!--End footer-->
-
 
 </body>
 </html>

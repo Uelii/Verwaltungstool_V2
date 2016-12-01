@@ -38,7 +38,7 @@
                                 <a href="{{ route('buildings.edit', $building->id) }}" class="btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
 
                                 <!--Check if relation exists (if so: show a warning button)-->
-                                @if(count($building->objects))
+                                @if(count($building->objects()))
                                     <button type="button" class="btn btn-warning" data-toggle="deletion_popover"
                                             title="Deletion not possible." data-content="There are some objects attached to this building. Therefore this building cannot be deleted."
                                             data-trigger="focus" data-placement="left"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Note</button>

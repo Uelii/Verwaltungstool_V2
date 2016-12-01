@@ -53,17 +53,11 @@
                             <td>{{ $renter->title }}</td>
                             <td>{{ $renter->last_name }}</td>
                             <td>{{ $renter->first_name }}</td>
-                            <td>{{ $renter->email }} </br> {{$renter->phone_landline}} </br> {{ $renter->phone_mobile_phone }} </br>
+                            <td>{{ $renter->email }} </br> {{$renter->phone_landline}} </br> {{ $renter->phone_mobile_phone }}
                                 @if($renter->is_main_domicile == 1)
-                                    <i class="fa fa-check" aria-hidden="true"></i> Main domicile
+                                    <p class="main_domicile_yes"><i class="fa fa-check" aria-hidden="true"></i> Main domicile</p>
                                 @else
-                                    <i class="fa fa-times" aria-hidden="true"></i> Main domicile
-                                @endif
-                                 |
-                                @if($renter->is_main_renter == 1)
-                                    <i class="fa fa-check" aria-hidden="true"></i> Main renter
-                                @else
-                                    <i class="fa fa-times" aria-hidden="true"></i> Main renter
+                                    <p class="main_domicile_no"><i class="fa fa-times" aria-hidden="true"></i> Main domicile</p>
                                 @endif
                             </td>
                             <td>{{ $renter->beginning_of_contract }}</td>
@@ -90,6 +84,8 @@
                                     <div class="modal-body">
                                         Do you want to delete the relation or the renter itself?
                                         </br>
+                                        <span class="label label-warning">Warning: If you decide to delete the renter itself, all relations will be deleted as well!</span>
+                                        </br>
                                         <h3>{{ $renter->title }} {{ $renter->last_name }}, {{ $renter->first_name }}</h3>
                                     </div>
                                     <div class="modal-footer">
@@ -112,8 +108,8 @@
                     loadBootstrapModal();
 
                     var id = {{ json_encode($object->id) }};
-                    deleteRenterAndRelationFromObjectView(id);
-                    deleteRelationFromObjectView(id);
+                    deleteRenterAndRelationFromObjectDetailsView(id);
+                    deleteRelationFromObjectDetailsView(id);
                 </script>
 
                 <a href="{{ url('/objects') }}" class="btn btn-info"><i class="fa fa-chevron-left" aria-hidden="true"></i> Back to overview</a>

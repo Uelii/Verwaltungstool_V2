@@ -1,10 +1,10 @@
 function loadBuildingDataOnDocumentLoad() {
 
     $(document).ready(function() {
-        var id = $("#object_id").val();
+        var id = $("#object_ids").val();
         var url = '/grabem/public/getBuildingData';
 
-        if(id != 'NULL') {
+        if(id != '') {
             $.ajax({
                 url: url+'/'+id,
                 type: 'GET',
@@ -26,11 +26,12 @@ function loadBuildingDataOnDocumentLoad() {
 
 function loadBuildingDataOnDropdownSelectionChange() {
     $(document).ready(function() {
-        $('#object_id').change(function() {
-            var id = $("#object_id").val();
+        $('#object_ids').change(function() {
+            var id = $("#object_ids").val();
             var url = '/grabem/public/getBuildingData';
 
-            if(id != 'NULL'){
+            console.log(id);
+            if(id != ''){
                 $.ajax({
                     url: url+'/'+id,
                     type: 'GET',
@@ -70,7 +71,7 @@ function removeBuildingDataOnMainDomicileNo() {
 function loadBuildingDataOnMainDomicileYes() {
     $(document).ready(function() {
         $('#is_main_domicile_yes').click(function() {
-            var id = $("#object_id").val();
+            var id = $("#object_ids").val();
             var url = '/grabem/public/getBuildingData';
 
             $.ajax({
@@ -228,7 +229,35 @@ function addPopoverOnShowView() {
     });
 }
 
-function deleteRenterAndRelationFromObjectView(objectId) {
+function deleteRenterAndRelationFromRenterView() {
+    $(document).ready(function(){
+        $(document).on('click', '#btnDeleteRenterAndRelation', function(){ //Event delegation
+
+            var dataId = $(this).attr('data-id');
+            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+            var url = '/grabem/public/renter';
+
+            $.ajax({
+                beforeSend: function(xhr){xhr.setRequestHeader('X-CSRF-TOKEN', $("#token").attr('content'));},
+                url: url+'/'+dataId,
+                type: 'DELETE',
+                data: {
+                    'dataId': dataId,
+                    '_token': CSRF_TOKEN,
+                    '_method': 'DELETE',
+                    'request_from': 'renter_view',
+                },
+                dataType: 'JSON',
+                success: function (url) {
+                    console.log(url);
+                    window.location.replace('');
+                }
+            });
+        });
+    });
+}
+
+function deleteRenterAndRelationFromObjectDetailsView(objectId) {
     $(document).ready(function(){
         $(document).on('click', '#btnDeleteRenterAndRelation', function(){ //Event delegation
 
@@ -249,7 +278,6 @@ function deleteRenterAndRelationFromObjectView(objectId) {
                 },
                 dataType: 'JSON',
                 success: function (url) {
-                    var url = url;
                     console.log(url);
                     window.location.replace('');
                 }
@@ -258,7 +286,7 @@ function deleteRenterAndRelationFromObjectView(objectId) {
     });
 }
 
-function deleteRelationFromObjectView(objectId) {
+function deleteRelationFromObjectDetailsView(objectId) {
     $(document).ready(function(){
         $(document).on('click', '#btnDeleteRelation', function(){ //Event delegation
 
@@ -306,3 +334,4 @@ function loadDatepickerOnInputClick() {
         });
     });
 }
+

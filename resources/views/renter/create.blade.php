@@ -19,27 +19,6 @@
                         <form class="form-horizontal" role="form" method="POST" action="{{ route('renter.store') }}">
                             {{ csrf_field() }}
 
-                            <div class="form-group{{ $errors->has('object_id') ? 'has-error' : '' }}">
-                                <label for="object_id" class="col-md-4 control-label">Object (optional)</label>
-
-                                <div class="col-md-6">
-                                    <select id="object_id" class="form-control" name="object_id" autofocus>
-                                        <option id= "NULL_option"></option>
-                                        @foreach($objects as $object)
-                                            <option value="{{ $object->id }}"> {{ $object->name }}:
-                                                {{ $object->living_space }} sqm, {{$object->number_of_rooms}}-room,
-                                                {{ $object->floor_room_number }}</option>
-                                        @endforeach
-                                    </select>
-
-                                    @if ($errors->has('object_id'))
-                                        <span class="help-block">
-                                                <strong>{{ $errors->first('object_id') }}</strong>
-                                            </span>
-                                    @endif
-                                </div>
-                            </div>
-
                             <div class="form-group{{ $errors->has('title') ? 'has-error' : '' }}">
                                 <label for="title" class="col-md-4 control-label">Title</label>
 
@@ -143,6 +122,30 @@
                                 </div>
                             </div>
 
+                            <div class="form-group{{ $errors->has('object_id') ? 'has-error' : '' }}">
+                                <label for="object_id" class="col-md-4 control-label">Object (optional)</label>
+
+                                <div class="col-md-6">
+                                    <select id="object_ids" multiple class="form-control" name="object_ids[]" autofocus>
+                                        @foreach($objects as $object)
+                                            <option value="{{ $object->id }}"> {{ $object->name }}:
+                                                {{ $object->living_space }} sqm, {{$object->number_of_rooms}}-room,
+                                                {{ $object->floor_room_number }}</option>
+                                        @endforeach
+                                        <option value="">n/a</option>
+                                    </select>
+
+                                    @if ($errors->has('object_id'))
+                                        <span class="help-block">
+                                                <strong>{{ $errors->first('object_id') }}</strong>
+                                            </span>
+                                    @endif
+                                </div>
+                                <div class="col-md-2">
+                                    *hold SHIFT or CTRL to select more than one
+                                </div>
+                            </div>
+
                             <div class="form-group{{ $errors->has('street') ? 'has-error' : '' }}">
                                 <label for="street" class="col-md-4 control-label">Street</label>
 
@@ -194,22 +197,6 @@
                                     @if ($errors->has('city'))
                                         <span class="help-block">
                                         <strong>{{ $errors->first('city') }}</strong>
-                                    </span>
-                                    @endif
-                                </div>
-                            </div>
-
-                            <div class="form-group{{ $errors->has('is_main_domicile') ? 'has-error' : '' }}">
-                                <label for="is_main_renter" class="col-md-4 control-label">Main renter?</label>
-
-
-                                <div class="col-md-6">
-                                    <label id="is_main_renter_yes" class="radio-inline"><input checked type="radio" name="is_main_renter" value="1">Yes (default)</label>
-                                    <label id="is_main_renter_no" class="radio-inline"><input type="radio" name="is_main_renter" value="0">No</label>
-
-                                    @if ($errors->has('is_main_renter'))
-                                        <span class="help-block">
-                                        <strong>{{ $errors->first('is_main_renter') }}</strong>
                                     </span>
                                     @endif
                                 </div>

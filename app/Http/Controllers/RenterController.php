@@ -49,7 +49,8 @@ class RenterController extends Controller
      */
     public function create()
     {
-        $objects = Object::all();
+        /*Order objects and get all buildings from DB*/
+        $objects = DB::table('objects')->orderBy('name', 'asc')->get();
         $buildings = Building::all();
 
         return view('renter.create', compact('objects', 'buildings'));
@@ -76,28 +77,31 @@ class RenterController extends Controller
             'zip_code' => 'required|min:0|digits:4',
             'city' => 'required|max:255|regex:/^[(a-zäöüéèàA-Z\ÄÖÜs\s\-)]+$/u',
             'is_main_domicile' => 'boolean',
-            'is_main_renter' => 'boolean',
             'beginning_of_contract' => 'required|date',
             'end_of_contract' => 'date'
         ]);
 
         $input = $request->all();
+        $object_ids = $input['object_ids']; //array of object IDs
 
         /*Check if a contract end date has been entered*/
-        if( empty($request->input('end_of_contract'))) {
+        if( empty($input['end_of_contract'])) {
             $input['end_of_contract'] = null;
         }
 
         /*
          * Create record in database
-         * Create relationship in table 'object_renter' if an object has been selected, else just create a new renter
+         * Create relationship in table 'object_renter' if one or more object(s) has/have been selected, else just create a new renter
          */
-        if( !empty($request->input('object_id'))) {
-            Renter::create($input);
-            $object = Object::find($request->input('object_id'));
-            $renter_id = DB::table('renter')->orderBy('id', 'desc')->first()->id;
-            $object->renter()->attach($renter_id);
+        if( !empty($input['object_ids']) && ($input['object_ids'] != '')) {
 
+            Renter::create($input);
+
+            foreach($object_ids as $object_id){
+                $object = Object::find($object_id);
+                $renter_id = DB::table('renter')->orderBy('id', 'desc')->first()->id;
+                $object->renter()->attach($renter_id);
+            }
         } else {
             Renter::create($input);
         }
@@ -131,7 +135,13 @@ class RenterController extends Controller
      */
     public function edit($id)
     {
-        //
+        /*If the record has been found, access view*/
+        $renter = Renter::findOrFail($id);
+        $object = $renter->objects();
+        dd($object);
+        $objects = Object::all();
+
+        return view('renter.edit', compact('renter', 'objects'));
     }
 
     /**
@@ -154,31 +164,37 @@ class RenterController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-        if($request->request_from = 'object_view'){
+        $renter = Renter::findOrFail($id);
 
-            /*Delete relation in pivot/junction table 'object_renter'*/
-            $renter_id = $request->dataId;
-            $object_id = $request->objectId;
+        /*If renter is attached to one or more object(s), detach them before deleting*/
+        if(count($renter->objects)){
+            /*detach all objects from renter*/
+            $renter->objects()->detach();
 
-            $object = Object::findOrFail($object_id);
-
-            $object->renter()->detach($renter_id);
-
-            /*Delete record in database*/
-            $renter = Renter::findOrFail($id);
+            /*delete renter*/
             $renter->delete();
 
             /*Display Success-Message*/
             Session::flash('success_message', 'Renter successfully deleted!');
 
-            return ['url' => url('/objects')];
-        } else {
+            if($request->request_from = 'object_view'){
+                return ['url' => url('/objects')];
+            } elseif ($request->request_from = 'renter_view') {
+                return ['url' => url('/renter')];
+            }
 
-            /*Delete record in database*/
-            $renter = Renter::findOrFail($id);
+        } else {
+            /*delete renter*/
             $renter->delete();
 
-            return redirect()->route('renter.index')->with('success_message', 'Renter successfully deleted!');
+            /*Display Success-Message*/
+            Session::flash('success_message', 'Renter successfully deleted!');
+
+            if($request->request_from = 'object_view'){
+                return ['url' => url('/objects')];
+            } elseif ($request->request_from = 'renter_view') {
+                return ['url' => url('/renter')];
+            }
         }
     }
 }
