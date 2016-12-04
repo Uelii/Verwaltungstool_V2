@@ -82,7 +82,7 @@ class RenterController extends Controller
         ]);
 
         $input = $request->all();
-        $object_ids = $input['object_ids']; //array of object IDs
+        $object_ids = $input['object_ids']; //array of selected object IDs
 
         /*Check if a contract end date has been entered*/
         if( empty($input['end_of_contract'])) {
@@ -93,7 +93,7 @@ class RenterController extends Controller
          * Create record in database
          * Create relationship in table 'object_renter' if one or more object(s) has/have been selected, else just create a new renter
          */
-        if( !empty($input['object_ids']) && ($input['object_ids'] != '')) {
+        if( !empty($input['object_ids']) && (! in_array('n/a', $object_ids))) {
 
             Renter::create($input);
 
@@ -137,9 +137,12 @@ class RenterController extends Controller
     {
         /*If the record has been found, access view*/
         $renter = Renter::findOrFail($id);
-        $object = $renter->objects();
-        dd($object);
-        $objects = Object::all();
+
+        /*Get all other objects except the ones which already are in relation to this renter*/
+        foreach($renter->objects as $object){
+            $list_of_object_ids[] = $object->id;
+        }
+        $objects = DB::table('objects')->whereNotIn('id', $list_of_object_ids)->get();
 
         return view('renter.edit', compact('renter', 'objects'));
     }
@@ -153,7 +156,59 @@ class RenterController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        /*Validate Input*/
+        $this->validate($request, [
+            'title' => 'required|in:Mr.,Ms.',
+            'first_name' => 'required|max:255|regex:/^[(a-zäöüéèàA-Z\ÄÖÜs\s\-)]+$/u',
+            'last_name' => 'required|max:255|regex:/^[(a-zäöüéèàA-Z\ÄÖÜs\s\-)]+$/u',
+            'email' => 'required|email|max:255',
+            'phone_landline' => 'max:255|regex:/(0)([0-9]{2})\s([0-9]{3})\s([0-9]{2})\s([0-9]{2})/', /*Format 0xx xxx xx xx*/
+            'phone_mobile_phone' => 'max:255|regex:/(0)([0-9]{2})\s([0-9]{3})\s([0-9]{2})\s([0-9]{2})/', /*Format 0xx xxx xx xx*/
+            'street' => 'required|max:255|regex:/^[(a-zäöüéèàA-Z\ÄÖÜs\s\-)]+$/u',
+            'street_number' => 'required|numeric|min:0|digits_between:1,3',
+            'zip_code' => 'required|min:0|digits:4',
+            'city' => 'required|max:255|regex:/^[(a-zäöüéèàA-Z\ÄÖÜs\s\-)]+$/u',
+            'is_main_domicile' => 'boolean',
+            'beginning_of_contract' => 'required|date',
+            'end_of_contract' => 'date'
+        ]);
+
+        /*Update record in database*/
+        $input = $request->all();
+        $renter = Renter::findOrFail($id);
+        $object_ids = $input['object_ids']; //array of selected object IDs
+        $existing_corr_objects = $renter->objects;
+
+        foreach($existing_corr_objects as $corr_object){
+            $ids[] = $corr_object->id;
+        }
+
+        /*Check if a contract end date has been entered*/
+        if( empty($input['end_of_contract'])) {
+            $input['end_of_contract'] = null;
+        }
+
+        /*
+         * Update record in database
+         * Create relationship in table 'object_renter' if one or more additional object(s) has/have been selected, else just update the renter
+         */
+        if( !empty($input['object_ids']) && (! in_array('n/a', $object_ids))) {
+
+            $renter->fill($input)->save();
+
+            $difference = array_diff($object_ids, $ids);
+
+            if(!empty($difference)){
+                foreach($difference as $additional_object_id){
+                    $object = Object::find($additional_object_id);
+                    $object->renter()->attach($id);
+                }
+            }
+        } else {
+            $renter->fill($input)->save();
+        }
+
+        return redirect()->back()->with('success_message', 'Renter successfully updated!');
     }
 
     /**

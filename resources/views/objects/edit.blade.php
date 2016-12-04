@@ -22,11 +22,19 @@
 
                                 <div class="col-md-6">
                                     <select id="building_id" class="form-control" name="building_id" required autofocus>
+
+                                        <option value="{{ $object->building->id }}" selected="selected">{{ $object->building->name }}:
+                                            {{ $object->building->street }} {{$object->building->street_number}},
+                                            {{ $object->building->zip_code }} {{ $object->building->city }}
+                                        </option>
+
                                         @foreach($buildings as $building)
                                             <option value="{{ $building->id }}"> {{ $building->name }}:
                                                 {{ $building->street }} {{$building->street_number}},
-                                                {{ $building->zip_code }} {{ $building->city }}</option>
+                                                {{ $building->zip_code }} {{ $building->city }}
+                                            </option>
                                         @endforeach
+
                                     </select>
 
                                     @if ($errors->has('building_id'))
@@ -138,7 +146,7 @@
                             <div class="form-group">
                                 <div class="col-md-8 col-md-offset-4">
                                     <button type="submit" class="btn btn-primary">
-                                        <i class="fa fa-wrench" aria-hidden="true"></i> Update
+                                        Update
                                     </button>
                                 </div>
                             </div>

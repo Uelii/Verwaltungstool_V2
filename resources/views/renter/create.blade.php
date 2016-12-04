@@ -123,16 +123,16 @@
                             </div>
 
                             <div class="form-group{{ $errors->has('object_id') ? 'has-error' : '' }}">
-                                <label for="object_id" class="col-md-4 control-label">Object (optional)</label>
+                                <label for="object_id" class="col-md-4 control-label">Object(s)</label>
 
                                 <div class="col-md-6">
-                                    <select id="object_ids" multiple class="form-control" name="object_ids[]" autofocus>
+                                    <select id="object_ids" multiple class="form-control" name="object_ids[]" required>
                                         @foreach($objects as $object)
                                             <option value="{{ $object->id }}"> {{ $object->name }}:
                                                 {{ $object->living_space }} sqm, {{$object->number_of_rooms}}-room,
                                                 {{ $object->floor_room_number }}</option>
                                         @endforeach
-                                        <option value="">n/a</option>
+                                        <option value="n/a">n/a</option>
                                     </select>
 
                                     @if ($errors->has('object_id'))

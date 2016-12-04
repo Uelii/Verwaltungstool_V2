@@ -48,7 +48,6 @@
                                 <a href="{{ route('renter.show', $renter->id) }}" class="btn btn-info"><i class="fa fa-eye" aria-hidden="true"></i> Show</a>
                                 <a href="{{ route('renter.edit', $renter->id) }}" class="btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
 
-                                <!--Check if relation exists (if so: show a warning button)-->
                                 <button type="button" id="btnOpenModal" class="btn btn-danger" data-id="{{ $renter->id }}" data-toggle="modal"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
                             </td>
                         </tr>

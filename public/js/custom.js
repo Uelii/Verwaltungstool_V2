@@ -10,10 +10,6 @@ function loadBuildingDataOnDocumentLoad() {
                 type: 'GET',
                 success: function(data)
                 {
-                    console.log(data);
-                    $.each(data, function(k, v){
-                        console.info(v);
-                    });
                     $('#street').val(data.building_street);
                     $('#street_number').val(data.building_street_number);
                     $('#zip_code').val(data.building_zip_code);
@@ -30,17 +26,17 @@ function loadBuildingDataOnDropdownSelectionChange() {
             var id = $("#object_ids").val();
             var url = '/grabem/public/getBuildingData';
 
-            console.log(id);
-            if(id != ''){
+            if($.inArray('n/a', id) === -1){
+
+                $('#object_ids').css({
+                    'border': ''
+                });
+
                 $.ajax({
                     url: url+'/'+id,
                     type: 'GET',
                     success: function(data)
                     {
-                        console.log(data);;
-                        $.each(data, function(k, v){
-                            console.info(v);
-                        });
                         $('#street').val(data.building_street);
                         $('#street_number').val(data.building_street_number);
                         $('#zip_code').val(data.building_zip_code);
@@ -52,6 +48,10 @@ function loadBuildingDataOnDropdownSelectionChange() {
                 $('#street_number').val('');
                 $('#zip_code').val('');
                 $('#city').val('');
+
+                $('#object_ids').css({
+                    'border': '1px solid red'
+                });
             }
         });
     });
@@ -80,10 +80,6 @@ function loadBuildingDataOnMainDomicileYes() {
                 type: 'GET',
                 success: function(data)
                 {
-                    /*console.log(data);
-                     $.each(data, function(k, v){
-                     console.info(v);
-                     });*/
                     $('#street').val(data.building_street);
                     $('#street_number').val(data.building_street_number);
                     $('#zip_code').val(data.building_zip_code);
@@ -113,7 +109,6 @@ function getCityFromZipCode() {
                    url: 'https://maps.googleapis.com/maps/api/geocode/json?address='+country+zip_code_value+'&key=AIzaSyBjWUnjUDNYBIrUpLQa-ZMyX3_I_-H2wSw',
                     dataType: 'json',
                     success: function(response){
-                       console.log(response);
 
                         /*find the city*/
                         var address_components = response.results[0].address_components;
@@ -122,7 +117,6 @@ function getCityFromZipCode() {
                             $.each(types, function(index, type){
                                 if(type == 'locality') {
                                     city = component.long_name;
-                                    console.log(city);
                                 }
                             });
                         });
@@ -135,13 +129,10 @@ function getCityFromZipCode() {
                             select.name = 'city';
                             select.required = 'true';
 
-                            console.log(select);
-
                             $.each(cities, function(index, locality){
                                 var option = document.createElement('option');
                                 option.value = locality;
                                 option.innerHTML = locality;
-                                console.log(option)
 
                                 if(city == locality) {
                                     option.selected = 'selected';
@@ -249,7 +240,6 @@ function deleteRenterAndRelationFromRenterView() {
                 },
                 dataType: 'JSON',
                 success: function (url) {
-                    console.log(url);
                     window.location.replace('');
                 }
             });
@@ -278,7 +268,6 @@ function deleteRenterAndRelationFromObjectDetailsView(objectId) {
                 },
                 dataType: 'JSON',
                 success: function (url) {
-                    console.log(url);
                     window.location.replace('');
                 }
             });
