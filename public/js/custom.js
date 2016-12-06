@@ -324,3 +324,11 @@ function loadDatepickerOnInputClick() {
     });
 }
 
+function addObjectFieldToCreateRenterView() {
+    $(document).ready(function() {
+        $('#clickHere').click(function(){
+            $('#appendHere').append('<select id="object_id" class="form-control" name="object_id"><option>hi</option></select>');
+        });
+    });
+}
+

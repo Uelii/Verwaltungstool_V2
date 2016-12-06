@@ -146,6 +146,24 @@
                                 </div>
                             </div>
 
+                            <div class="form-group{{ $errors->has('object_ids') ? 'has-error' : '' }}">
+                                <label for="street" class="col-md-4 control-label"></label>
+
+                                <div class="col-md-6">
+                                    <button type="button" class="btn btn-primary" id="clickHere">
+                                        <i class="fa fa-plus-circle" aria-hidden="true"></i> Add object
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="test" class="col-md-4 control-label"></label>
+
+                                <div class="col-md-6" id="appendHere">
+
+                                </div>
+                            </div>
+
                             <div class="form-group{{ $errors->has('street') ? 'has-error' : '' }}">
                                 <label for="street" class="col-md-4 control-label">Street</label>
 
@@ -255,5 +273,6 @@
         loadBuildingDataOnMainDomicileYes();
         getCityFromZipCode();
         loadDatepickerOnInputClick();
+        addObjectFieldToCreateRenterView();
     </script>
 @endsection
