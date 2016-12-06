@@ -27,8 +27,8 @@
                             @endif
 
                             <p><b>Adresse:</b></p>
-                            <p>{{ $renter->street }}, {{ $renter->street_number }}</p>
-                            <p>{{ $renter->zip_code }}, {{ $renter->city }}</p>
+                            <p>{{ $renter->street }} {{ $renter->street_number }}</p>
+                            <p>{{ $renter->zip_code }} {{ $renter->city }}</p>
 
                             @if($renter->is_main_domicile == 1)
                                 <p class="main_domicile_yes"><i class="fa fa-check" aria-hidden="true"></i> Main domicile</p>

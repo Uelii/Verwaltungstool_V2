@@ -22,16 +22,11 @@ function loadBuildingDataOnDocumentLoad() {
 
 function loadBuildingDataOnDropdownSelectionChange() {
     $(document).ready(function() {
-        $('#object_ids').change(function() {
-            var id = $("#object_ids").val();
+        $('#object_id').change(function() {
+            var id = $("#object_id").val();
             var url = '/grabem/public/getBuildingData';
 
-            if($.inArray('n/a', id) === -1){
-
-                $('#object_ids').css({
-                    'border': ''
-                });
-
+            if(id != ''){
                 $.ajax({
                     url: url+'/'+id,
                     type: 'GET',
@@ -48,10 +43,6 @@ function loadBuildingDataOnDropdownSelectionChange() {
                 $('#street_number').val('');
                 $('#zip_code').val('');
                 $('#city').val('');
-
-                $('#object_ids').css({
-                    'border': '1px solid red'
-                });
             }
         });
     });
@@ -220,90 +211,6 @@ function addPopoverOnShowView() {
     });
 }
 
-function deleteRenterAndRelationFromRenterView() {
-    $(document).ready(function(){
-        $(document).on('click', '#btnDeleteRenterAndRelation', function(){ //Event delegation
-
-            var dataId = $(this).attr('data-id');
-            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-            var url = '/grabem/public/renter';
-
-            $.ajax({
-                beforeSend: function(xhr){xhr.setRequestHeader('X-CSRF-TOKEN', $("#token").attr('content'));},
-                url: url+'/'+dataId,
-                type: 'DELETE',
-                data: {
-                    'dataId': dataId,
-                    '_token': CSRF_TOKEN,
-                    '_method': 'DELETE',
-                    'request_from': 'renter_view',
-                },
-                dataType: 'JSON',
-                success: function (url) {
-                    window.location.replace('');
-                }
-            });
-        });
-    });
-}
-
-function deleteRenterAndRelationFromObjectDetailsView(objectId) {
-    $(document).ready(function(){
-        $(document).on('click', '#btnDeleteRenterAndRelation', function(){ //Event delegation
-
-            var dataId = $(this).attr('data-id');
-            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-            var url = '/grabem/public/renter';
-
-            $.ajax({
-                beforeSend: function(xhr){xhr.setRequestHeader('X-CSRF-TOKEN', $("#token").attr('content'));},
-                url: url+'/'+dataId,
-                type: 'DELETE',
-                data: {
-                    'dataId': dataId,
-                    'objectId': objectId,
-                    '_token': CSRF_TOKEN,
-                    '_method': 'DELETE',
-                    'request_from': 'object_view',
-                },
-                dataType: 'JSON',
-                success: function (url) {
-                    window.location.replace('');
-                }
-            });
-        });
-    });
-}
-
-function deleteRelationFromObjectDetailsView(objectId) {
-    $(document).ready(function(){
-        $(document).on('click', '#btnDeleteRelation', function(){ //Event delegation
-
-            var dataId = $(this).attr('data-id');
-            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-            var url = '/grabem/public/deleteObjectRenterRelation';
-            /*var inputData = $('#delete_form').serialize();*/
-
-            $.ajax({
-                beforeSend: function(xhr){xhr.setRequestHeader('X-CSRF-TOKEN', $("#token").attr('content'));},
-                url: url,
-                type: 'POST',
-                data: {
-                    'dataId': dataId,
-                    'objectId': objectId,
-                    '_token': CSRF_TOKEN,
-                },
-                dataType: 'JSON',
-                success: function (url) {
-                    window.location.replace('');
-
-                }
-            });
-
-        });
-    });
-}
-
 function loadBootstrapModal() {
     $(document).ready(function(){
         $(document).on('click', '#btnOpenModal', function(){
@@ -320,14 +227,6 @@ function loadDatepickerOnInputClick() {
         });
         $("#end_of_contract").datepicker({
             dateFormat: "yy-mm-dd"
-        });
-    });
-}
-
-function addObjectFieldToCreateRenterView() {
-    $(document).ready(function() {
-        $('#clickHere').click(function(){
-            $('#appendHere').append('<select id="object_id" class="form-control" name="object_id"><option>hi</option></select>');
         });
     });
 }

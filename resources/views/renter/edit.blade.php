@@ -131,33 +131,28 @@
                             </div>
 
                             <div class="form-group{{ $errors->has('object_id') ? 'has-error' : '' }}">
-                                <label for="object_id" class="col-md-4 control-label">Object(s)</label>
+                                <label for="object_id" class="col-md-4 control-label">Object</label>
 
                                 <div class="col-md-6">
-                                    <select id="object_ids" multiple class="form-control" name="object_ids[]" required>
-                                        @foreach($renter->objects as $corr_object)
-                                            <option value="{{ $corr_object->id }}" selected="selected">{{ $corr_object->name }}:
-                                                {{ $corr_object->living_space }} sqm, {{$corr_object->number_of_rooms}}-room,
-                                                {{ $corr_object->floor_room_number }}</option>
-                                            </option>
-                                        @endforeach
+                                    <select id="object_id" class="form-control" name="object_id" required>
+
+                                        <option value="{{ $renter->object->id }}" selected="selected"> {{ $renter->object->name }}:
+                                            {{ $renter->object->living_space }} sqm, {{$renter->object->number_of_rooms}}-room,
+                                            {{ $renter->object->floor_room_number }}
+                                        </option>
 
                                         @foreach($objects as $object)
                                             <option value="{{ $object->id }}"> {{ $object->name }}:
                                                 {{ $object->living_space }} sqm, {{$object->number_of_rooms}}-room,
                                                 {{ $object->floor_room_number }}</option>
                                         @endforeach
-                                        <option value="n/a">n/a</option>
                                     </select>
 
                                     @if ($errors->has('object_id'))
                                         <span class="help-block">
                                                 <strong>{{ $errors->first('object_id') }}</strong>
-                                            </span>
+                                        </span>
                                     @endif
-                                </div>
-                                <div class="col-md-2">
-                                    *hold SHIFT or CTRL to select more than one
                                 </div>
                             </div>
 

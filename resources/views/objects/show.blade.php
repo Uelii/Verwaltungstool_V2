@@ -82,17 +82,21 @@
                                         <h4 class="modal-title">Please confirm</h4>
                                     </div>
                                     <div class="modal-body">
-                                        Do you want to delete the relation or the renter itself?
-                                        </br>
-                                        <span class="label label-warning">Warning: If you decide to delete the renter itself, all relations will be deleted as well!</span>
+                                        Do you really want to delete this renter?
                                         </br>
                                         <h3>{{ $renter->title }} {{ $renter->last_name }}, {{ $renter->first_name }}</h3>
+                                        <hr>
+                                        <p><b>Contact data: </b></br>{{ $renter->email }}</br>{{ $renter->phone_landline }}</br>{{ $renter->phone_mobile_phone }}</p>
+                                        <p><b>Beginning of contract: </b>{{ $renter->beginning_of_contract }}</p>
+                                        <p><b>End of contract: </b>{{ $renter->end_of_contract }}</p>
                                     </div>
                                     <div class="modal-footer">
-                                        <form id="delete_form" class="form-horizontal" role="form" method="POST" action="#">
+                                        <form class="form-horizontal" role="form" method="POST" action="{{ url('/renter', $renter->id)}}">
+                                            <input type="hidden" name="_method" value="DELETE">
+                                            <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+
                                             <button class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                            <button id="btnDeleteRenterAndRelation" type="button" data-id="{{ $renter->id }}" class="btn btn-danger">Delete RENTER</button>
-                                            <button id="btnDeleteRelation"  type="button" data-id="{{ $renter->id }}" class="btn btn-danger">Delete RELATION</button>
+                                            <button type="submit" class="btn btn-danger">Yes</button>
                                         </form>
                                     </div>
                                 </div>
@@ -106,10 +110,6 @@
                 <script>
                     addSortTableOptions('renter_data');
                     loadBootstrapModal();
-
-                    var id = {{ json_encode($object->id) }};
-                    deleteRenterAndRelationFromObjectDetailsView(id);
-                    deleteRelationFromObjectDetailsView(id);
                 </script>
 
                 <a href="{{ url('/objects') }}" class="btn btn-info"><i class="fa fa-chevron-left" aria-hidden="true"></i> Back to overview</a>

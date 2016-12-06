@@ -67,14 +67,19 @@
                                     <div class="modal-body">
                                         Do you really want to delete this renter?
                                         </br>
-                                        <span class="label label-warning">Warning: All relations will be deleted as well!</span>
-                                        </br>
                                         <h3>{{ $renter->title }} {{ $renter->last_name }}, {{ $renter->first_name }}</h3>
-                                    <div class="modal-footer">
+                                        <hr>
+                                        <p><b>Contact data: </b></br>{{ $renter->email }}</br>{{ $renter->phone_landline }}</br>{{ $renter->phone_mobile_phone }}</p>
+                                        <p><b>Beginning of contract: </b>{{ $renter->beginning_of_contract }}</p>
+                                        <p><b>End of contract: </b>{{ $renter->end_of_contract }}</p>
+                                        <div class="modal-footer">
 
                                         <form class="form-horizontal" role="form" method="POST" action="{{ url('/renter', $renter->id)}}">
+                                            <input type="hidden" name="_method" value="DELETE">
+                                            <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+
                                             <button class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                            <button id="btnDeleteRenterAndRelation" type="button" data-id="{{ $renter->id }}" class="btn btn-danger">Yes</button>
+                                            <button type="submit" class="btn btn-danger">Yes</button>
                                         </form>
                                     </div>
                                 </div>
@@ -87,8 +92,6 @@
                 <script>
                     addSortTableOptions('renter_data');
                     loadBootstrapModal();
-
-                    deleteRenterAndRelationFromRenterView();
                 </script>
 
                 <a href="{{ url('/renter/create')}}" class="btn btn-primary"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add new renter</a>

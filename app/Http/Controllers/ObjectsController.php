@@ -76,9 +76,8 @@ class ObjectsController extends Controller
     {
         /*If the record has been found, access view*/
         $object = Object::findOrFail($id);
-        $renter = Renter::all();
 
-        return view('objects.show', compact('object', 'renter'));
+        return view('objects.show', compact('object'));
     }
 
     /**
@@ -91,7 +90,7 @@ class ObjectsController extends Controller
     {
         /*If the record has been found, access view*/
         $object = Object::findOrFail($id);
-        /*$buildings = Building::all();*/
+
         /*Get all other buildings except the one which is going to be edited*/
         $buildings = Building::where('id', '!=', $object->building->id)->get();
 
@@ -146,20 +145,4 @@ class ObjectsController extends Controller
      * @param Request $request
      * @return array
      */
-
-    public function deleteObjectRenterRelation(Request $request)
-    {
-        /*Get renter-ID and object-ID from Request*/
-        $renter_id = $request->dataId;
-        $object_id = $request->objectId;
-
-        /*Delete relation in pivot table 'object_renter'*/
-        $object = Object::findOrFail($object_id);
-        $object->renter()->detach($renter_id);
-
-        /*Display Success-Message*/
-        Session::flash('success_message', 'Object-renter relation successfully deleted!');
-
-        return ['url' => url('/objects')];
-    }
 }

@@ -22,11 +22,10 @@ class Renter extends Model
      * @var array
      */
     protected $fillable = [
-        'title', 'first_name', 'last_name', 'email', 'phone_landline', 'phone_mobile_phone', 'street', 'street_number', 'zip_code', 'city', 'is_main_domicile', 'beginning_of_contract', 'end_of_contract'
+        'object_id', 'title', 'first_name', 'last_name', 'email', 'phone_landline', 'phone_mobile_phone', 'street', 'street_number', 'zip_code', 'city', 'is_main_domicile', 'beginning_of_contract', 'end_of_contract'
     ];
 
-    /*Many-to-many relation between renter and objects*/
-    public function objects() {
-        return $this->belongsToMany('grabem\Object', 'object_renter', 'FK_renter_id', 'FK_object_id');
+    public function object() {
+        return $this->belongsTo('grabem\Object');
     }
 }

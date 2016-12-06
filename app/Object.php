@@ -23,8 +23,7 @@ class Object extends Model
         return $this->belongsTo('grabem\Building');
     }
 
-    /*Many-to-many relation between objects and renter*/
     public function renter() {
-        return $this->belongsToMany('grabem\Renter', 'object_renter', 'FK_object_id', 'FK_renter_id');
+        return $this->hasMany('grabem\Renter');
     }
 }

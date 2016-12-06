@@ -123,44 +123,24 @@
                             </div>
 
                             <div class="form-group{{ $errors->has('object_id') ? 'has-error' : '' }}">
-                                <label for="object_id" class="col-md-4 control-label">Object(s)</label>
+                                <label for="object_id" class="col-md-4 control-label">Object</label>
 
                                 <div class="col-md-6">
-                                    <select id="object_ids" multiple class="form-control" name="object_ids[]" required>
+                                    <select id="object_id" class="form-control" name="object_id" required>
+                                        <option value="" selected="selected"></option>
                                         @foreach($objects as $object)
                                             <option value="{{ $object->id }}"> {{ $object->name }}:
                                                 {{ $object->living_space }} sqm, {{$object->number_of_rooms}}-room,
-                                                {{ $object->floor_room_number }}</option>
+                                                {{ $object->floor_room_number }}
+                                            </option>
                                         @endforeach
-                                        <option value="n/a">n/a</option>
                                     </select>
 
                                     @if ($errors->has('object_id'))
                                         <span class="help-block">
                                                 <strong>{{ $errors->first('object_id') }}</strong>
-                                            </span>
+                                        </span>
                                     @endif
-                                </div>
-                                <div class="col-md-2">
-                                    *hold SHIFT or CTRL to select more than one
-                                </div>
-                            </div>
-
-                            <div class="form-group{{ $errors->has('object_ids') ? 'has-error' : '' }}">
-                                <label for="street" class="col-md-4 control-label"></label>
-
-                                <div class="col-md-6">
-                                    <button type="button" class="btn btn-primary" id="clickHere">
-                                        <i class="fa fa-plus-circle" aria-hidden="true"></i> Add object
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="test" class="col-md-4 control-label"></label>
-
-                                <div class="col-md-6" id="appendHere">
-
                                 </div>
                             </div>
 
@@ -267,12 +247,10 @@
 
     <!--JavaScript-->
     <script>
-        loadBuildingDataOnDocumentLoad();
         loadBuildingDataOnDropdownSelectionChange();
         removeBuildingDataOnMainDomicileNo();
         loadBuildingDataOnMainDomicileYes();
         getCityFromZipCode();
         loadDatepickerOnInputClick();
-        addObjectFieldToCreateRenterView();
     </script>
 @endsection

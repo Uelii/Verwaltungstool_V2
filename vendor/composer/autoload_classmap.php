@@ -6,11 +6,11 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'AddForeignKeyConstraints' => $baseDir . '/database/migrations/2016_12_06_104251_add_foreign_key_constraints.php',
     'AddKeyConstraints' => $baseDir . '/database/migrations/2016_11_12_202018_add_key_constraints.php',
-    'AddMainRenterBooleanTableRenter' => $baseDir . '/database/migrations/2016_11_27_191616_add_main_renter_boolean_table_renter.php',
     'ChangeForeignKeyConstraints' => $baseDir . '/database/migrations/2016_11_13_133541_change_foreign_key_constraints.php',
     'ChangsInObjectsTable' => $baseDir . '/database/migrations/2016_11_16_095052_changs_in_objects_table.php',
-    'CreateObjectRenterJunctionTable' => $baseDir . '/database/migrations/2016_11_16_163855_create_object_renter_junction_table.php',
+    'CreateFKObjectId' => $baseDir . '/database/migrations/2016_12_06_101942_create_FK_object_id.php',
     'CreateObjectsTable' => $baseDir . '/database/migrations/2016_11_10_155353_create_objects_table.php',
     'CreatePasswordResetsTable' => $baseDir . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
     'CreateRenterTable' => $baseDir . '/database/migrations/2016_11_16_162645_create_renter_table.php',

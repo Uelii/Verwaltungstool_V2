@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddMainRenterBooleanTableRenter extends Migration
+class CreateFKObjectId extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,11 @@ class AddMainRenterBooleanTableRenter extends Migration
     public function up()
     {
         Schema::table('renter', function (Blueprint $table) {
-            $table->boolean('is_main_renter');
+            $table->integer('object_id')->unsigned();
+        });
+
+        Schema::table('renter', function (Blueprint $table) {
+            $table->foreign('object_id')->references('id')->on('objects')->onDelete('cascade');
         });
     }
 
@@ -26,7 +30,8 @@ class AddMainRenterBooleanTableRenter extends Migration
     public function down()
     {
         Schema::table('renter', function (Blueprint $table) {
-            $table->dropColumn('is_main_renter');
+            $table->dropForeign('renter_object_id_foreign');
+            $table->dropColumn('object_id');
         });
     }
 }
