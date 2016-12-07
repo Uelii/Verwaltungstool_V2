@@ -109,7 +109,6 @@
                             <div class="form-group{{ $errors->has('is_main_domicile') ? 'has-error' : '' }}">
                                 <label for="is_main_domicile" class="col-md-4 control-label">Main domicile?</label>
 
-
                                 <div class="col-md-6">
                                     <label id="is_main_domicile_yes" class="radio-inline"><input checked type="radio" name="is_main_domicile" value="1">Yes (default)</label>
                                     <label id="is_main_domicile_no" class="radio-inline"><input type="radio" name="is_main_domicile" value="0">No</label>

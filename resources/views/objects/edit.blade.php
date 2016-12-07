@@ -30,7 +30,7 @@
 
                                         @foreach($buildings as $building)
                                             <option value="{{ $building->id }}"> {{ $building->name }}:
-                                                {{ $building->street }} {{$building->street_number}},
+                                                {{ $building->street }} {{ $building->street_number }},
                                                 {{ $building->zip_code }} {{ $building->city }}
                                             </option>
                                         @endforeach
@@ -49,7 +49,7 @@
                                 <label for="name" class="col-md-4 control-label">Name</label>
 
                                 <div class="col-md-6">
-                                    <input id="name" type="text" class="form-control" name="name" value="{{ $object->name }}" required autofocus>
+                                    <input id="name" type="text" class="form-control" name="name" value="{{ $object->name }}" required>
 
                                     @if ($errors->has('name'))
                                         <span class="help-block">

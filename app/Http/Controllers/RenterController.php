@@ -2,10 +2,11 @@
 
 namespace grabem\Http\Controllers;
 
+use Illuminate\Http\Request;
 use grabem\Renter;
 use grabem\Object;
 use grabem\Building;
-use Illuminate\Http\Request;
+use grabem\Payment;
 use Session;
 use DB;
 
@@ -90,6 +91,18 @@ class RenterController extends Controller
         /*Create record in database*/
         Renter::create($input);
 
+        /*Create new record in table 'payments' (pending payment)*/
+        $new_renter_id = DB::table('renter')->orderBy('id', 'desc')->first()->id;
+        $corr_object = Object::findOrFail($request->object_id);
+        $corr_object_rent = $corr_object->rent;
+
+        $payment = new Payment;
+        $payment->renter_id = $new_renter_id;
+        $payment->amount_total = $corr_object_rent/12;
+        $payment->amount_paid = 0.00;
+        $payment->is_paid = 0;
+        $payment->save();
+
         /*Get data and redirect to specific route with success-message*/
         $renter = Renter::all();
 
@@ -121,7 +134,8 @@ class RenterController extends Controller
         /*If the record has been found, access view*/
         $renter = Renter::findOrFail($id);
 
-        $objects = Object::all();
+        /*Get all other object except the one which is going to be edited*/
+        $objects = Object::where('id', '!=', $renter->object->id)->get();
 
         return view('renter.edit', compact('renter', 'objects'));
     }

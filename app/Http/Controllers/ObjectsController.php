@@ -138,11 +138,4 @@ class ObjectsController extends Controller
 
         return redirect()->back()->with('success_message', 'Object successfully deleted!');
     }
-
-    /**
-     * Delete relation in pivot/junction table 'object_renter'
-     *
-     * @param Request $request
-     * @return array
-     */
 }

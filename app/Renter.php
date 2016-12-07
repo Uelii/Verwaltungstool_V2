@@ -28,4 +28,8 @@ class Renter extends Model
     public function object() {
         return $this->belongsTo('grabem\Object');
     }
+
+    public function payments() {
+        return $this->hasMany('grabem\Payment');
+    }
 }

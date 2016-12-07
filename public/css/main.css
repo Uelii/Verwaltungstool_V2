@@ -6,11 +6,11 @@ Other custom css settings
     background: url("http://www.imgbase.info/images/safe-wallpapers/miscellaneous/funny/58345_funny_funny_trump.jpg") repeat 0 0;
 }*/
 
-.main_renter_yes, .main_domicile_yes {
+.main_renter_yes, .main_domicile_yes, .is_paid_yes {
     color: green;
 }
 
-.main_renter_no, .main_domicile_no {
+.main_renter_no, .main_domicile_no, .is_paid_no {
     color: red;
 }
 

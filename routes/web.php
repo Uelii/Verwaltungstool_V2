@@ -45,11 +45,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('buildings', 'BuildingsController');
     Route::resource('objects', 'ObjectsController');
     Route::resource('renter', 'RenterController');
+    Route::resource('payments', 'PaymentsController');
 
     Route::get('/report', 'ReportController@showReportView');
     Route::get('/building_overview_pdf', 'ReportController@createBuildingsPDF');
 
     Route::get('/getBuildingData/{id}', 'RenterController@fillInBuildingData');
+    Route::post('/changeBooleanIsPaid', 'PaymentsController@changeBooleanIsPaid');
 });
 
 

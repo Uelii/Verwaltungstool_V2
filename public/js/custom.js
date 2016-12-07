@@ -67,7 +67,6 @@ function loadBuildingDataOnMainDomicileYes() {
 
             $.ajax({
                 url: url+'/'+id,
-                /*url: 'url('/getRequest')}}',*/
                 type: 'GET',
                 success: function(data)
                 {
@@ -196,6 +195,13 @@ function addSortTableOptions(dataTableId) {
                 "order": [[1, "asc"]]
             });
         }
+        if(dataTableId = 'payments_data'){
+            $("#payments_data").DataTable({
+                responsive: true,
+                oLanguage: { "sSearch": '<i class="fa fa-search" aria-hidden="true"></i>'},
+                "order": [[1, "asc"]]
+            });
+        }
     });
 }
 
@@ -227,6 +233,73 @@ function loadDatepickerOnInputClick() {
         });
         $("#end_of_contract").datepicker({
             dateFormat: "yy-mm-dd"
+        });
+    });
+}
+
+function changeAmountOnCheckboxClick(){
+    $(document).ready(function(){
+        $(document).on('change', '.is_paid_checkbox', function(){
+            var dataId = $(this).data("id");
+            var paymentId = dataId[0];
+            var amountTotal = dataId[1];
+            var amountPaid = dataId[2];
+            var current_boolean = dataId[3];
+
+            if($(this).is(":checked")) {
+                $('#amountPaid_'+dataId).html(amountTotal+ ' Fr.');
+
+                var url = '/grabem/public/changeBooleanIsPaid';
+                var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+
+                if(current_boolean == 0) {
+                    var new_boolean = 1;
+                } else {
+                    var new_boolean = 0;
+                }
+
+                $.ajax({
+                    /*url: url+'/'+paymentId,*/
+                    url: 'changeBooleanIsPaid',
+                    type: 'POST',
+                    data:
+                    {
+                        '_token': CSRF_TOKEN,
+                        'paymentId': paymentId,
+                        'new_boolean': new_boolean,
+                        'amountTotal': amountTotal,
+                        'amountPaid': amountPaid,
+                    },
+                    success: function(data){
+                        $('#isPaid_'+paymentId).html("<p class=is_paid_yes>PAID</p>");
+                    }
+                });
+            } else {
+                $('#amountPaid_'+dataId).html(amountPaid + ' Fr.');
+
+                var url = '/grabem/public/changeBooleanIsPaid';
+                var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+
+                if(current_boolean == 0) {
+                    var new_boolean = 1;
+                } else {
+                    var new_boolean = 0;
+                }
+
+                $.ajax({
+                    /*url: url+'/'+paymentId,*/
+                    url: 'changeBooleanIsPaid',
+                    type: 'POST',
+                    data:
+                    {
+                        '_token': CSRF_TOKEN,
+                        'paymentId': paymentId,
+                        'new_boolean': new_boolean,
+                        'amountTotal': amountTotal,
+                        'amountPaid': amountPaid,
+                    },
+                });
+            }
         });
     });
 }

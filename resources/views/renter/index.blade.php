@@ -48,7 +48,18 @@
                                 <a href="{{ route('renter.show', $renter->id) }}" class="btn btn-info"><i class="fa fa-eye" aria-hidden="true"></i> Show</a>
                                 <a href="{{ route('renter.edit', $renter->id) }}" class="btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
 
-                                <button type="button" id="btnOpenModal" class="btn btn-danger" data-id="{{ $renter->id }}" data-toggle="modal"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
+                                <!--Check if relation exists (if so: show a warning button)-->
+                                @if(count($renter->payments))
+                                    <button type="button" class="btn btn-warning" data-toggle="deletion_popover"
+                                            title="Deletion not possible." data-content="There are some payments attached to this renter. Therefore this renter cannot be deleted."
+                                            data-trigger="focus" data-placement="left"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Note</button>
+                                    <script>
+                                        addPopoverOnIndexView();
+                                    </script>
+                                @else
+                                    <button type="button" id="btnOpenModal" class="btn btn-danger" data-id="{{ $renter->id }}" data-toggle="modal"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
+                                @endif
+
                             </td>
                         </tr>
 
@@ -73,14 +84,14 @@
                                         <p><b>Beginning of contract: </b>{{ $renter->beginning_of_contract }}</p>
                                         <p><b>End of contract: </b>{{ $renter->end_of_contract }}</p>
                                         <div class="modal-footer">
+                                            <form class="form-horizontal" role="form" method="POST" action="{{ url('/renter', $renter->id)}}">
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                <input type="hidden" name="_token" value="{{ csrf_token() }}" />
 
-                                        <form class="form-horizontal" role="form" method="POST" action="{{ url('/renter', $renter->id)}}">
-                                            <input type="hidden" name="_method" value="DELETE">
-                                            <input type="hidden" name="_token" value="{{ csrf_token() }}" />
-
-                                            <button class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                            <button type="submit" class="btn btn-danger">Yes</button>
-                                        </form>
+                                                <button class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                                <button type="submit" class="btn btn-danger">Yes</button>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
