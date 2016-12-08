@@ -299,6 +299,8 @@ class ComposerStaticInit1ba1be676ec1a3459173a2ba704aec5c
     );
 
     public static $classMap = array (
+        'AddDateFieldToPaymentsTable' => __DIR__ . '/../..' . '/database/migrations/2016_12_08_113538_add_date_field_to_payments_table.php',
+        'AddDayMonthYearColumns' => __DIR__ . '/../..' . '/database/migrations/2016_12_08_112710_add_day_month_year_columns.php',
         'AddKeyConstraints' => __DIR__ . '/../..' . '/database/migrations/2016_11_12_202018_add_key_constraints.php',
         'ChangeForeignKeyConstraints' => __DIR__ . '/../..' . '/database/migrations/2016_11_13_133541_change_foreign_key_constraints.php',
         'ChangsInObjectsTable' => __DIR__ . '/../..' . '/database/migrations/2016_11_16_095052_changs_in_objects_table.php',

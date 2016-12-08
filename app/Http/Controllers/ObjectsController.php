@@ -7,6 +7,7 @@ use grabem\Building;
 use grabem\Renter;
 use Illuminate\Http\Request;
 use Session;
+use DB;
 
 class ObjectsController extends Controller
 {
@@ -31,7 +32,7 @@ class ObjectsController extends Controller
      */
     public function create()
     {
-        $buildings = Building::all();
+        $buildings = DB::table('buildings')->orderBy('name', 'asc')->get();
 
         return view('objects.create', compact('buildings'));
     }
@@ -92,7 +93,7 @@ class ObjectsController extends Controller
         $object = Object::findOrFail($id);
 
         /*Get all other buildings except the one which is going to be edited*/
-        $buildings = Building::where('id', '!=', $object->building->id)->get();
+        $buildings = Building::where('id', '!=', $object->building->id)->orderBy('name', 'asc')->get();
 
         return view('objects.edit', compact('object', 'buildings'));
     }

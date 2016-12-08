@@ -9,13 +9,14 @@ use grabem\Building;
 use grabem\Payment;
 use Session;
 use DB;
+use Carbon\Carbon;
 
 class RenterController extends Controller
 {
     /*
      * Fill in Street, Street number, zip code and city into renter creation form
      */
-    public function fillInBuildingData($id) {
+    public function getBuildingData($id) {
         $building = Building::findOrFail(Object::findOrFail($id)->building_id);
         $building_street = $building->street;
         $building_street_number = $building->street_number;
@@ -95,12 +96,14 @@ class RenterController extends Controller
         $new_renter_id = DB::table('renter')->orderBy('id', 'desc')->first()->id;
         $corr_object = Object::findOrFail($request->object_id);
         $corr_object_rent = $corr_object->rent;
+        $current_date = Carbon::today()->format('Y-m-d');
 
         $payment = new Payment;
         $payment->renter_id = $new_renter_id;
         $payment->amount_total = $corr_object_rent/12;
         $payment->amount_paid = 0.00;
         $payment->is_paid = 0;
+        $payment->date = $current_date;
         $payment->save();
 
         /*Get data and redirect to specific route with success-message*/
@@ -135,7 +138,7 @@ class RenterController extends Controller
         $renter = Renter::findOrFail($id);
 
         /*Get all other object except the one which is going to be edited*/
-        $objects = Object::where('id', '!=', $renter->object->id)->get();
+        $objects = Object::where('id', '!=', $renter->object->id)->orderBy('name', 'asc')->get();
 
         return view('renter.edit', compact('renter', 'objects'));
     }

@@ -12,7 +12,7 @@
             <h2>Overview Renter</h2>
             <hr>
 
-            <div class="test">
+            <div class="table-responsive">
                 <table id="renter_data" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                     <thead>
                     <tr>

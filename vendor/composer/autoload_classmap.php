@@ -6,6 +6,8 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'AddDateFieldToPaymentsTable' => $baseDir . '/database/migrations/2016_12_08_113538_add_date_field_to_payments_table.php',
+    'AddDayMonthYearColumns' => $baseDir . '/database/migrations/2016_12_08_112710_add_day_month_year_columns.php',
     'AddKeyConstraints' => $baseDir . '/database/migrations/2016_11_12_202018_add_key_constraints.php',
     'ChangeForeignKeyConstraints' => $baseDir . '/database/migrations/2016_11_13_133541_change_foreign_key_constraints.php',
     'ChangsInObjectsTable' => $baseDir . '/database/migrations/2016_11_16_095052_changs_in_objects_table.php',
