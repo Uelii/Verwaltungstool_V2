@@ -60,7 +60,7 @@
                     <li><a href="{{ url('/objects') }}"><i class="fa fa-bed" aria-hidden="true"></i> Objects</a></li>
                     <li><a href="{{ url('/renter') }}"><i class="fa fa-address-book-o" aria-hidden="true"></i> Renter</a></li>
                     <li><a href="{{ url('/payments') }}"><i class="fa fa-money" aria-hidden="true"></i> Payments</a></li>
-                    <li><a href="#"><i class="fa fa-file-text-o" aria-hidden="true"></i> Invoices</a></li>
+                    <li><a href="{{ url('/invoices') }}"><i class="fa fa-file-text-o" aria-hidden="true"></i> Invoices</a></li>
 
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-file-o" aria-hidden="true"></i> Reports<span class="caret"></span></a>

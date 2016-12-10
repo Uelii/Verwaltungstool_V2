@@ -11,7 +11,7 @@
         <div class="col-md-12">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Edit object</div>
+                    <div class="panel-heading">Edit renter</div>
                     <div class="panel-body">
                         <form class="form-horizontal" role="form" method="POST" action="{{ route('renter.update', $renter->id) }}">
                             <input type="hidden" name="_method" value="PATCH">
@@ -22,13 +22,15 @@
 
                                 <div class="col-md-6">
                                     <select id="title" class="form-control" name="title" required>
-                                        @if($renter->title = 'Mr.')
-                                            <option value="Mr." selected="selected">Mr.</option>
-                                            <option value="Ms.">Ms.</option>
-                                        @elseif($renter->title = 'Ms.')
-                                            <option value="Mr.">Mr.</option>
-                                            <option value="Ms." selected="selected">Ms.</option>
-                                        @endif
+                                        <option value="{{ $renter->title }}" selected="selected">
+                                            {{ $renter->title }}
+                                        </option>
+
+                                        @foreach($title_enums as $key => $title)
+                                            <option value="{{ $key }}">
+                                                {{ $title }}
+                                            </option>
+                                        @endforeach
                                     </select>
 
                                     @if ($errors->has('title'))

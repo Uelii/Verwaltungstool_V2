@@ -24,8 +24,12 @@
 
                                 <div class="col-md-6">
                                     <select id="title" class="form-control" name="title" required>
-                                        <option value="Mr.">Mr.</option>
-                                        <option value="Ms.">Ms.</option>
+                                        <option value=""></option>
+                                        @foreach($title_enums as $key => $title)
+                                            <option value="{{ $key }}">
+                                                {{ $title }}
+                                            </option>
+                                        @endforeach
                                     </select>
 
                                     @if ($errors->has('title'))

@@ -15,16 +15,10 @@ class PaymentsController extends Controller
 {
     public function changeBooleanIsPaid(Request $request){
 
-        DB::enableQueryLog();
-
         $payment = Payment::findOrFail($request->paymentId);
-        $payment->is_paid = $request->new_boolean;
+        $payment->is_paid = 1;
+        $payment->amount_paid = $request->amountTotal;
 
-        if($request->new_boolean == 1){
-            $payment->amount_paid = $request->amountTotal;
-        } else {
-            $payment->amount_paid = $request->amountPaid;
-        }
         $payment->save();
 
         return ['is_paid' => $payment->is_paid];

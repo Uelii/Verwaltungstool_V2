@@ -7,11 +7,11 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'AddDateFieldToPaymentsTable' => $baseDir . '/database/migrations/2016_12_08_113538_add_date_field_to_payments_table.php',
-    'AddDayMonthYearColumns' => $baseDir . '/database/migrations/2016_12_08_112710_add_day_month_year_columns.php',
     'AddKeyConstraints' => $baseDir . '/database/migrations/2016_11_12_202018_add_key_constraints.php',
     'ChangeForeignKeyConstraints' => $baseDir . '/database/migrations/2016_11_13_133541_change_foreign_key_constraints.php',
     'ChangsInObjectsTable' => $baseDir . '/database/migrations/2016_11_16_095052_changs_in_objects_table.php',
     'CreateFKObjectId' => $baseDir . '/database/migrations/2016_12_06_101942_create_FK_object_id.php',
+    'CreateInvoicesTable' => $baseDir . '/database/migrations/2016_12_08_140337_create_invoices_table.php',
     'CreateObjectsTable' => $baseDir . '/database/migrations/2016_11_10_155353_create_objects_table.php',
     'CreatePasswordResetsTable' => $baseDir . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
     'CreatePaymentsTable' => $baseDir . '/database/migrations/2016_12_06_133526_create_payments_table.php',

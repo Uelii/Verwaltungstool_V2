@@ -10,6 +10,7 @@ use grabem\Payment;
 use Session;
 use DB;
 use Carbon\Carbon;
+use Config;
 
 class RenterController extends Controller
 {
@@ -53,7 +54,10 @@ class RenterController extends Controller
         /*Order objects and get all buildings from DB*/
         $objects = DB::table('objects')->orderBy('name', 'asc')->get();
 
-        return view('renter.create', compact('objects'));
+        /*Get title-enum values*/
+        $title_enums = Config::get('enums.titles');
+
+        return view('renter.create', compact('objects', 'title_enums'));
     }
 
     /**
@@ -140,7 +144,13 @@ class RenterController extends Controller
         /*Get all other object except the one which is going to be edited*/
         $objects = Object::where('id', '!=', $renter->object->id)->orderBy('name', 'asc')->get();
 
-        return view('renter.edit', compact('renter', 'objects'));
+        /*Get all other titleenums except the one which is already stored in database*/
+        $title_enums = Config::get('enums.titles');
+        if(($key = array_search($renter->title, $title_enums)) !== false) {
+            unset($title_enums[$key]);
+        };
+
+        return view('renter.edit', compact('renter', 'objects', 'title_enums'));
     }
 
     /**
@@ -177,8 +187,8 @@ class RenterController extends Controller
         if( empty($input['end_of_contract'])) {
             $input['end_of_contract'] = null;
         }
-        /*Update record in database*/
 
+        /*Update record in database*/
         $renter->fill($input)->save();
 
         return redirect()->back()->with('success_message', 'Renter successfully updated!');

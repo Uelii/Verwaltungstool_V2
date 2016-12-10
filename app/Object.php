@@ -26,4 +26,8 @@ class Object extends Model
     public function renter() {
         return $this->hasMany('grabem\Renter');
     }
+
+    public function invoices() {
+        return $this->hasMany('grabem\Invoice');
+    }
 }

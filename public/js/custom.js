@@ -199,7 +199,23 @@ function addSortTableOptions(dataTableId) {
             $("#payments_data").DataTable({
                 responsive: true,
                 oLanguage: { "sSearch": '<i class="fa fa-search" aria-hidden="true"></i>'},
-                "order": [[1, "asc"]]
+                "order": [[4, "asc"]]
+            });
+        }
+        if(dataTableId = 'invoices_data'){
+            $("#invoices_data").DataTable({
+                responsive: true,
+                oLanguage: { "sSearch": '<i class="fa fa-search" aria-hidden="true"></i>'},
+                "columnDefs": [ {
+                    "targets": '_all',
+                    "createdCell": function (td, cellData, rowData, row, col) {
+                        /*make cell red if contract end date has been reached and if the invoice has not been paid yet*/
+                        if((cellData < currentDate) && (cellData > rowData[3]) && (rowData[5].indexOf("is_paid_no") >= 0)){
+                            $(td).css('background-color', 'red');
+                        }
+                    }
+                }],
+                "order": [[5, "asc"]]
             });
         }
     });
@@ -234,6 +250,12 @@ function loadDatepickerOnInputClick() {
         $("#end_of_contract").datepicker({
             dateFormat: "yy-mm-dd"
         });
+        $("#invoice_date").datepicker({
+            dateFormat: "yy-mm-dd"
+        });
+        $("#payable_until").datepicker({
+            dateFormat: "yy-mm-dd"
+        });
     });
 }
 
@@ -244,62 +266,53 @@ function changeAmountOnCheckboxClick(){
             var paymentId = dataId[0];
             var amountTotal = dataId[1];
             var amountPaid = dataId[2];
-            var current_boolean = dataId[3];
+            var new_boolean = 1;
 
-            if($(this).is(":checked")) {
-                $('#amountPaid_'+dataId).html(amountTotal+ ' Fr.');
+            $('#amountPaid_'+dataId).html(amountTotal+ ' Fr.');
 
-                var url = '/grabem/public/changeBooleanIsPaid';
-                var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+            var url = '/grabem/public/changePaymentBooleanIsPaid';
+            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 
-                if(current_boolean == 0) {
-                    var new_boolean = 1;
-                } else {
-                    var new_boolean = 0;
+            $.ajax({
+                /*url: url+'/'+paymentId,*/
+                url: 'changePaymentBooleanIsPaid',
+                type: 'POST',
+                data:
+                {
+                    '_token': CSRF_TOKEN,
+                    'paymentId': paymentId,
+                    'amountTotal': amountTotal,
+                    'amountPaid': amountPaid,
+                },
+                success: function(data){
+                    $('#isPaid_'+paymentId).html("<p class=is_paid_yes><i class='fa fa-check' aria-hidden=true></i> PAID</p>");
                 }
+            });
+        });
+    });
+}
 
-                $.ajax({
-                    /*url: url+'/'+paymentId,*/
-                    url: 'changeBooleanIsPaid',
-                    type: 'POST',
-                    data:
-                    {
-                        '_token': CSRF_TOKEN,
-                        'paymentId': paymentId,
-                        'new_boolean': new_boolean,
-                        'amountTotal': amountTotal,
-                        'amountPaid': amountPaid,
-                    },
-                    success: function(data){
-                        $('#isPaid_'+paymentId).html("<p class=is_paid_yes>PAID</p>");
-                    }
-                });
-            } else {
-                $('#amountPaid_'+dataId).html(amountPaid + ' Fr.');
+function changeIsPaidOnCheckboxClick(){
+    $(document).ready(function() {
+        $(document).on('change', '.is_paid_checkbox', function () {
+            var dataId = $(this).data("id");
+            var invoiceId = dataId[0];
 
-                var url = '/grabem/public/changeBooleanIsPaid';
-                var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+            var url = '/grabem/public/changeInvoiceBooleanIsPaid';
+            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 
-                if(current_boolean == 0) {
-                    var new_boolean = 1;
-                } else {
-                    var new_boolean = 0;
+            $.ajax({
+                url: 'changeInvoiceBooleanIsPaid',
+                type: 'POST',
+                data:
+                {
+                    '_token': CSRF_TOKEN,
+                    'invoiceId': invoiceId
+                },
+                success: function(data){
+                    $('#isPaid_'+invoiceId).html("<p class=is_paid_yes><i class='fa fa-check' aria-hidden=true></i> PAID</p>");
                 }
-
-                $.ajax({
-                    /*url: url+'/'+paymentId,*/
-                    url: 'changeBooleanIsPaid',
-                    type: 'POST',
-                    data:
-                    {
-                        '_token': CSRF_TOKEN,
-                        'paymentId': paymentId,
-                        'new_boolean': new_boolean,
-                        'amountTotal': amountTotal,
-                        'amountPaid': amountPaid,
-                    },
-                });
-            }
+            });
         });
     });
 }

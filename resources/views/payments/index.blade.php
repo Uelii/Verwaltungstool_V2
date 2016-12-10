@@ -94,10 +94,10 @@
                             <td id="amountPaid_{{ $payment->id }}">{{ $payment->amount_paid }} Fr.</td>
                             <td id="isPaid_{{ $payment->id }}">
                                 @if($payment->is_paid == 0)
-                                <p class="is_paid_no">NOT PAID</p>
-                                <label class="checkbox-inline"><input type="checkbox" class="is_paid_checkbox" data-id="[{{ $payment->id }}, {{ $payment->amount_total }}, {{ $payment->amount_paid }}, {{ $payment->is_paid }}]"><i>Mark as paid</i></label>
+                                    <p class="is_paid_no"><i class="fa fa-times" aria-hidden="true"></i> NOT PAID</p>
+                                    <label class="checkbox-inline"><input type="checkbox" class="is_paid_checkbox" data-id="[{{ $payment->id }}, {{ $payment->amount_total }}, {{ $payment->amount_paid }}]"><i>Mark as paid</i></label>
                                 @else
-                                <p class="is_paid_yes">PAID</p>
+                                    <p class="is_paid_yes"><i class="fa fa-check" aria-hidden="true"></i> PAID</p>
                                 @endif
                             </td>
                             <td>{{ $payment->date }}</td>
@@ -128,11 +128,11 @@
                                         <hr>
                                         <p><b>Object: </b>{{ $payment->renter->object->name }}: {{ $payment->renter->object->number_of_rooms }}-room, {{ $payment->renter->object->floor_room_number }}</p>
                                         <p><b>Payment status: </b>
-                                            @if($payment->is_paid == 0)
-                                                <p class="is_paid_no"><i class="fa fa-times" aria-hidden="true"></i> NOT PAID</p>
-                                            @else
+                                        @if($payment->is_paid == 0)
+                                            <p class="is_paid_no"><i class="fa fa-times" aria-hidden="true"></i> NOT PAID</p>
+                                        @else
                                             <p class="is_paid_yes"><i class="fa fa-check" aria-hidden="true"></i> PAID</p>
-                                            @endif
+                                        @endif
                                         </p>
                                         <p><b>Creation date: </b>{{ date('Y-m-d', strtotime($payment->created_at)) }}</p>
                                         <div class="modal-footer">
@@ -148,10 +148,6 @@
                                 </div>
                             </div>
                         </div>
-
-                    <script>
-
-                    </script>
                     @endforeach
                 </table>
 
@@ -160,7 +156,6 @@
                     addSortTableOptions('payments_data');
                     loadBootstrapModal();
                     changeAmountOnCheckboxClick();
-
                 </script>
 
                 <a href="{{ url('/payment/create')}}" class="btn btn-primary"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add payment??</a>

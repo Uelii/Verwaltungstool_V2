@@ -46,13 +46,15 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('objects', 'ObjectsController');
     Route::resource('renter', 'RenterController');
     Route::resource('payments', 'PaymentsController');
+    Route::resource('invoices', 'InvoicesController');
 
     Route::get('/report', 'ReportController@showReportView');
     Route::get('/building_overview_pdf', 'ReportController@createBuildingsPDF');
 
     Route::get('/getBuildingData/{id}', 'RenterController@getBuildingData');
-    Route::post('/changeBooleanIsPaid', 'PaymentsController@changeBooleanIsPaid');
+    Route::post('/changePaymentBooleanIsPaid', 'PaymentsController@changeBooleanIsPaid');
     Route::get('/getFilteredPayments', 'PaymentsController@getFilteredPayments');
+    Route::post('/changeInvoiceBooleanIsPaid', 'InvoicesController@changeBooleanIsPaid');
 });
 
 

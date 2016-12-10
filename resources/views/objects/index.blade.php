@@ -15,7 +15,7 @@
                 <table id="objects_data" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                     <thead>
                     <tr>
-                        <th>Corresponding building</th>
+                        <th>Building</th>
                         <th>Name</th>
                         <!--<th>Description</th>-->
                         <th>Sqm</th>
