@@ -30,4 +30,8 @@ class Object extends Model
     public function invoices() {
         return $this->hasMany('grabem\Invoice');
     }
+
+    public function getSumOfServiceCharges(){
+
+    }
 }
