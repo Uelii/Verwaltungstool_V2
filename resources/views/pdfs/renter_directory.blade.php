@@ -10,19 +10,19 @@
                 {{ $building->street }} {{ $building->street_number }},
                 {{ $building->zip_code }} {{ $building->city }}
             </h3>
-            <h3><b>Period  : </b></h3>
+            <h3><b>Period  : {{ $start_date }} until {{ $end_date }}</b></h3>
             <hr>
 
             <table class="table data">
                 <thead>
                 <tr>
-                    <th class="col-md-1">Objects</th>
-                    <th class="col-md-1">Renter</th>
-                    <th class="col-md-1">Renter Address</th>
-                    <th class="col-md-1">Beginning of Contract</th>
-                    <th class="col-md-1">End of Contract</th>
-                    <th class="col-md-1">Rent p.a.</th>
-                    <th class="col-md-1">Nebenkosten?</th>
+                    <th>Objects</th>
+                    <th>Renter</th>
+                    <th>Renter Address</th>
+                    <th>Beginning of Contract</th>
+                    <th>End of Contract</th>
+                    <th>Rent p.a.</th>
+                    <th>Nebenkosten?</th>
                 </tr>
                 </thead>
 

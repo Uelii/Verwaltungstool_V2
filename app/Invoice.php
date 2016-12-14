@@ -28,8 +28,11 @@ class Invoice extends Model
         'Female'
     ];
 
-    public function getInvoiceTypes()
-    {
+    public function getInvoiceTypes(){
         return $this->invoice_types;
+    }
+
+    public function getFormattedInvoiceAmount(){
+        return number_format($this->attributes['amount'], 2, '.', '');
     }
 }

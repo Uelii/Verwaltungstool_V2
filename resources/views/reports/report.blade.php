@@ -28,21 +28,39 @@
                     </div>
 
                     <div class="form-group">
-                        <div>
-                            <button class="btn btn-primary" formtarget="_blank" type="submit" value="create_renter_directory" name="action"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Create Renter Directory</button>
-                            <button class="btn btn-primary" formtarget="_blank" type="submit" value="create_heat_billing_and_service_charge_statement" name="action"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Create Heat Billing & Service Charge Statement</button>
-                            <button class="btn btn-primary" formtarget="_blank" type="submit" value="create_closing_statement" name="action"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Create Closing Statement (31.12)</button>
-                        </div>
+                        <label for="start_date" class="control-label">Start Date</label>
+                            <input id="start_date" class="form-control" name="start_date" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="end_date" class="control-label">End Date</label>
+                            <input id="end_date" class="form-control" name="end_date" required>
+                    </div>
+
+                    <div class="form-group">
+                        <button class="btn btn-primary" formtarget="_blank" type="submit" value="create_renter_directory" name="action"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Create Renter Directory</button>
+                    </div>
+
+                    <div class="form-group">
+                        <button class="btn btn-primary" formtarget="_blank" type="submit" value="create_heat_and_ancillary_cost_billing" name="action"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Create Heat Billing & Service Charge Statement</button>
+                    </div>
+
+                    <div class="form-group">
+                        <button class="btn btn-primary" formtarget="_blank" type="submit" value="create_closing_statement" name="action"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Create Closing Statement (31.12)</button>
                     </div>
                 </form>
             </div>
         </div>
 
         <div class="col-md-12">
-            <p>Dropdown Liegenschaft auswahl</p>
-            <p>Von...bis...</p>
             <p>Ort, Datum für Mieterabrechnung</p>
             <p>Buttons: Was für eine Art von PDF/Report?</p>
         </div>
     </section>
+
+
+    <!--JavaScript-->
+    <script>
+        loadDatepickerOnInputClick();
+    </script>
 @endsection

@@ -17,7 +17,7 @@
                     <tr>
                         <th>Object</th>
                         <th>Type</th>
-                        <th>Amount</th>
+                        <th>Amount [Fr.]</th>
                         <th>Invoice Date</th>
                         <th>Payable until</th>
                         <th>Invoice status</th>
@@ -31,7 +31,7 @@
                         <tr>
                             <td>{{ $invoice->object->name }}</td>
                             <td>{{ $invoice->invoice_type }}</td>
-                            <td>{{ $invoice->amount }}</td>
+                            <td>{{ number_Format($invoice->amount, 2, '.', '') }}</td>
                             <td>{{ $invoice->invoice_date }}</td>
                             <td>{{ $invoice->payable_until }}</td>
                             <td id="isPaid_{{ $invoice->id }}">

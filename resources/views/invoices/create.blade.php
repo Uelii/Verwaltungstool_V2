@@ -66,7 +66,7 @@
                                 <label for="amount" class="col-md-4 control-label">Amount [Fr.]</label>
 
                                 <div class="col-md-6">
-                                    <input id="amount" type="number" class="form-control" name="amount" value="{{ old('amount') }}" required>
+                                    <input id="amount" type="number" class="form-control" name="amount" step="any" value="{{ old('amount') }}" required>
 
                                     @if ($errors->has('amount'))
                                         <span class="help-block">

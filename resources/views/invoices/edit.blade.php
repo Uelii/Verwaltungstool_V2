@@ -71,7 +71,7 @@
                                 <label for="amount" class="col-md-4 control-label">Amount [Fr.]</label>
 
                                 <div class="col-md-6">
-                                    <input id="amount" type="number" class="form-control" name="amount" value="{{ $invoice->amount }}" required>
+                                    <input id="amount" type="number" class="form-control" name="amount" step="any" value="{{ number_Format($invoice->amount, 2, '.', '') }}" required>
 
                                     @if ($errors->has('amount'))
                                         <span class="help-block">
