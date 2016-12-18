@@ -40,12 +40,18 @@ class ReportController extends Controller {
      * Create renter directory (Mieterspiegel)
      */
     public function createRenterDirectoryPDF(Request $request){
+
+        /*Validate Input*/
+        $this->validate($request, [
+            'building_id' => 'required',
+            'start_date' => 'required|date|date_format:Y-m-d|before:end_date',
+            'end_date' => 'required|date|date_format:Y-m-d|after:start_date|before:tomorrow'
+        ]);
+
         $building = Building::findOrFail($request->building_id);
         $start_date = $request->start_date;
         $end_date = $request->end_date;
-        $renter = DB::table('renter')
-            ->whereBetween('end_of_contract', [$start_date, $end_date ])
-            ->get();
+        $renter = Renter::all();
 
         $carbon = Carbon::now();
         $current_date =$carbon->format('Y-d-m');
@@ -75,6 +81,14 @@ class ReportController extends Controller {
      * Create heat and ancillary cost billing (Heizkosten- und Nebenkostenabrechnung)
      */
     public function createHeatAndAncillaryCostBilling(Request $request){
+
+        /*Validate Input*/
+        $this->validate($request, [
+            'building_id' => 'required',
+            'start_date' => 'required|date|date_format:Y-m-d|before:end_date',
+            'end_date' => 'required|date|date_format:Y-m-d|after:start_date|before:tomorrow'
+        ]);
+
         $start_date = $request->start_date;
         $end_date = $request->end_date;
         $building = Building::findOrFail($request->building_id);

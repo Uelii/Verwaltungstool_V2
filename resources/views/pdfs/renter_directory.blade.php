@@ -10,8 +10,10 @@
                 {{ $building->street }} {{ $building->street_number }},
                 {{ $building->zip_code }} {{ $building->city }}
             </h3>
-            <h3><b>Period  : {{ $start_date }} until {{ $end_date }}</b></h3>
-            <hr>
+            @if(!empty($start_date || $end_date))
+                <h3><b>Period  : {{ $start_date }} until {{ $end_date }}</b></h3>
+                <hr>
+            @endif
 
             <table class="table data">
                 <thead>
@@ -32,41 +34,41 @@
                     <tr>
                         <td>{{ $object->name }}</td>
                         <td>
-                            @foreach($object->renter->sortBy('last_name') as $renter)
+                            @foreach($object->renter->where('end_of_contract', '>=', $end_date)->sortBy('last_name') as $renter)
                             {{ $renter->last_name }} {{ $renter->first_name }}</br>
                             @endforeach
                         </td>
                         <td>
-                            @foreach($object->renter->sortBy('last_name') as $renter)
-                            {{ $renter->street }} {{ $renter->street_number }}, {{ $renter->zip_code }}, {{ $renter->city }}</br>
+                            @foreach($object->renter->where('end_of_contract', '>=', $end_date)->sortBy('last_name') as $renter)
+                                {{ $renter->street }} {{ $renter->street_number }}, {{ $renter->zip_code }}, {{ $renter->city }}</br>
                             @endforeach
                         </td>
                         <td>
-                            @foreach($object->renter->sortBy('last_name') as $renter)
+                            @foreach($object->renter->where('end_of_contract', '>=', $end_date)->sortBy('last_name') as $renter)
                             {{ $renter->beginning_of_contract }}</br>
                             @endforeach
                         </td>
                         <td>
-                            @foreach($object->renter->sortBy('last_name') as $renter)
+                            @foreach($object->renter->where('end_of_contract', '>=', $end_date)->sortBy('last_name') as $renter)
                             {{ $renter->end_of_contract }}</br>
                             @endforeach
                         </td>
                         <td>
-                            @foreach($object->renter->sortBy('last_name') as $key => $renter)
-                                @if($key == 0)
-                                    {{ $object->rent }}</br>
-                                @else
-                                    "
-                                @endif
+                            @foreach($object->renter->where('end_of_contract', '>=', $end_date)->sortBy('last_name') as $key => $renter)
+                            @if($key == 0)
+                            {{ $object->rent }}</br>
+                            @else
+                                "
+                            @endif
                             @endforeach
                         </td>
                         <td>
-                            @foreach($object->renter->sortBy('last_name') as $key => $renter)
-                                @if($key == 0)
-                                    {{ $object->invoices->sum('amount') }}</br>
-                                @else
-                                    "
-                                @endif
+                            @foreach($object->renter->where('end_of_contract', '>=', $end_date)->sortBy('last_name') as $key => $renter)
+                            @if($key == 0)
+                            {{ $object->invoices->sum('amount') }}</br>
+                            @else
+                                "
+                            @endif
                             @endforeach
                         </td>
                     </tr>

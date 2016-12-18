@@ -26,8 +26,8 @@
 
                                     @if ($errors->has('name'))
                                         <span class="help-block">
-                                        <strong>{{ $errors->first('name') }}</strong>
-                                    </span>
+                                            <strong>{{ $errors->first('name') }}</strong>
+                                        </span>
                                     @endif
                                 </div>
                             </div>
@@ -40,8 +40,8 @@
 
                                     @if ($errors->has('street'))
                                         <span class="help-block">
-                                        <strong>{{ $errors->first('street') }}</strong>
-                                    </span>
+                                            <strong>{{ $errors->first('street') }}</strong>
+                                        </span>
                                     @endif
                                 </div>
                             </div>
@@ -54,8 +54,8 @@
 
                                     @if ($errors->has('street_number'))
                                         <span class="help-block">
-                                        <strong>{{ $errors->first('street_number') }}</strong>
-                                    </span>
+                                            <strong>{{ $errors->first('street_number') }}</strong>
+                                        </span>
                                     @endif
                                 </div>
                             </div>
@@ -68,8 +68,8 @@
 
                                     @if ($errors->has('zip_code'))
                                         <span class="help-block">
-                                        <strong>{{ $errors->first('zip_code') }}</strong>
-                                    </span>
+                                            <strong>{{ $errors->first('zip_code') }}</strong>
+                                        </span>
                                     @endif
                                 </div>
                             </div>
@@ -82,8 +82,8 @@
 
                                     @if ($errors->has('city'))
                                         <span class="help-block">
-                                        <strong>{{ $errors->first('city') }}</strong>
-                                    </span>
+                                            <strong>{{ $errors->first('city') }}</strong>
+                                        </span>
                                     @endif
                                 </div>
                             </div>
@@ -97,9 +97,9 @@
                             </div>
                         </form>
                     </div>
-                  <div class="panel-footer">
-                      <a href="{{ url('/buildings') }}" class="btn btn-info"><i class="fa fa-chevron-left" aria-hidden="true"></i> Back to overview</a>
-                  </div>
+                    <div class="panel-footer">
+                        <a href="{{ url('/buildings') }}" class="btn btn-info"><i class="fa fa-chevron-left" aria-hidden="true"></i> Back to overview</a>
+                    </div>
                 </div>
             </div>
         </div>
