@@ -47,8 +47,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <img height="50px" width="50px" src="http://i0.wp.com/www.wehuntedthemammoth.com/wp-content/uploads/2016/02/pepetrump-600x600-2.png">
-            <a class="navbar-brand" href="#">Grab 'em #maga</a>
+            <a class="navbar-brand" href="{{ url('/home') }}" style="color: red">INSERT_PROJECT_NAME_HERE</a>
         </div>
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -118,7 +117,7 @@
 <!--Footer-->
 <footer class="footer">
     <div class="container-fluid">
-        <p><i class="fa fa-copyright" aria-hidden="true"></i> Plebians - Web Engineering HS16/17</p>
+        <p><i class="fa fa-copyright" aria-hidden="true"></i> F. Kipfer | M. Konrad | R. Meilbeck - Web Engineering HS16/17</p>
     </div>
 </footer>
 <!--End footer-->

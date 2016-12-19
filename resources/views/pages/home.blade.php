@@ -5,10 +5,13 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2"> <!--offset=(12-8)/2-->
             <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
+                <div class="panel-heading">Welcome</div>
 
                 <div class="panel-body">
-                    Sie sind nun eingeloggt. Beste Grüsse, die Plebians.
+                    <p>You are now logged in. Have fun testing our laravel administration app!</p>
+                    <p>Best regards, </br>
+                    Fabian Kipfer, Michel Konrad, Rene Meilbeck
+                    </p>
                 </div>
             </div>
         </div>
