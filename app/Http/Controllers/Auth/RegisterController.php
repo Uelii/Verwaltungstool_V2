@@ -6,6 +6,8 @@ use grabem\User;
 use Validator;
 use grabem\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Input;
+use Mail;
 
 class RegisterController extends Controller
 {
@@ -62,6 +64,16 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        /*Send confirmation mail to email-address*/
+        Mail::send('mail.registration_confirmation', [
+            'name' => Input::get('name'),
+            'email' => Input::get('email'),
+            'password' => Input::get('password')
+        ], function($message) {
+            $message->to(Input::get('email'), Input::get('name'))
+                ->subject('Account successfully created.');
+        });
+
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
