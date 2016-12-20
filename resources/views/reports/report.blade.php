@@ -64,7 +64,7 @@
                     </div>
 
                     <div class="form-group">
-                        <button class="btn btn-primary" formtarget="_blank" type="submit" value="create_closing_statement" name="action"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Create Closing Statement (31.12)</button>
+                        <button class="btn btn-primary" formtarget="_blank" type="submit" value="create_balance_sheet" name="action"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Create Balance Sheet (current year)</button>
                     </div>
                 </form>
             </div>
