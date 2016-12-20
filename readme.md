@@ -1,6 +1,6 @@
 # CMD-commands
 
-Directory: cd c:/xampp/htdocs/grabem
+Directory: cd c:/xampp/htdocs/immogate
 
 Create new migration file: php artisan make:migration name_of_migration --table="..." (if already existing)
 
