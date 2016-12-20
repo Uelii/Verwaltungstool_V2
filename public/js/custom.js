@@ -186,8 +186,8 @@ function addSortTableOptions(dataTableId) {
                 "order": [[1, "asc"]]
             });
         }
-        if(dataTableId = 'renter_data'){
-            $("#renter_data").DataTable({
+        if(dataTableId = 'renter_data_renter_view'){
+            $("#renter_data_renter_view").DataTable({
                 responsive: true,
                 oLanguage: { "sSearch": '<i class="fa fa-search" aria-hidden="true"></i>'},
                 "columnDefs": [ {
@@ -195,6 +195,22 @@ function addSortTableOptions(dataTableId) {
                     "createdCell": function (td, cellData, rowData, row, col) {
                         /*make cell red if contract end date has been reached*/
                         if((cellData < currentDate) && (cellData > rowData[8])){
+                            $(td).css('background-color', 'red');
+                        }
+                    }
+                }],
+                "order": [[1, "asc"]]
+            });
+        }
+        if(dataTableId = 'renter_data_object_view'){
+            $("#renter_data_object_view").DataTable({
+                responsive: true,
+                oLanguage: { "sSearch": '<i class="fa fa-search" aria-hidden="true"></i>'},
+                "columnDefs": [ {
+                    "targets": '_all',
+                    "createdCell": function (td, cellData, rowData, row, col) {
+                        /*make cell red if contract end date has been reached*/
+                        if((cellData < currentDate) && (cellData > rowData[4])){
                             $(td).css('background-color', 'red');
                         }
                     }

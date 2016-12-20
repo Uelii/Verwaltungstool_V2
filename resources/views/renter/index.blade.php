@@ -13,7 +13,7 @@
             <hr>
 
             <div class="table-responsive">
-                <table id="renter_data" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                <table id="renter_data_renter_view" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                     <thead>
                     <tr>
                         <th>Title</th>
@@ -101,7 +101,7 @@
 
                 <!--JavaScript-->
                 <script>
-                    addSortTableOptions('renter_data');
+                    addSortTableOptions('renter_data_renter_view');
                     loadBootstrapModal();
                 </script>
 

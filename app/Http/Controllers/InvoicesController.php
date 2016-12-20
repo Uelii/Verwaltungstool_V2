@@ -88,7 +88,10 @@ class InvoicesController extends Controller
      */
     public function show($id)
     {
-        //
+        /*If the record has been found, access view*/
+        $invoice = Invoice::findOrFail($id);
+
+        return view('invoices.show', compact('invoice'));
     }
 
     /**

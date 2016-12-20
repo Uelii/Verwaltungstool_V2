@@ -57,7 +57,7 @@ return [
 
     'from' => [
         'address' => 'hello@example.com',
-        'name' => 'Insert_Project_Name_Here',
+        'name' => 'immoGate',
     ],
 
     /*

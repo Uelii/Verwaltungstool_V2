@@ -19,8 +19,8 @@
                             <p><b>Living space [sqm]: </b>{{ $object->living_space }}</p>
                             <p><b>Number of rooms: </b>{{ $object->number_of_rooms }}</p>
                             <p><b>Floor number / Room number: </b>{{ $object->floor_room_number }}</p>
-                            <p><b>Rent [Fr.], per month: </b>{{ number_Format($object->rent, 2, '.', '\'') }} Fr.</p>
-                            <p><b>Rent [Fr.], per annum: </b>{{ number_Format($object->rent*12, 2, '.', '\'') }} Fr.</p>
+                            <p><b>Rent, per month: </b>{{ number_Format($object->rent, 2, '.', '\'') }} Fr.</p>
+                            <p><b>Rent, per annum: </b>{{ number_Format($object->rent*12, 2, '.', '\'') }} Fr.</p>
                         </div>
                         <div class="col-md-6">
                             <p><b>Description: </b>{{ $object->description }}</p>
@@ -35,7 +35,7 @@
             <h4>Renter correspondending to this object</h4>
             <hr>
             <div class="table-responsive">
-                <table id="renter_data" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                <table id="renter_data_object_view" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                     <thead>
                     <tr>
                         <th>Title</th>
@@ -109,7 +109,7 @@
 
                 <!--JavaScript-->
                 <script>
-                    addSortTableOptions('renter_data');
+                    addSortTableOptions('renter_data_object_view');
                     loadBootstrapModal();
                 </script>
 
