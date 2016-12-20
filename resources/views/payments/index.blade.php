@@ -18,8 +18,8 @@
                     <tr>
                         <th>Renter</th>
                         <th>Object</th>
-                        <th>Amount [Fr.]</th>
-                        <th>Amount paid [Fr.]</th>
+                        <th>Amount total</th>
+                        <th>Amount paid</th>
                         <th>Payment status</th>
                         <th>Date</th>
                         <th>Action</th>
@@ -32,8 +32,8 @@
                         <tr>
                             <td>{{ $payment->renter->last_name }}, {{ $payment->renter->first_name }}</td>
                             <td>{{ $payment->renter->object->name }}: {{ $payment->renter->object->number_of_rooms }}-room, {{ $payment->renter->object->floor_room_number }}</td>
-                            <td id="amountTotal_{{ $payment->id }}">{{ number_Format($payment->amount_total, 2, '.', '') }}</td>
-                            <td id="amountPaid_{{ $payment->id }}">{{ number_Format($payment->amount_paid, 2, '.', '') }}</td>
+                            <td id="amountTotal_{{ $payment->id }}">{{ number_Format($payment->amount_total, 2, '.', '\'') }} Fr.</td>
+                            <td id="amountPaid_{{ $payment->id }}">{{ number_Format($payment->amount_paid, 2, '.', '\'') }} Fr.</td>
                             <td id="isPaid_{{ $payment->id }}">
                                 @if($payment->is_paid == 0)
                                     <p class="is_paid_no"><i class="fa fa-times" aria-hidden="true"></i> NOT PAID</p>

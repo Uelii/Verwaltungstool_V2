@@ -19,7 +19,8 @@
                             <p><b>Living space [sqm]: </b>{{ $object->living_space }}</p>
                             <p><b>Number of rooms: </b>{{ $object->number_of_rooms }}</p>
                             <p><b>Floor number / Room number: </b>{{ $object->floor_room_number }}</p>
-                            <p><b>Rent [Fr.], per annum: </b>{{ $object->rent }}</p>
+                            <p><b>Rent [Fr.], per month: </b>{{ number_Format($object->rent, 2, '.', '\'') }} Fr.</p>
+                            <p><b>Rent [Fr.], per annum: </b>{{ number_Format($object->rent*12, 2, '.', '\'') }} Fr.</p>
                         </div>
                         <div class="col-md-6">
                             <p><b>Description: </b>{{ $object->description }}</p>

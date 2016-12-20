@@ -60,13 +60,7 @@
                     <li><a href="{{ url('/renter') }}"><i class="fa fa-address-book-o" aria-hidden="true"></i> Renter</a></li>
                     <li><a href="{{ url('/payments') }}"><i class="fa fa-money" aria-hidden="true"></i> Payments</a></li>
                     <li><a href="{{ url('/invoices') }}"><i class="fa fa-file-text-o" aria-hidden="true"></i> Invoices</a></li>
-
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-file-o" aria-hidden="true"></i> Reports<span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="{{ url('/report')}}" target="_blank">Create report</a></li>
-                        </ul>
-                    </li>
+                    <li><a href="{{ url('/report') }}"><i class="fa fa-file-o" aria-hidden="true"></i> Reports</a></li>
                 @endif
             </ul>
             <ul class="nav navbar-nav navbar-right">

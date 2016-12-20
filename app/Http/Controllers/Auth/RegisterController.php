@@ -64,6 +64,11 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        /*Validate data*/
+        $this->validate($data, [
+            'email' => 'required|exists:users'
+        ]);
+
         /*Send confirmation mail to email-address*/
         Mail::send('mail.registration_confirmation', [
             'name' => Input::get('name'),

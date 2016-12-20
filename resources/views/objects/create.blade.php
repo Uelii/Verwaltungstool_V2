@@ -122,7 +122,7 @@
                             </div>
 
                             <div class="form-group{{ $errors->has('rent') ? ' has-error' : '' }}">
-                                <label for="rent" class="col-md-4 control-label">Rent [Fr.], per annum</label>
+                                <label for="rent" class="col-md-4 control-label">Rent [Fr.], per month</label>
 
                                 <div class="col-md-6">
                                     <input id="rent" type="number" class="form-control" name="rent" step="any" value="{{ old('rent') }}" required>

@@ -62,15 +62,15 @@
                             </div>
 
                             <div class="form-group{{ $errors->has('amount_total') ? ' has-error' : '' }}">
-                                <label for="amount_total" class="col-md-4 control-label">Amount total [Fr.]</label>
+                                <label for="amount_total" class="col-md-4 control-label">Amount total</label>
 
                                 <div class="col-md-6">
-                                    <label for="amount_total" class="control-label">{{ number_Format($payment->amount_total, 2, '.', '') }}</label>
+                                    <label for="amount_total" class="control-label">{{ number_Format($payment->amount_total, 2, '.', '\'') }} Fr.</label>
                                 </div>
                             </div>
 
                             <div class="form-group{{ $errors->has('amount_paid') ? ' has-error' : '' }}">
-                                <label for="amount_paid" class="col-md-4 control-label">Amount paid [Fr.]</label>
+                                <label for="amount_paid" class="col-md-4 control-label">Amount paid</label>
 
                                 <div class="col-md-6">
                                     <input id="amount_paid" type="number" class="form-control" name="amount_paid" step="any" value="{{ number_Format($payment->amount_paid, 2, '.', '') }}" required>

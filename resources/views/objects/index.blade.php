@@ -36,7 +36,7 @@
                             <td>{{ $object->living_space }}</td>
                             <td>{{ $object->number_of_rooms }}</td>
                             <td>{{ $object->floor_room_number }}</td>
-                            <td>p.a. {{ $object->rent }} Fr. </br> p.m. {{number_format(( $object->rent/12 ), 2)}} Fr.</td>
+                            <td>p.m. {{ number_Format($object->rent, 2, '.', '\'') }} Fr. </br> p.a. {{ number_Format($object->rent*12, 2, '.', '\'') }} Fr.</td>
                             <td>
                                 <a href="{{ route('objects.show', $object->id) }}" class="btn btn-info"><i class="fa fa-eye" aria-hidden="true"></i> Show</a>
                                 <a href="{{ route('objects.edit', $object->id) }}" class="btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>

@@ -285,7 +285,9 @@ function changeAmountOnCheckboxClick(){
             var amountPaid = dataId[2];
             var new_boolean = 1;
 
-            $('#amountPaid_'+dataId).html(amountTotal+ ' Fr.');
+            $('#amountPaid_'+dataId).html(number_Format(amountTotal, 2, '.', '\'') + ' Fr.');
+
+
 
             var url = '/grabem/public/changePaymentBooleanIsPaid';
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
