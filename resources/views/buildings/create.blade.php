@@ -78,7 +78,9 @@
                                 <label for="city" class="col-md-4 control-label">City</label>
 
                                 <div class="col-md-6">
-                                    <input id="city" type="text" class="form-control" name="city" value="{{ old('city') }}" required>
+                                    <div id="city_wrap">
+                                        <input id="city" type="text" class="form-control" name="city" value="{{ old('city') }}" required>
+                                    </div>
 
                                     @if ($errors->has('city'))
                                         <span class="help-block">

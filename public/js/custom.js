@@ -88,7 +88,7 @@ function getCityFromZipCode() {
         $(zip_code_input_field).keyup(function(){
             if($(this).val().length == 4){
                 var zip_code_value  = $(this).val();
-                var country = 'Switzerland';
+                var country = 'Schweiz';
 
                 $('#zip_code').css({
                     'border': ''
@@ -96,20 +96,27 @@ function getCityFromZipCode() {
 
                 /*make a request to the google geocode api*/
                 $.ajax({
-                   url: 'https://maps.googleapis.com/maps/api/geocode/json?address='+country+zip_code_value+'&key=AIzaSyBjWUnjUDNYBIrUpLQa-ZMyX3_I_-H2wSw',
+                   url: 'https://maps.googleapis.com/maps/api/geocode/json?address='+zip_code_value+'+'+country+'&key=AIzaSyBjWUnjUDNYBIrUpLQa-ZMyX3_I_-H2wSw',
                     dataType: 'json',
                     success: function(response){
-
-                        /*find the city*/
-                        var address_components = response.results[0].address_components;
-                        $.each(address_components, function(index, component){
-                            var types = component.types;
-                            $.each(types, function(index, type){
-                                if(type == 'locality') {
-                                    city = component.long_name;
-                                }
+                        if(response.status != 'ZERO_RESULTS'){
+                            /*find the city*/
+                            var address_components = response.results[0].address_components;
+                            $.each(address_components, function(index, component){
+                                var types = component.types;
+                                $.each(types, function(index, type){
+                                    if(type == 'locality') {
+                                        city = component.long_name;
+                                    }
+                                });
                             });
-                        });
+                        } else {
+                            $('#city').val('');
+                            $('#zip_code').css({
+                                'border': '1px solid red'
+                            });
+                        }
+
                         /*pre-fill the city & check for multiple cities and turn city into a dropdown if necessary*/
                         var cities = response.results[0].postcode_localities;
                         if(cities) {

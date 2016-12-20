@@ -3,16 +3,16 @@
 return [
 
     'titles' => [
-        'ms.' => 'Ms.',
-        'mr.' => 'Mr.'
+        'Ms.' => 'Ms.',
+        'Mr.' => 'Mr.'
     ],
 
     'invoice_types' => [
-        'repair' => 'Repair',
-        'oil' => 'Oil',
-        'water' => 'Water',
-        'power' => 'Power',
-        'caretaker' => 'Caretaker'
+        'Repair' => 'Repair',
+        'Oil' => 'Oil',
+        'Water' => 'Water',
+        'Power' => 'Power',
+        'Caretaker' => 'Caretaker'
     ]
 ];
 
