@@ -96,27 +96,8 @@ class PaymentsController extends Controller
     public function index()
     {
         $payments = Payment::all();
-        $buildings = DB::table('buildings')->orderBy('name', 'asc')->get();
-        $renter = DB::table('renter')->orderBy('last_name', 'asc')->get();
 
-        $months = array(
-            'January',
-            'February',
-            'March',
-            'April',
-            'May',
-            'June',
-            'July ',
-            'August',
-            'September',
-            'October',
-            'November',
-            'December',
-        );
-
-        $years = range(2016, 2026);
-
-        return view('payments.index', compact('payments', 'buildings', 'renter', 'months', 'years'));
+        return view('payments.index', compact('payments'));
     }
 
     /**
@@ -126,9 +107,10 @@ class PaymentsController extends Controller
      */
     public function create()
     {
+        $objects = Object::all();
         $renter = Renter::all();
 
-        return view('renter.create', compact('renter'));
+        return view('payments.create', compact('objects', 'renter'));
     }
 
     /**
@@ -139,7 +121,28 @@ class PaymentsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        /*Validate Input*/
+        $this->validate($request, [
+            'renter_id' => 'required',
+            'amount_total' => 'required|numeric',
+            'amount_paid' => 'required|numeric',
+            'date' => 'required|date'
+        ]);
+
+        /*Create record in database*/
+        $payment = new Payment();
+        $payment->renter_id = $request->renter_id;
+        $payment->amount_total = $request->amount_total;
+        $payment->amount_paid = $request->amount_paid;
+        if($request->amount_paid >= $payment->amount_total){
+            $payment->is_paid = 1;
+        } else {
+            $payment->is_paid = 0;
+        }
+        $payment->date = $request->date;
+        $payment->save();
+
+        return redirect()->route('payments.index')->with(compact('payments'))->with('success_message', 'Payment successfully added!');
     }
 
     /**

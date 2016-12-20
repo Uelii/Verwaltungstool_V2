@@ -11,64 +11,6 @@
         <div class="col-md-12">
             <h2>Overview Payments</h2>
             <hr>
-            <!--Review
-            <form class="form-horizontal" role="form" method="GET" action="{{ url('/getFilteredPayments')}}">
-                <div class="form-group filter_payments">
-                    <label for="building_id" class="col-sm-1 control-label">Building</label>
-                    <div class="col-sm-4">
-                        <select id="building_id" class="form-control" name="building_id" required>
-                            <option value=""></option>
-                            @foreach($buildings as $building)
-                                <option value="{{ $building->id }}"> {{ $building->name }}:
-                                    {{ $building->street }} {{$building->street_number}},
-                                    {{ $building->zip_code }} {{ $building->city }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="month_year" class="col-sm-1 control-label">Month/Year</label>
-                    <div class="col-sm-2">
-                        <select id="month" class="form-control" name="month" required>
-                            <option value=""></option>
-                            @foreach($months as $key => $month)
-                                <option value={{ $key }}>{{ $month }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="col-sm-2">
-                        <select id="year" class="form-control" name="year" required>
-                            <option value=""></option>
-                            @foreach($years as $year)
-                                <option value={{ $year }}>{{ $year }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="renter_id" class="col-sm-1 control-label">Renter</label>
-                    <div class="col-sm-4">
-                        <select id="renter_id" class="form-control" name="renter_id">
-                            <option value=""></option>
-                            @foreach($renter as $renter)
-                                <option value="{{ $renter->id }}"> {{ $renter->last_name }}, {{ $renter->first_name }}:
-                                    {{ $renter->street }} {{ $renter->street_number }},
-                                    {{ $renter->zip_code }} {{ $renter->city }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-5">
-                        <input type="hidden" name="_method" value="GET">
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}" />
-
-                        <button type="submit" id="btnFilterPayments" class="btn btn-primary pull-right"><i class="fa fa-filter" aria-hidden="true"></i></i> Filter</button>
-                    </div>
-                </div>
-            </form>
-            -->
 
             <div class="table-responsive">
                 <table id="payments_data" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
@@ -158,7 +100,7 @@
                     changeAmountOnCheckboxClick();
                 </script>
 
-                <a href="{{ url('/payment/create')}}" class="btn btn-primary"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add payment??</a>
+                <a href="{{ url('/payments/create')}}" class="btn btn-primary"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add new payment</a>
             </div>
         </div>
     </section>
