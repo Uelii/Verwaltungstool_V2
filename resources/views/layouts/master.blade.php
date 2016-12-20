@@ -47,7 +47,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{ url('/home') }}" style="color: red">INSERT_PROJECT_NAME_HERE</a>
+            <a class="navbar-brand" href="{{ url('/home') }}">immoGate</a>
         </div>
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">

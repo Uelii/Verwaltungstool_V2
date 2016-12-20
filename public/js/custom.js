@@ -2,7 +2,7 @@ function loadBuildingDataOnDocumentLoad() {
 
     $(document).ready(function() {
         var id = $("#object_ids").val();
-        var url = '/grabem/public/getBuildingData';
+        var url = '/immogate/public/getBuildingData';
 
         if(id != '') {
             $.ajax({
@@ -24,7 +24,7 @@ function loadBuildingDataOnDropdownSelectionChange() {
     $(document).ready(function() {
         $('#object_id').change(function() {
             var id = $("#object_id").val();
-            var url = '/grabem/public/getBuildingData';
+            var url = '/immogate/public/getBuildingData';
 
             if(id != ''){
                 $.ajax({
@@ -63,7 +63,7 @@ function loadBuildingDataOnMainDomicileYes() {
     $(document).ready(function() {
         $('#is_main_domicile_yes').click(function() {
             var id = $("#object_ids").val();
-            var url = '/grabem/public/getBuildingData';
+            var url = '/immogate/public/getBuildingData';
 
             $.ajax({
                 url: url+'/'+id,
@@ -289,7 +289,7 @@ function changeAmountOnCheckboxClick(){
 
 
 
-            var url = '/grabem/public/changePaymentBooleanIsPaid';
+            var url = '/immogate/public/changePaymentBooleanIsPaid';
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 
             $.ajax({
@@ -317,7 +317,7 @@ function changeIsPaidOnCheckboxClick(){
             var dataId = $(this).data("id");
             var invoiceId = dataId[0];
 
-            var url = '/grabem/public/changeInvoiceBooleanIsPaid';
+            var url = '/immogate/public/changeInvoiceBooleanIsPaid';
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 
             $.ajax({

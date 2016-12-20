@@ -24,9 +24,9 @@ class ComposerStaticInit1ba1be676ec1a3459173a2ba704aec5c
         array (
             'phpDocumentor\\Reflection\\' => 25,
         ),
-        'g' => 
+        'i' => 
         array (
-            'grabem\\' => 7,
+            'immogate\\' => 9,
         ),
         'X' => 
         array (
@@ -107,7 +107,7 @@ class ComposerStaticInit1ba1be676ec1a3459173a2ba704aec5c
             1 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
             2 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
         ),
-        'grabem\\' => 
+        'immogate\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app',
         ),

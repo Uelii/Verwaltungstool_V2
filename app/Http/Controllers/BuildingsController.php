@@ -1,10 +1,10 @@
 <?php
 
-namespace grabem\Http\Controllers;
+namespace immogate\Http\Controllers;
 
-use grabem\Building;
-use grabem\Object;
-use grabem\Renter;
+use immogate\Building;
+use immogate\Object;
+use immogate\Renter;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Session;

@@ -1,6 +1,6 @@
 <?php
 
-namespace grabem;
+namespace immogate;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
@@ -20,7 +20,7 @@ class Invoice extends Model
 
     /*One-to-many relation between invoices and objects*/
     public function object() {
-        return $this->belongsTo('grabem\Object');
+        return $this->belongsTo('immogate\Object');
     }
 
     protected $invoice_types = [

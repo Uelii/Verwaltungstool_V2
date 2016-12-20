@@ -1,6 +1,6 @@
 <?php
 
-namespace grabem\Http\Controllers;
+namespace immogate\Http\Controllers;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;

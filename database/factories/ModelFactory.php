@@ -11,7 +11,7 @@
 |
 */
 
-$factory->define(grabem\User::class, function (Faker\Generator $faker) {
+$factory->define(immogate\User::class, function (Faker\Generator $faker) {
     static $password;
 
     return [

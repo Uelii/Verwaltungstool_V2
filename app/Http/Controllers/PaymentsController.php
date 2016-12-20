@@ -1,12 +1,12 @@
 <?php
 
-namespace grabem\Http\Controllers;
+namespace immogate\Http\Controllers;
 
 use Illuminate\Http\Request;
-use grabem\Renter;
-use grabem\Object;
-use grabem\Building;
-use grabem\Payment;
+use immogate\Renter;
+use immogate\Object;
+use immogate\Building;
+use immogate\Payment;
 use Session;
 use DB;
 use Carbon\Carbon;

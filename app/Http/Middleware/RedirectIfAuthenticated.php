@@ -1,6 +1,6 @@
 <?php
 
-namespace grabem\Http\Middleware;
+namespace immogate\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;

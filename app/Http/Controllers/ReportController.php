@@ -1,14 +1,14 @@
 <?php
-namespace grabem\Http\Controllers;
+namespace immogate\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App;
 use PDF;
-use grabem\Building;
-use grabem\Object;
-use grabem\Renter;
-use grabem\Payment;
-use grabem\Invoice;
+use immogate\Building;
+use immogate\Object;
+use immogate\Renter;
+use immogate\Payment;
+use immogate\Invoice;
 use Carbon\Carbon;
 use DB;
 

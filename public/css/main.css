@@ -2,9 +2,10 @@
 Other custom css settings
 ---------------------------------------------------------------------------------------------------------------*/
 
-/*body {
-    background: url("http://www.imgbase.info/images/safe-wallpapers/miscellaneous/funny/58345_funny_funny_trump.jpg") repeat 0 0;
-}*/
+.navbar-brand{
+    font-family: Eras Demi ITC, Arial, Serif;
+    font-weight: bold
+}
 
 .main_renter_yes, .main_domicile_yes, .is_paid_yes {
     color: green;

@@ -67,7 +67,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => grabem\User::class,
+            'model' => immogate\User::class,
         ],
 
         // 'users' => [

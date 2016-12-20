@@ -1,6 +1,6 @@
 <?php
 
-namespace grabem\Http\Controllers;
+namespace immogate\Http\Controllers;
 
 use Illuminate\Http\Request;
 

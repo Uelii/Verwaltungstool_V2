@@ -30,7 +30,7 @@ return [
     ],
 
     'stripe' => [
-        'model' => grabem\User::class,
+        'model' => immogate\User::class,
         'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],

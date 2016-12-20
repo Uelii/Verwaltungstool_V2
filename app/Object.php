@@ -1,6 +1,6 @@
 <?php
 
-namespace grabem;
+namespace immogate;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
@@ -20,15 +20,15 @@ class Object extends Model
 
     /*One-to-many relation between buildings and objects*/
     public function building() {
-        return $this->belongsTo('grabem\Building');
+        return $this->belongsTo('immogate\Building');
     }
 
     public function renter() {
-        return $this->hasMany('grabem\Renter');
+        return $this->hasMany('immogate\Renter');
     }
 
     public function invoices() {
-        return $this->hasMany('grabem\Invoice');
+        return $this->hasMany('immogate\Invoice');
     }
 
     public function getSumOfServiceCharges(){

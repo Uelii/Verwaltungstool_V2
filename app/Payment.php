@@ -1,6 +1,6 @@
 <?php
 
-namespace grabem;
+namespace immogate;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
@@ -19,7 +19,7 @@ class Payment extends Model
     ];
 
     public function renter() {
-        return $this->belongsTo('grabem\Renter');
+        return $this->belongsTo('immogate\Renter');
     }
 
     public function getDatabaseValueAmountTotal(){

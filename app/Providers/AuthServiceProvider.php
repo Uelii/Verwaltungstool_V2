@@ -1,6 +1,6 @@
 <?php
 
-namespace grabem\Providers;
+namespace immogate\Providers;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -13,7 +13,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        'grabem\Model' => 'grabem\Policies\ModelPolicy',
+        'immogate\Model' => 'immogate\Policies\ModelPolicy',
     ];
 
     /**

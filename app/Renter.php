@@ -1,6 +1,6 @@
 <?php
 
-namespace grabem;
+namespace immogate;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
@@ -26,10 +26,10 @@ class Renter extends Model
     ];
 
     public function object() {
-        return $this->belongsTo('grabem\Object');
+        return $this->belongsTo('immogate\Object');
     }
 
     public function payments() {
-        return $this->hasMany('grabem\Payment');
+        return $this->hasMany('immogate\Payment');
     }
 }

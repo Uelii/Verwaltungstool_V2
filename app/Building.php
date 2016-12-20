@@ -1,6 +1,6 @@
 <?php
 
-namespace grabem;
+namespace immogate;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
@@ -20,6 +20,6 @@ class Building extends Model
 
     /*One-to-many relation between buildings and objects*/
     public function objects() {
-        return $this->hasMany('grabem\Object');
+        return $this->hasMany('immogate\Object');
     }
 }

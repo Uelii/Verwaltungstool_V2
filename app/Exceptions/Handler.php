@@ -1,6 +1,6 @@
 <?php
 
-namespace grabem\Exceptions;
+namespace immogate\Exceptions;
 
 use Exception;
 use Illuminate\Auth\AuthenticationException;

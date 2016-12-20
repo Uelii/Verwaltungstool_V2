@@ -1,10 +1,10 @@
 <?php
 
-namespace grabem\Http\Controllers;
+namespace immogate\Http\Controllers;
 
-use grabem\Object;
-use grabem\Building;
-use grabem\Renter;
+use immogate\Object;
+use immogate\Building;
+use immogate\Renter;
 use Illuminate\Http\Request;
 use Session;
 use DB;

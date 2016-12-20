@@ -1,10 +1,10 @@
 <?php
 
-namespace grabem\Http\Controllers\Auth;
+namespace immogate\Http\Controllers\Auth;
 
-use grabem\User;
+use immogate\User;
 use Validator;
-use grabem\Http\Controllers\Controller;
+use immogate\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Input;
 use Mail;

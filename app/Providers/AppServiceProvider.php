@@ -1,6 +1,6 @@
 <?php
 
-namespace grabem\Providers;
+namespace immogate\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
