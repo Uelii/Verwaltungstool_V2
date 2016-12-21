@@ -326,6 +326,7 @@ class ComposerStaticInit1ba1be676ec1a3459173a2ba704aec5c
     );
 
     public static $classMap = array (
+        'AddBooleanRenter' => __DIR__ . '/../..' . '/database/migrations/2016_12_21_142647_add_boolean_renter.php',
         'AddDateFieldToPaymentsTable' => __DIR__ . '/../..' . '/database/migrations/2016_12_08_113538_add_date_field_to_payments_table.php',
         'AddEnumOther' => __DIR__ . '/../..' . '/database/migrations/2016_12_21_113641_add_enum_other.php',
         'AddKeyConstraints' => __DIR__ . '/../..' . '/database/migrations/2016_11_12_202018_add_key_constraints.php',

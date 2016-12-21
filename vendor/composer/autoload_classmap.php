@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'AddBooleanRenter' => $baseDir . '/database/migrations/2016_12_21_142647_add_boolean_renter.php',
     'AddDateFieldToPaymentsTable' => $baseDir . '/database/migrations/2016_12_08_113538_add_date_field_to_payments_table.php',
     'AddEnumOther' => $baseDir . '/database/migrations/2016_12_21_113641_add_enum_other.php',
     'AddKeyConstraints' => $baseDir . '/database/migrations/2016_11_12_202018_add_key_constraints.php',

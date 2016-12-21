@@ -83,7 +83,8 @@ class RenterController extends Controller
             'city' => 'required|max:255|regex:/^[(a-zäöüéèàA-Z\ÄÖÜs\s\-)]+$/u',
             'is_main_domicile' => 'boolean',
             'beginning_of_contract' => 'required|date',
-            'end_of_contract' => 'date'
+            'end_of_contract' => 'date',
+            'is_active' => 'boolean'
         ]);
 
         $input = $request->all();
@@ -163,7 +164,8 @@ class RenterController extends Controller
             'city' => 'required|max:255|regex:/^[(a-zäöüéèàA-Z\ÄÖÜs\s\-)]+$/u',
             'is_main_domicile' => 'boolean',
             'beginning_of_contract' => 'required|date',
-            'end_of_contract' => 'date'
+            'end_of_contract' => 'date',
+            'is_active' => 'boolean'
         ]);
 
         $input = $request->all();
