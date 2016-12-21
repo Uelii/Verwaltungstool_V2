@@ -27,9 +27,13 @@
 </head>
 <body>
 
+<header>
+    <img height="100px" src="C:/xampp/htdocs/immogate/public/img/immoGate_v1.png">
+</header>
+
 <!--Main content-->
 <main>
-    <div class="container-fluid">
+    <div class="col-md-12">
         @yield('content')
     </div>
 </main>

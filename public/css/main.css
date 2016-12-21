@@ -2,9 +2,8 @@
 Other custom css settings
 ---------------------------------------------------------------------------------------------------------------*/
 
-.navbar-brand{
-    font-family: Eras Demi ITC, Arial, Serif;
-    font-weight: bold
+.header_image{
+    height: 50px;
 }
 
 .main_renter_yes, .main_domicile_yes, .is_paid_yes {
@@ -23,7 +22,7 @@ Other custom css settings
     text-align:left;
 }
 
-.heat_cost tfoot tr td, .ancillary_cost tfoot tr td{
+.heat_cost tfoot tr td, .ancillary_cost tfoot tr td, .balance_sheet_data tfoot tr td{
     border-top: 2px solid #000000;
 }
 

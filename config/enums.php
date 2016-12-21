@@ -12,7 +12,8 @@ return [
         'Oil' => 'Oil',
         'Water' => 'Water',
         'Power' => 'Power',
-        'Caretaker' => 'Caretaker'
+        'Caretaker' => 'Caretaker',
+        'Other' => 'Other'
     ]
 ];
 

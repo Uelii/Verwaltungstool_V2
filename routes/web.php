@@ -55,6 +55,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/createPDF', 'ReportController@createPDF');
 
     Route::get('/getBuildingData/{id}', 'RenterController@getBuildingData');
+    Route::get('/getObjectData/{id}', 'InvoicesController@getObjectData');
     Route::post('/changePaymentBooleanIsPaid', 'PaymentsController@changeBooleanIsPaid');
     Route::get('/getFilteredPayments', 'PaymentsController@getFilteredPayments');
     Route::post('/changeInvoiceBooleanIsPaid', 'InvoicesController@changeBooleanIsPaid');

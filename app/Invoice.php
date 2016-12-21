@@ -27,15 +27,6 @@ class Invoice extends Model
         return $this->belongsTo('immogate\Building');
     }
 
-    protected $invoice_types = [
-        'Male',
-        'Female'
-    ];
-
-    public function getInvoiceTypes(){
-        return $this->invoice_types;
-    }
-
     public function getFormattedInvoiceAmount(){
         return number_format($this->attributes['amount'], 2, '.', '');
     }

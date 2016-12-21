@@ -167,6 +167,14 @@ class ReportController extends Controller {
             ->get()
             ->sum('amount');
 
+        $total_other_cost = DB::table('invoices')
+            ->where('invoice_type', '=', 'Other')
+            ->whereBetween('invoice_date', [$start_date, $end_date ])
+            ->whereIn('object_id', $object_id_array)
+            ->orderBy('invoice_date', 'asc')
+            ->get()
+            ->sum('amount');
+
         $total_ancillary_cost  = DB::table('invoices')
             ->where('invoice_type', '!=', 'Oil')
             ->whereBetween('invoice_date', [$start_date, $end_date ])
@@ -198,6 +206,7 @@ class ReportController extends Controller {
             'total_water_cost' => $total_water_cost,
             'total_power_cost' => $total_power_cost,
             'total_caretaker_cost' => $total_caretaker_cost,
+            'total_other_cost' => $total_other_cost,
             'total_ancillary_cost' => $total_ancillary_cost,
             'start_date' => $start_date,
             'end_date' => $end_date
@@ -291,7 +300,15 @@ class ReportController extends Controller {
             ->get()
             ->sum('amount');
 
-        $total_cost = $total_heat_cost+$total_repair_cost+$total_water_cost+$total_power_cost+$total_caretaker_cost;
+        $total_other_cost = DB::table('invoices')
+            ->where('invoice_type', '=', 'Other')
+            ->whereBetween('invoice_date', [$start_date, $end_date ])
+            ->whereIn('object_id', $object_id_array)
+            ->orderBy('invoice_date', 'asc')
+            ->get()
+            ->sum('amount');
+
+        $total_cost = $total_heat_cost+$total_repair_cost+$total_water_cost+$total_power_cost+$total_caretaker_cost+$total_other_cost;
 
         $carbon = Carbon::now();
         $current_date = $carbon->format('Y-m-d');
@@ -301,7 +318,7 @@ class ReportController extends Controller {
 
         //Set Options
         $pdf->setOption('title', 'balanc_sheet_' . $current_date . '.pdf');
-        $pdf->setOption('orientation', 'landscape');
+        $pdf->setOption('orientation', 'portrait');
         $pdf->setOption('minimum-font-size', 18);
 
         $pdf->setOption('footer-center', 'Created at [date]: [time]');
@@ -315,6 +332,7 @@ class ReportController extends Controller {
             'total_water_cost' => $total_water_cost,
             'total_power_cost' => $total_power_cost,
             'total_caretaker_cost' => $total_caretaker_cost,
+            'total_other_cost' => $total_other_cost,
             'total_cost' => $total_cost,
             'start_date' => $start_date,
             'end_date' => $end_date

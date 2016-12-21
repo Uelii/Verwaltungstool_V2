@@ -13,8 +13,8 @@
             <h3><b>Period  : {{ $start_date }} until {{ $end_date }}</b></h3>
             <hr>
 
-            <div class="col-xs-6">
-                <table class="table data">
+            <div class="col-xs-12">
+                <table class="table balance_sheet_data">
                     <thead>
                     <tr>
                         <th>Description</th>
@@ -29,12 +29,6 @@
                         <td>Net rent</td>
                         <td></td>
                         <td>{{ number_Format($total_rent_earnings, 2, '.', '') }}</td>
-                    </tr>
-
-                    <tr>
-                        <td>...</td>
-                        <td></td>
-                        <td>...</td>
                     </tr>
 
                     <tr>
@@ -74,6 +68,12 @@
                     </tr>
 
                     <tr>
+                        <td>Other cost</td>
+                        <td>{{ number_Format($total_other_cost, 2, '.', '') }}</td>
+                        <td></td>
+                    </tr>
+
+                    <tr>
                         <td><b>Total cost</b></td>
                         <td><b>{{ number_Format($total_cost, 2, '.', '') }}</b></td>
                         <td></td>
@@ -82,10 +82,14 @@
 
                     <tfoot>
                     <tr>
-
+                        <td><b>Total</b></td>
+                        <td><b>{{ number_format($total_cost, 2, '.', '') }}</b></td>
+                        <td><b>{{ number_format($total_rent_earnings, 2, '.' , '') }}</b></td>
                     </tr>
                     </tfoot>
                 </table>
+
+                <p><b>Gewinn/Verlust: </b>{{  number_format($total_rent_earnings-$total_cost, 2, '.', '') }} Fr.</p>
             </div>
         </div>
     </section>
