@@ -107,6 +107,26 @@
                                 </div>
                             </div>
 
+                            <div class="form-group{{ $errors->has('is_paid') ? 'has-error' : '' }}">
+                                <label for="is_paid" class="col-md-4 control-label">Invoice status</label>
+
+                                <div class="col-md-6">
+                                    @if($invoice->is_paid == 1)
+                                        <label id="is_paid_yes" class="radio-inline"><input type="radio" name="is_paid" value="1" checked="checked">Paid</label>
+                                        <label id="is_paid_no" class="radio-inline"><input type="radio" name="is_paid" value="0">Not paid</label>
+                                    @else
+                                        <label id="is_paid_yes" class="radio-inline"><input type="radio" name="is_paid" value="1">Paid</label>
+                                        <label id="is_paid_no" class="radio-inline"><input type="radio" name="is_paid" value="0" checked="checked">Not paid</label>
+                                    @endif
+
+                                    @if ($errors->has('is_paid'))
+                                        <span class="help-block">
+                                        <strong>{{ $errors->first('is_paid') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+
                             <div class="form-group">
                                 <div class="col-md-8 col-md-offset-4">
                                     <button type="submit" class="btn btn-primary">

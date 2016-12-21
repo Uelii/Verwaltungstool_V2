@@ -43,12 +43,6 @@
                                 <div class="col-md-6">
                                     <select id="renter_id" class="form-control" name="renter_id" required>
                                         <option selected disabled value="" selected="selected">Please select...</option>
-                                        @foreach($renter as $renter)
-                                            <option value="{{ $renter->id }}"> {{ $renter->last_name }}, {{ $renter->first_name }}:
-                                                {{ $renter->street }} {{ $renter->street_number }},
-                                                {{ $renter->zip_code }} {{ $renter->city }}
-                                            </option>
-                                        @endforeach
                                     </select>
 
                                     @if ($errors->has('renter_id'))
@@ -122,5 +116,6 @@
     <!--JavaScript-->
     <script>
         loadDatepickerOnInputClick();
+        changeRenterOnBuildingChange();
     </script>
 @endsection

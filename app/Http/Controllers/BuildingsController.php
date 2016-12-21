@@ -44,7 +44,7 @@ class BuildingsController extends Controller
     {
         /*Validate Input*/
         $this->validate($request, [
-            'name' => 'required|regex:/^[(a-zA-Z\s)]+$/u|unique:buildings',
+            'name' => 'required|max:30|regex:/^[(0-9\a-zäöüéèàA-Z\ÄÖÜs\s\-\')]+$/u',
             'street' => 'required|regex:/^[(a-zäöüéèàA-Z\ÄÖÜs\s)]+$/u',
             'street_number' => 'required|regex:/^[(a-zA-Z0-9\s)]+$/u',
             'zip_code' => 'required|min:0|digits:4',
@@ -105,7 +105,7 @@ class BuildingsController extends Controller
 
         /*Validate Input*/
         $this->validate($request, [
-            'name' => 'required|regex:/^[(a-zA-Z\s)]+$/u',
+            'name' => 'required|max:30|regex:/^[(0-9\a-zäöüéèàA-Z\ÄÖÜs\s\-\')]+$/u',
             'street' => 'required|regex:/^[(a-zäöüéèàA-Z\ÄÖÜs\s)]+$/u',
             'street_number' => 'required|regex:/^[(a-zA-Z0-9\s)]+$/u',
             'zip_code' => 'required|min:0|digits:4',

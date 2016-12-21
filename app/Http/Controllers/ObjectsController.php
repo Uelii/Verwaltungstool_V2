@@ -48,7 +48,7 @@ class ObjectsController extends Controller
         /*Validate Input*/
         $this->validate($request, [
             'building_id' => 'required',
-            'name' => 'required|regex:/^[(0-9.,\\/_a-zäöüéèàA-Z\ÄÖÜs\s\-\')]+$/u',
+            'name' => 'required|max:50|regex:/^[(0-9.,\\/_a-zäöüéèàA-Z\ÄÖÜs\s\-\')]+$/u',
             'description' => 'regex:/^[(0-9.,\\/_a-zäöüéèàA-Z\ÄÖÜs\s\-\')]+$/u',
             'living_space' => 'required|numeric|min:1',
             'number_of_rooms' => 'required|numeric|',
@@ -111,7 +111,7 @@ class ObjectsController extends Controller
         /*Validate Input*/
         $this->validate($request, [
             'building_id' => 'required',
-            'name' => 'required|regex:/^[(0-9.,\\/_a-zäöüéèàA-Z\ÄÖÜs\s\-\')]+$/u',
+            'name' => 'required|max:50|regex:/^[(0-9.,\\/_a-zäöüéèàA-Z\ÄÖÜs\s\-\')]+$/u',
             'description' => 'regex:/^[(0-9.,\\/_a-zäöüéèàA-Z\ÄÖÜs\s\-\')]+$/u',
             'living_space' => 'required|numeric|min:1',
             'number_of_rooms' => 'required|numeric|',

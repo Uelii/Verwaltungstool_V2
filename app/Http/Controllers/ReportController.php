@@ -65,7 +65,7 @@ class ReportController extends Controller {
 
         $renter = Renter::with('object')
             ->whereIn('object_id', $object_id_array)
-            ->where('end_of_contract', '>=', $current_date)
+            ->where('is_active', '=', 1)
             ->get();
 
         $pdf = App::make('snappy.pdf.wrapper');

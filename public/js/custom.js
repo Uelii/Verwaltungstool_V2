@@ -183,14 +183,19 @@ function addSortTableOptions(dataTableId) {
             $("#objects_data").DataTable({
                 responsive: true,
                 oLanguage: { "sSearch": '<i class="fa fa-search" aria-hidden="true"></i>'},
-                "order": [[1, "asc"]]
+                "order": [[0, "asc"], [1, "asc"]]
             });
         }
         if(dataTableId = 'renter_data_renter_view'){
             $("#renter_data_renter_view").DataTable({
                 responsive: true,
                 oLanguage: { "sSearch": '<i class="fa fa-search" aria-hidden="true"></i>'},
-                "columnDefs": [ {
+                "columnDefs": [
+                    {
+                        "targets": [ 11 ],
+                        "visible": false,
+                    },
+                    {
                     "targets": '_all',
                     "createdCell": function (td, cellData, rowData, row, col) {
                         /*make cell red if contract end date has been reached*/
@@ -198,15 +203,21 @@ function addSortTableOptions(dataTableId) {
                             $(td).css('background-color', 'red');
                         }
                     }
-                }],
-                "order": [[1, "asc"]]
+                },
+                ],
+                "order": [[11, "desc"], [1, "asc"], [2, "asc"]]
             });
         }
         if(dataTableId = 'renter_data_object_view'){
             $("#renter_data_object_view").DataTable({
                 responsive: true,
                 oLanguage: { "sSearch": '<i class="fa fa-search" aria-hidden="true"></i>'},
-                "columnDefs": [ {
+                "columnDefs": [
+                    {
+                        "targets": [ 7 ],
+                        "visible": false,
+                    },
+                    {
                     "targets": '_all',
                     "createdCell": function (td, cellData, rowData, row, col) {
                         /*make cell red if contract end date has been reached*/
@@ -222,7 +233,7 @@ function addSortTableOptions(dataTableId) {
             $("#payments_data").DataTable({
                 responsive: true,
                 oLanguage: { "sSearch": '<i class="fa fa-search" aria-hidden="true"></i>'},
-                "order": [[4, "asc"]]
+                "order": [[4, "asc"], [5, "desc"]]
             });
         }
         if(dataTableId = 'invoices_data'){
@@ -238,7 +249,7 @@ function addSortTableOptions(dataTableId) {
                         }
                     }
                 }],
-                "order": [[5, "asc"]]
+                "order": [[5, "asc"], [3, "desc"]]
             });
         }
     });
@@ -406,4 +417,94 @@ function number_format (number, decimals, dec_point, thousands_sep) {
         s[1] += new Array(prec - s[1].length + 1).join('0');
     }
     return s.join(dec);
+}
+
+function changeRenterOnBuildingChange(){
+    $(document).ready(function() {
+        $('#building_id').change(function () {
+            var selected_building_id = $(this).val()
+
+            if ( $('#renter_id').children().length > 0 ) {
+                $('#renter_id').empty();
+            }
+
+            var url = '/immogate/public/getRenterData';
+            var select = document.getElementById('renter_id');
+
+            if(selected_building_id != ''){
+                $.ajax({
+                    url: url+'/'+selected_building_id,
+                    type: 'GET',
+                    success: function(response)
+                    {
+                        $.each(response, function(index, val){
+                            var option = document.createElement('option');
+                            option.value = val.id;
+                            option.innerHTML = val.last_name + ', ' + val.first_name + ': ' + val.street + ' ' + val.street_number + ', ' + val.zip_code + ' ' + val.city;
+
+                            select.appendChild(option);
+                        });
+                    }
+                });
+            }
+        });
+    });
+}
+
+function filterRenterOnIndexView(){
+    $(document).ready(function() {
+        $.fn.dataTableExt.afnFiltering.push(function(oSettings, aData, iDataIndex) {
+
+            if(aData[11] == 1){
+                return true;
+            }
+
+            var checked = $('#checkbox').is(':checked');
+
+            if (checked && aData[11] == 0 || aData[11] == 1) {
+                return true;
+            }
+            if (!checked && aData[11] == 1) {
+                return true;
+            }
+            return false;
+        });
+
+        var oTable = $('#renter_data_renter_view').dataTable();
+
+        oTable.fnDraw();
+
+        $('#checkbox').on("click", function(e) {
+            oTable.fnDraw();
+        });
+    });
+}
+
+function filterRenterOnObjectShowView(){
+    $(document).ready(function() {
+        $.fn.dataTableExt.afnFiltering.push(function(oSettings, aData, iDataIndex) {
+
+            if(aData[7] == 1){
+                return true;
+            }
+
+            var checked = $('#checkbox').is(':checked');
+
+            if (checked && aData[7] == 0 || aData[7] == 1) {
+                return true;
+            }
+            if (!checked && aData[7] == 1) {
+                return true;
+            }
+            return false;
+        });
+
+        var oTable = $('#renter_data_object_view').dataTable();
+
+        oTable.fnDraw();
+
+        $('#checkbox').on("click", function(e) {
+            oTable.fnDraw();
+        });
+    });
 }

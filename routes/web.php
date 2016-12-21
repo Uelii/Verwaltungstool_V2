@@ -54,7 +54,11 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::post('/createPDF', 'ReportController@createPDF');
 
+    /*
+     * Ajax routes
+     */
     Route::get('/getBuildingData/{id}', 'RenterController@getBuildingData');
+    Route::get('/getRenterData/{id}', 'PaymentsController@getRenterData');
     Route::get('/getObjectData/{id}', 'InvoicesController@getObjectData');
     Route::post('/changePaymentBooleanIsPaid', 'PaymentsController@changeBooleanIsPaid');
     Route::get('/getFilteredPayments', 'PaymentsController@getFilteredPayments');

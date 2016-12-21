@@ -20,6 +20,8 @@
     Fabian Kipfer, Michel Konrad, Rene Meilbeck
     </p>
 
+    <hr>
+    <img height="50px" src="C:/xampp/htdocs/immogate/public/img/immoGate_v1.png">
 </div>
 
 </body>

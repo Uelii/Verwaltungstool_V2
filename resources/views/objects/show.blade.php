@@ -11,6 +11,7 @@
         <div class="col-md-12">
             <h2>Object details</h2>
             <hr>
+
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
                     <div class="panel-heading">{{ $object->name }}</div>
@@ -34,6 +35,9 @@
         <div class="col-md-12 renter">
             <h4>Renter correspondending to this object</h4>
             <hr>
+
+            <input id="checkbox" type="checkbox"> Show inactive renter
+
             <div class="table-responsive">
                 <table id="renter_data_object_view" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                     <thead>
@@ -45,6 +49,7 @@
                         <th>Beginning</th>
                         <th>End</th>
                         <th>Action</th>
+                        <th>Renter status</th>
                     </tr>
                     </thead>
 
@@ -68,6 +73,7 @@
                                 <a href="{{ route('renter.edit', $renter->id) }}" class="btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
                                 <button type="button" id="btnOpenModal" class="btn btn-danger" data-id="{{ $renter->id }}" data-toggle="modal"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
                             </td>
+                            <td> {{ $renter->is_active }}</td>
                         </tr>
 
                         <!-- Modal -->
@@ -111,6 +117,7 @@
                 <script>
                     addSortTableOptions('renter_data_object_view');
                     loadBootstrapModal();
+                    filterRenterOnObjectShowView();
                 </script>
 
                 <a href="{{ url('/objects') }}" class="btn btn-info"><i class="fa fa-chevron-left" aria-hidden="true"></i> Back to overview</a>

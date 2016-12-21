@@ -24,6 +24,21 @@ class PaymentsController extends Controller
         return ['is_paid' => $payment->is_paid];
     }
 
+    public function getRenterData($id){
+        $objects = DB::table('objects')->where('building_id', '=', $id)->get();
+
+        foreach($objects as $object){
+            $object_id_array[] = $object->id;
+        }
+
+        $renter= DB::table('renter')
+            ->whereIn('object_id', $object_id_array)
+            ->where('is_active', '=', 1)
+            ->get();
+
+        return response($renter);
+    }
+
     /**
      * Display a listing of the resource.
      *

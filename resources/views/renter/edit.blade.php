@@ -117,10 +117,10 @@
 
                                 <div class="col-md-6">
                                     @if($renter->is_main_domicile == 1)
-                                        <label id="is_main_domicile_yes" class="radio-inline"><input checked type="radio" name="is_main_domicile" value="1" checked="checked">Yes (default)</label>
+                                        <label id="is_main_domicile_yes" class="radio-inline"><input type="radio" name="is_main_domicile" value="1" checked="checked">Yes (default)</label>
                                         <label id="is_main_domicile_no" class="radio-inline"><input type="radio" name="is_main_domicile" value="0">No</label>
                                     @else
-                                        <label id="is_main_domicile_yes" class="radio-inline"><input checked type="radio" name="is_main_domicile" value="1">Yes (default)</label>
+                                        <label id="is_main_domicile_yes" class="radio-inline"><input type="radio" name="is_main_domicile" value="1">Yes (default)</label>
                                         <label id="is_main_domicile_no" class="radio-inline"><input type="radio" name="is_main_domicile" value="0" checked="checked">No</label>
                                     @endif
 
@@ -237,6 +237,26 @@
                                     @if ($errors->has('end_of_contract'))
                                         <span class="help-block">
                                         <strong>{{ $errors->first('end_of_contract') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="form-group{{ $errors->has('is_active') ? 'has-error' : '' }}">
+                                <label for="is_active" class="col-md-4 control-label">Renter status</label>
+
+                                <div class="col-md-6">
+                                    @if($renter->is_active == 1)
+                                        <label id="is_active_yes" class="radio-inline"><input type="radio" name="is_active" value="1" checked="checked">Active</label>
+                                        <label id="is_active_no" class="radio-inline"><input type="radio" name="is_active" value="0">Inactive</label>
+                                    @else
+                                        <label id="is_active_yes" class="radio-inline"><input type="radio" name="is_active" value="1">Active</label>
+                                        <label id="is_active_no" class="radio-inline"><input type="radio" name="is_active" value="0" checked="checked">Inactive</label>
+                                    @endif
+
+                                    @if ($errors->has('is_active'))
+                                        <span class="help-block">
+                                        <strong>{{ $errors->first('is_active') }}</strong>
                                     </span>
                                     @endif
                                 </div>

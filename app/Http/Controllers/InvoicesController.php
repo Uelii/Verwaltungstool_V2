@@ -56,7 +56,7 @@ class InvoicesController extends Controller
         /*Get all other invoice-type enums except the one which is already stored in database*/
         $invoice_types_enums = Config::get('enums.invoice_types');
 
-        return view('invoices.create', compact('objects', 'buildings', 'invoice_types_enums'));
+        return view('invoices.create', compact('buildings', 'invoice_types_enums'));
     }
 
     /**
@@ -146,11 +146,7 @@ class InvoicesController extends Controller
         /*Update record in database*/
         $renter->fill($input)->save();
 
-        /*Get data and redirect to specific route with success-message*/
-        $invoices = Invoice::all();
-        $objects = Object::all();
-
-        return redirect()->route('invoices.index')->with(compact('invoices', 'objects'))->with('success_message', 'Invoice successfully updated!');
+        return redirect()->back()->with('success_message', 'Invoice successfully updated!');
     }
 
     /**

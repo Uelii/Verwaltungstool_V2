@@ -84,15 +84,16 @@ class RenterController extends Controller
             'is_main_domicile' => 'boolean',
             'beginning_of_contract' => 'required|date',
             'end_of_contract' => 'date',
-            'is_active' => 'boolean'
         ]);
 
         $input = $request->all();
 
         /*Check if a contract end date has been entered*/
-        if( empty($input['end_of_contract'])) {
+        if(empty($input['end_of_contract'])) {
             $input['end_of_contract'] = null;
         }
+
+        $input['is_active'] = "1";
 
         /*Create record in database*/
         Renter::create($input);

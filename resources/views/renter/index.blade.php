@@ -12,6 +12,8 @@
             <h2>Overview Renter</h2>
             <hr>
 
+            <input id="checkbox" type="checkbox"> Show inactive renter
+
             <div class="table-responsive">
                 <table id="renter_data_renter_view" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                     <thead>
@@ -27,6 +29,7 @@
                         <th>Beginning</th>
                         <th>End</th>
                         <th>Action</th>
+                        <th>Renter status</th>
                     </tr>
                     </thead>
 
@@ -61,6 +64,7 @@
                                 @endif
 
                             </td>
+                            <td>{{ $renter->is_active }}</td>
                         </tr>
 
                         <!-- Modal -->
@@ -103,6 +107,7 @@
                 <script>
                     addSortTableOptions('renter_data_renter_view');
                     loadBootstrapModal();
+                    filterRenterOnIndexView();
                 </script>
 
                 <a href="{{ url('/renter/create')}}" class="btn btn-primary"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add new renter</a>
