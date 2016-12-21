@@ -44,9 +44,9 @@ class BuildingsController extends Controller
     {
         /*Validate Input*/
         $this->validate($request, [
-            'name' => 'required|regex:/^[(a-zA-Z\s)]+$/u|unique:buildings',
-            'street' => 'required|regex:/^[(a-zA-Z\s)]+$/u',
-            'street_number' => 'required|numeric|min:0|digits_between:1,3',
+            'name' => 'required|regex:/^[(a-zA-Z0-9\s)]+$/u|unique:buildings',
+            'street' => 'required|regex:/^[(a-zA-Z \s)]+$/u',
+            'street_number' => 'required|regex:/^[(a-zA-Z0-9\s)]+$/u',
             'zip_code' => 'required|min:0|digits:4',
             'city' => 'required|regex:/^[(a-zA-Z\s)]+$/u'
         ]);
@@ -105,9 +105,9 @@ class BuildingsController extends Controller
 
         /*Validate Input*/
         $this->validate($request, [
-            'name' => 'required|regex:/^[(a-zA-Z\s)]+$/u',
-            'street' => 'required|regex:/^[(a-zA-Z\s)]+$/u',
-            'street_number' => 'required|numeric|min:0|digits_between:1,3',
+            'name' => 'required|regex:/^[(a-zA-Z0-9\s)]+$/u|unique:buildings',
+            'street' => 'required|regex:/^[(a-zA-Z \s)]+$/u',
+            'street_number' => 'required|regex:/^[(a-zA-Z0-9\s)]+$/u|min:0|digits_between:1,3',
             'zip_code' => 'required|min:0|digits:4',
             'city' => 'required|regex:/^[(a-zA-Z\s)]+$/u'
         ]);

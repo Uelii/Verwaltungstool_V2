@@ -16,12 +16,33 @@
                         <form class="form-horizontal" role="form" method="POST" action="{{ route('payments.store') }}">
                             {{ csrf_field() }}
 
+                            <div class="form-group{{ $errors->has('building_id') ? 'has-error' : '' }}">
+                                <label for="building_id" class="col-md-4 control-label">Building</label>
+
+                                <div class="col-md-6">
+                                    <select id="building_id" class="form-control" name="building_id" required autofocus>
+                                        <option selected disabled value="">Please select...</option>
+                                        @foreach($buildings as $building)
+                                            <option value="{{ $building->id }}"> {{ $building->name }}:
+                                                {{ $building->street }} {{$building->street_number}},
+                                                {{ $building->zip_code }} {{ $building->city }}</option>
+                                        @endforeach
+                                    </select>
+
+                                    @if ($errors->has('building_id'))
+                                        <span class="help-block">
+                                                <strong>{{ $errors->first('building_id') }}</strong>
+                                            </span>
+                                    @endif
+                                </div>
+                            </div>
+
                             <div class="form-group{{ $errors->has('renter_id') ? ' has-error' : '' }}">
                                 <label for="renter_id" class="col-md-4 control-label">Renter</label>
 
                                 <div class="col-md-6">
                                     <select id="renter_id" class="form-control" name="renter_id" required>
-                                        <option value="" selected="selected"></option>
+                                        <option selected disabled value="" selected="selected">Please select...</option>
                                         @foreach($renter as $renter)
                                             <option value="{{ $renter->id }}"> {{ $renter->last_name }}, {{ $renter->first_name }}:
                                                 {{ $renter->street }} {{ $renter->street_number }},

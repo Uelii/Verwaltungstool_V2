@@ -19,12 +19,34 @@
                         <form class="form-horizontal" role="form" method="POST" action="{{ route('invoices.store') }}">
                             {{ csrf_field() }}
 
+                            <div class="form-group{{ $errors->has('building_id') ? 'has-error' : '' }}">
+                                <label for="building_id" class="col-md-4 control-label">Building</label>
+
+                                <div class="col-md-6">
+                                    <select id="building_id" class="form-control" name="building_id" required autofocus>
+                                        <option selected disabled value="">Please select...</option>
+                                        @foreach($buildings as $building)
+                                            <option value="{{ $building->id }}"> {{ $building->name }}:
+                                                {{ $building->street }} {{$building->street_number}},
+                                                {{ $building->zip_code }} {{ $building->city }}</option>
+                                        @endforeach
+                                    </select>
+
+                                    @if ($errors->has('building_id'))
+                                        <span class="help-block">
+                                                <strong>{{ $errors->first('building_id') }}</strong>
+                                            </span>
+                                    @endif
+                                </div>
+                            </div>
+
+
                             <div class="form-group{{ $errors->has('object_id') ? 'has-error' : '' }}">
                                 <label for="object_id" class="col-md-4 control-label">Object</label>
 
                                 <div class="col-md-6">
                                     <select id="object_id" class="form-control" name="object_id" required>
-                                        <option value="" selected="selected"></option>
+                                        <option selected disabled  value="">Please select...</option>
                                         @foreach($objects as $object)
                                             <option value="{{ $object->id }}"> {{ $object->name }}:
                                                 {{ $object->living_space }} sqm, {{$object->number_of_rooms}}-room,
@@ -46,12 +68,13 @@
 
                                 <div class="col-md-6">
                                     <select id="invoice_type" class="form-control" name="invoice_type" required>
-                                        <option value="" selected="selected"></option>
+                                        <option selected disabled value="" >Please select...</option>
                                         <option value="repair">Repair</option>
                                         <option value="oil">Oil</option>
                                         <option value="water">Water</option>
                                         <option value="power">Power</option>
                                         <option value="caretaker">Caretaker</option>
+                                        <option value="caretaker">Other</option>
                                     </select>
 
                                     @if ($errors->has('invoice_type'))

@@ -37,27 +37,7 @@
                                 <label for="renter_id" class="col-md-4 control-label">Renter</label>
 
                                 <div class="col-md-6">
-                                    <select id="renter_id" class="form-control" name="renter_id" required>
-
-                                        <option value="{{ $payment->renter->id }}" selected="selected">{{ $payment->renter->last_name }}, {{ $payment->renter->first_name }}:
-                                            {{ $payment->renter->street }} {{ $payment->renter->street_number }},
-                                            {{ $payment->renter->zip_code }} {{ $payment->renter->city }}
-                                        </option>
-
-                                        @foreach($renter as $renter)
-                                            <option value="{{ $renter->id }}"> {{ $renter->last_name }}, {{ $renter->first_name }}:
-                                                {{ $renter->street }} {{ $renter->street_number }},
-                                                {{ $renter->zip_code }} {{ $renter->city }}
-                                            </option>
-                                        @endforeach
-
-                                    </select>
-
-                                    @if ($errors->has('renter_id'))
-                                        <span class="help-block">
-                                                <strong>{{ $errors->first('renter_id') }}</strong>
-                                            </span>
-                                    @endif
+                                    <label for="renter_id" class="control-label">{{ $payment->renter->last_name }}, {{ $payment->renter->first_name }}</label>
                                 </div>
                             </div>
 

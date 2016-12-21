@@ -31,9 +31,10 @@ class PaymentsController extends Controller
      */
     public function index()
     {
+        $buildings = Building::all();
         $payments = Payment::all();
 
-        return view('payments.index', compact('payments'));
+        return view('payments.index', compact('payments', 'buildings'));
     }
 
     /**
@@ -43,10 +44,11 @@ class PaymentsController extends Controller
      */
     public function create()
     {
+        $buildings = Building::all();
         $objects = Object::all();
         $renter = Renter::all();
 
-        return view('payments.create', compact('objects', 'renter'));
+        return view('payments.create', compact('objects', 'renter', 'buildings'));
     }
 
     /**
@@ -59,6 +61,7 @@ class PaymentsController extends Controller
     {
         /*Validate Input*/
         $this->validate($request, [
+            'building_id' => 'required',
             'renter_id' => 'required',
             'amount_total' => 'required|numeric',
             'amount_paid' => 'required|numeric',
@@ -67,6 +70,7 @@ class PaymentsController extends Controller
 
         /*Create record in database*/
         $payment = new Payment();
+        $payment->building_id = $request->building_id;
         $payment->renter_id = $request->renter_id;
         $payment->amount_total = $request->amount_total;
         $payment->amount_paid = $request->amount_paid;
@@ -124,13 +128,11 @@ class PaymentsController extends Controller
     {
         /*Validate Input*/
         $this->validate($request, [
-            'renter_id' => 'required',
             'amount_paid' => 'required|numeric',
         ]);
 
         /*Update record in database*/
         $payment = Payment::findOrFail($id);
-        $payment->renter_id = $request->renter_id;
         $payment->amount_paid = $request->amount_paid;
 
         if($request->amount_paid < $payment->amount_total){

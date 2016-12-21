@@ -33,8 +33,9 @@ class InvoicesController extends Controller
     public function index()
     {
         $invoices = Invoice::all();
+        $buildings = Building::all();
 
-        return view('invoices.index', compact('invoices'));
+        return view('invoices.index', compact('invoices', 'buildings'));
     }
 
     /**
@@ -46,8 +47,9 @@ class InvoicesController extends Controller
     {
         /*Order objects and get all buildings from DB*/
         $objects = DB::table('objects')->orderBy('name', 'asc')->get();
+        $buildings = Building::all();
 
-        return view('invoices.create', compact('objects'));
+        return view('invoices.create', compact('objects', 'buildings'));
     }
 
     /**
@@ -65,6 +67,7 @@ class InvoicesController extends Controller
 
         /*Create record in database*/
         $invoice = new Invoice;
+        $invoice->building_id = $request->building_id;
         $invoice->object_id = $request->object_id;
         $invoice->amount = $request->amount;
         $invoice->invoice_date = $request->invoice_date;

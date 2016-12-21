@@ -49,7 +49,7 @@
                                 <label for="street_number" class="col-md-4 control-label">Street number</label>
 
                                 <div class="col-md-6">
-                                    <input id="street_number" type="number" class="form-control" name="street_number" value="{{ $building->street_number }}" required>
+                                    <input id="street_number" type="text" class="form-control" name="street_number" value="{{ $building->street_number }}" required>
 
                                     @if ($errors->has('street_number'))
                                         <span class="help-block">

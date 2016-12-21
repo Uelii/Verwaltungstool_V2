@@ -15,8 +15,12 @@ class Payment extends Model
      * @var array
      */
     protected $fillable = [
-        'renter_id', 'amount_total', 'amount_payed', 'is_payed', 'date'
+        'building_id','renter_id', 'amount_total', 'amount_payed', 'is_payed', 'date'
     ];
+
+    public function building() {
+        return $this->belongsTo('immogate\Building');
+    }
 
     public function renter() {
         return $this->belongsTo('immogate\Renter');

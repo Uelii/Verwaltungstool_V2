@@ -23,6 +23,7 @@
 
                                 <div class="col-md-6">
                                     <select id="building_id" class="form-control" name="building_id" required autofocus>
+                                        <option selected disabled value="">Please select...</option>
                                         @foreach($buildings as $building)
                                             <option value="{{ $building->id }}"> {{ $building->name }}:
                                                 {{ $building->street }} {{$building->street_number}},
@@ -53,10 +54,10 @@
                             </div>
 
                             <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
-                                <label for="description" class="col-md-4 control-label">Description</label>
+                                <label for="description" class="col-md-4 control-label">Description (optional)</label>
 
                                 <div class="col-md-6">
-                                    <textarea id="description" class="form-control" rows="5" name="description" value="{{ old('description') }}" required></textarea>
+                                    <textarea id="description" class="form-control" rows="5" name="description" value="{{ old('description') }}"></textarea>
 
                                     @if ($errors->has('description'))
                                         <span class="help-block">
@@ -84,7 +85,8 @@
                                 <label for="number_of_rooms" class="col-md-4 control-label">Number of rooms</label>
 
                                 <div class="col-md-6">
-                                    <select id="number_of_rooms" type="number" class="form-control" name="number_of_rooms" step="any" value="{{ old('number_of_rooms') }}" required>
+                                    <select id="number_of_rooms" type="number" class="form-control" name="number_of_rooms" required>
+                                        <option selected disabled value="">Please select...</option>
                                         <option>0.5</option>
                                         <option>1.0</option>
                                         <option>1.5</option>
@@ -108,10 +110,10 @@
                             </div>
 
                             <div class="form-group{{ $errors->has('floor_room_number') ? ' has-error' : '' }}">
-                                <label for="floor_room_number" class="col-md-4 control-label">Floor number / Room number</label>
+                                <label for="floor_room_number" class="col-md-4 control-label">Room number</label>
 
                                 <div class="col-md-6">
-                                    <input id="floor_room_number" type="number" class="form-control" name="floor_room_number" step="any" value="{{ old('floor_room_number') }}" required>
+                                    <input id="floor_room_number" type="text" class="form-control" name="floor_room_number" step="any" value="{{ old('floor_room_number') }}" required>
 
                                     @if ($errors->has('floor_room_number'))
                                         <span class="help-block">

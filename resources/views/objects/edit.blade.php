@@ -119,7 +119,7 @@
                                 <label for="floor_room_number" class="col-md-4 control-label">Floor number / Room number</label>
 
                                 <div class="col-md-6">
-                                    <input id="floor_room_number" type="number" class="form-control" name="floor_room_number" step="any" value="{{ $object->floor_room_number }}" required>
+                                    <input id="floor_room_number" type="text" class="form-control" name="floor_room_number" step="any" value="{{ $object->floor_room_number }}" required>
 
                                     @if ($errors->has('floor_room_number'))
                                         <span class="help-block">

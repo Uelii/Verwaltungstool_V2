@@ -24,7 +24,7 @@
 
                                 <div class="col-md-6">
                                     <select id="title" class="form-control" name="title" required>
-                                        <option value=""></option>
+                                        <option selected disabled value="">Please select ...</option>
                                         @foreach($title_enums as $key => $title)
                                             <option value="{{ $key }}">
                                                 {{ $title }}
@@ -86,7 +86,7 @@
                                 <label for="phone_landline" class="col-md-4 control-label">Phone landline (optional)</label>
 
                                 <div class="col-md-6">
-                                    <input id="phone_landline" type="text" class="form-control" name="phone_landline" value="{{ old('phone_landline') }}" placeholder="0xx xxx xx xx">
+                                    <input id="phone_landline" type="text" class="form-control" name="phone_landline" value="{{ old('phone_landline') }}">
 
                                     @if ($errors->has('phone_landline'))
                                         <span class="help-block">
@@ -100,7 +100,7 @@
                                 <label for="phone_mobile_phone" class="col-md-4 control-label">Phone mobile (optional)</label>
 
                                 <div class="col-md-6">
-                                    <input id="phone_mobile_phone" type="text" class="form-control" name="phone_mobile_phone" value="{{ old('phone_mobile_phone') }}" placeholder="0xx xxx xx xx">
+                                    <input id="phone_mobile_phone" type="text" class="form-control" name="phone_mobile_phone" value="{{ old('phone_mobile_phone') }}">
 
                                     @if ($errors->has('phone_mobile_phone'))
                                         <span class="help-block">
@@ -130,7 +130,7 @@
 
                                 <div class="col-md-6">
                                     <select id="object_id" class="form-control" name="object_id" required>
-                                        <option value="" selected="selected"></option>
+                                        <option select disabled value="" selected="selected">Please select ...</option>
                                         @foreach($objects as $object)
                                             <option value="{{ $object->id }}"> {{ $object->name }}:
                                                 {{ $object->living_space }} sqm, {{$object->number_of_rooms}}-room,
@@ -165,7 +165,7 @@
                                 <label for="street_number" class="col-md-4 control-label">Street number</label>
 
                                 <div class="col-md-6">
-                                    <input id="street_number" type="number" class="form-control" name="street_number" value="{{ old('street_number') }}" required>
+                                    <input id="street_number" type="text" class="form-control" name="street_number" value="{{ old('street_number') }}" required>
 
                                     @if ($errors->has('street_number'))
                                         <span class="help-block">

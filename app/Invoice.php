@@ -15,12 +15,16 @@ class Invoice extends Model
      * @var array
      */
     protected $fillable = [
-        'object_id', 'amount', 'invoice_date', 'payable_until', 'is_paid', 'invoice_type'
+        'building_id', 'object_id', 'amount', 'invoice_date', 'payable_until', 'is_paid', 'invoice_type'
     ];
 
     /*One-to-many relation between invoices and objects*/
     public function object() {
         return $this->belongsTo('immogate\Object');
+    }
+
+    public function building() {
+        return $this->belongsTo('immogate\Building');
     }
 
     protected $invoice_types = [

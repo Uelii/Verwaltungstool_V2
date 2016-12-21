@@ -78,7 +78,7 @@ class RenterController extends Controller
             'phone_mobile_phone' => 'max:255|regex:/(0)([0-9]{2})\s([0-9]{3})\s([0-9]{2})\s([0-9]{2})/', /*Format 0xx xxx xx xx*/
             'object_id' => 'required',
             'street' => 'required|max:255|regex:/^[(a-zäöüéèàA-Z\ÄÖÜs\s\-)]+$/u',
-            'street_number' => 'required|numeric|min:0|digits_between:1,3',
+            'street_number' => 'required|regex:/^[(a-zA-Z0-9\s)]+$/u',
             'zip_code' => 'required|min:0|digits:4',
             'city' => 'required|max:255|regex:/^[(a-zäöüéèàA-Z\ÄÖÜs\s\-)]+$/u',
             'is_main_domicile' => 'boolean',
@@ -153,12 +153,12 @@ class RenterController extends Controller
             'title' => 'required|in:Mr.,Ms.',
             'first_name' => 'required|max:255|regex:/^[(a-zäöüéèàA-Z\ÄÖÜs\s\-)]+$/u',
             'last_name' => 'required|max:255|regex:/^[(a-zäöüéèàA-Z\ÄÖÜs\s\-)]+$/u',
-            'email' => 'required|email|max:255',
+            'email' => 'required|email|max:255|unique:renter',
             'phone_landline' => 'max:255|regex:/(0)([0-9]{2})\s([0-9]{3})\s([0-9]{2})\s([0-9]{2})/', /*Format 0xx xxx xx xx*/
             'phone_mobile_phone' => 'max:255|regex:/(0)([0-9]{2})\s([0-9]{3})\s([0-9]{2})\s([0-9]{2})/', /*Format 0xx xxx xx xx*/
             'object_id' => 'required',
             'street' => 'required|max:255|regex:/^[(a-zäöüéèàA-Z\ÄÖÜs\s\-)]+$/u',
-            'street_number' => 'required|numeric|min:0|digits_between:1,3',
+            'street_number' => 'required|regex:/^[(a-zA-Z0-9\s)]+$/u',
             'zip_code' => 'required|min:0|digits:4',
             'city' => 'required|max:255|regex:/^[(a-zäöüéèàA-Z\ÄÖÜs\s\-)]+$/u',
             'is_main_domicile' => 'boolean',
