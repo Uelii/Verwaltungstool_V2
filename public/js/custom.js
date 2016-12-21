@@ -350,6 +350,40 @@ function changeIsPaidOnCheckboxClick(){
     });
 }
 
+function changeObjectOnBuildingChange(){
+    $(document).ready(function() {
+        $('#building_id').change(function () {
+            var selected_building_id = $(this).val()
+            console.log(selected_building_id);
+
+            if ( $('#object_id').children().length > 0 ) {
+                $('#object_id').empty();
+            }
+
+            var url = '/immogate/public/getObjectData';
+            var select = document.getElementById('object_id');
+
+            if(selected_building_id != ''){
+                $.ajax({
+                    url: url+'/'+selected_building_id,
+                    type: 'GET',
+                    success: function(response)
+                    {
+                        $.each(response, function(index, val){
+                            var option = document.createElement('option');
+                            option.value = val.id;
+                            option.innerHTML = val.name + ': ' + val.living_space + ' sqm, ' + val.number_of_rooms + '-room, ' + val.floor_room_number;
+
+                            select.appendChild(option);
+                        });
+                    }
+                });
+            }
+        });
+    });
+}
+
+/*From: http://locutus.io/php/strings/number_format/*/
 function number_format (number, decimals, dec_point, thousands_sep) {
     // Strip all characters but numerical ones.
     number = (number + '').replace(/[^0-9+\-Ee.]/g, '');

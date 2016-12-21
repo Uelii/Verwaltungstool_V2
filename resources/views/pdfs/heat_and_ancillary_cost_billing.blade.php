@@ -52,6 +52,7 @@
                         <th>Water</th>
                         <th>Power</th>
                         <th>Caretaker</th>
+                        <th>Other</th>
                         <th>Amount</th>
                     </tr>
                     </thead>
@@ -81,7 +82,12 @@
                                     {{ number_format($invoice->amount, 2, '.', '') }}
                                 @endif
                             </td>
-                            <td>{{ number_format($invoice->amount, 2, '.', '') }} </td>
+                            <td>
+                                @if($invoice->invoice_type == 'Other')
+                                    {{ number_format($invoice->amount, 2, '.', '') }}
+                                @endif
+                            </td>
+                            <td></td>
                         </tr>
                     @endforeach
                     </tbody>
@@ -93,6 +99,7 @@
                         <td><b>{{ number_format($total_water_cost, 2, '.', '') }}</b></td>
                         <td><b>{{ number_format($total_power_cost, 2, '.' , '') }}</b></td>
                         <td><b>{{ number_format($total_caretaker_cost, 2, '.', '') }}</b></td>
+                        <td><b>{{ number_format($total_other_cost, 2, '.', '') }}</b></td>
                         <td><b>{{ number_format($total_ancillary_cost, 2, '.', '') }}</b></td>
                     </tr>
                     </tfoot>

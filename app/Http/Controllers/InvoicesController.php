@@ -15,6 +15,12 @@ use Config;
 
 class InvoicesController extends Controller
 {
+    public function getObjectData($id){
+        $objects = DB::table('objects')->where('building_id', '=', $id)->get();
+
+        return response($objects);
+    }
+
     public function changeBooleanIsPaid(Request $request){
 
         $invoice = Invoice::findOrFail($request->invoiceId);
@@ -33,9 +39,8 @@ class InvoicesController extends Controller
     public function index()
     {
         $invoices = Invoice::all();
-        $buildings = Building::all();
 
-        return view('invoices.index', compact('invoices', 'buildings'));
+        return view('invoices.index', compact('invoices'));
     }
 
     /**
@@ -45,11 +50,13 @@ class InvoicesController extends Controller
      */
     public function create()
     {
-        /*Order objects and get all buildings from DB*/
-        $objects = DB::table('objects')->orderBy('name', 'asc')->get();
+        /*Get all buildings from DB*/
         $buildings = Building::all();
 
-        return view('invoices.create', compact('objects', 'buildings'));
+        /*Get all other invoice-type enums except the one which is already stored in database*/
+        $invoice_types_enums = Config::get('enums.invoice_types');
+
+        return view('invoices.create', compact('objects', 'buildings', 'invoice_types_enums'));
     }
 
     /**
@@ -67,7 +74,6 @@ class InvoicesController extends Controller
 
         /*Create record in database*/
         $invoice = new Invoice;
-        $invoice->building_id = $request->building_id;
         $invoice->object_id = $request->object_id;
         $invoice->amount = $request->amount;
         $invoice->invoice_date = $request->invoice_date;

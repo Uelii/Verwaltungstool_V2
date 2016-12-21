@@ -47,7 +47,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{ url('/home') }}">immoGate</a>
+            <a href="{{ url('/home') }}"> <img class="header_image" src="/immogate/public/img/immoGate_v1.png"></a>
         </div>
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">

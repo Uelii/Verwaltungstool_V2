@@ -46,13 +46,7 @@
 
                                 <div class="col-md-6">
                                     <select id="object_id" class="form-control" name="object_id" required>
-                                        <option selected disabled  value="">Please select...</option>
-                                        @foreach($objects as $object)
-                                            <option value="{{ $object->id }}"> {{ $object->name }}:
-                                                {{ $object->living_space }} sqm, {{$object->number_of_rooms}}-room,
-                                                {{ $object->floor_room_number }}
-                                            </option>
-                                        @endforeach
+                                        <option selected disabled value="">Please select...</option>
                                     </select>
 
                                     @if ($errors->has('object_id'))
@@ -69,12 +63,12 @@
                                 <div class="col-md-6">
                                     <select id="invoice_type" class="form-control" name="invoice_type" required>
                                         <option selected disabled value="" >Please select...</option>
-                                        <option value="repair">Repair</option>
-                                        <option value="oil">Oil</option>
-                                        <option value="water">Water</option>
-                                        <option value="power">Power</option>
-                                        <option value="caretaker">Caretaker</option>
-                                        <option value="caretaker">Other</option>
+
+                                        @foreach($invoice_types_enums as $key => $invoice_type)
+                                            <option value="{{ $key }}">
+                                                {{ $invoice_type }}
+                                            </option>
+                                        @endforeach
                                     </select>
 
                                     @if ($errors->has('invoice_type'))
@@ -146,6 +140,7 @@
 
     <!--JavaScript-->
     <script>
+        changeObjectOnBuildingChange()
         loadDatepickerOnInputClick();
     </script>
 @endsection

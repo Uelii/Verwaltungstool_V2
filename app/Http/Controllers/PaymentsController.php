@@ -61,7 +61,6 @@ class PaymentsController extends Controller
     {
         /*Validate Input*/
         $this->validate($request, [
-            'building_id' => 'required',
             'renter_id' => 'required',
             'amount_total' => 'required|numeric',
             'amount_paid' => 'required|numeric',
@@ -70,7 +69,6 @@ class PaymentsController extends Controller
 
         /*Create record in database*/
         $payment = new Payment();
-        $payment->building_id = $request->building_id;
         $payment->renter_id = $request->renter_id;
         $payment->amount_total = $request->amount_total;
         $payment->amount_paid = $request->amount_paid;
