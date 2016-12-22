@@ -75,7 +75,6 @@
                                         @else
                                             <p class="is_paid_yes"><i class="fa fa-check" aria-hidden="true"></i> PAID</p>
                                         @endif
-                                        </p>
                                         <p><b>Creation date: </b>{{ date('Y-m-d', strtotime($payment->created_at)) }}</p>
                                         <div class="modal-footer">
                                             <form class="form-horizontal" role="form" method="POST" action="{{ url('/payments', $payment->id)}}">

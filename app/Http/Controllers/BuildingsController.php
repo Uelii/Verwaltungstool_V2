@@ -8,9 +8,14 @@ use immogate\Renter;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Session;
+use Auth;
 
 class BuildingsController extends Controller
 {
+    /*public function getUserId(){
+        return Auth::user()->id;
+    }*/
+
     /**
      * Display a listing of the resource.
      *
@@ -18,7 +23,7 @@ class BuildingsController extends Controller
      */
     public function index()
     {
-        $buildings = Building::all();
+        $buildings = Building::all()/*->where('user_id', '=', $this->getUserId())*/;
         $objects = Object::all();
 
         return view('buildings.index', compact('buildings', 'objects'));
@@ -53,6 +58,8 @@ class BuildingsController extends Controller
 
         /*Create record in database*/
         $input = $request->all();
+
+        /*$input['user_id'] = $this->getUserId();*/
         Building::create($input);
 
         /*Get data and redirect to specific route with success-message*/

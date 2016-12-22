@@ -34,6 +34,8 @@
         <!--Custom CSS-->
     <link rel="stylesheet" href="{{ URL::asset("css/main.css") }}" type="text/css">
 
+    <link rel="icon" href="{{ URL::asset("favicon.ico") }}">
+
 </head>
 <body>
 

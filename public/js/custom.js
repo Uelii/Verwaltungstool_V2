@@ -236,6 +236,13 @@ function addSortTableOptions(dataTableId) {
                 "order": [[4, "asc"], [5, "desc"]]
             });
         }
+        if(dataTableId = 'payments_data_renter_view'){
+            $("#payments_data_renter_view").DataTable({
+                responsive: true,
+                oLanguage: { "sSearch": '<i class="fa fa-search" aria-hidden="true"></i>'},
+                "order": [[2, "asc"], [3, "desc"]]
+            });
+        }
         if(dataTableId = 'invoices_data'){
             $("#invoices_data").DataTable({
                 responsive: true,
@@ -365,7 +372,6 @@ function changeObjectOnBuildingChange(){
     $(document).ready(function() {
         $('#building_id').change(function () {
             var selected_building_id = $(this).val()
-            console.log(selected_building_id);
 
             if ( $('#object_id').children().length > 0 ) {
                 $('#object_id').empty();

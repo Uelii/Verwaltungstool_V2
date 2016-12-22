@@ -15,7 +15,7 @@ class Building extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'street', 'street_number', 'zip_code', 'city'
+        'name', 'street', 'street_number', 'zip_code', 'city', 'user_id'
     ];
 
     /*One-to-many relation between buildings and objects*/

@@ -61,6 +61,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/getRenterData/{id}', 'PaymentsController@getRenterData');
     Route::get('/getObjectData/{id}', 'InvoicesController@getObjectData');
     Route::post('/changePaymentBooleanIsPaid', 'PaymentsController@changeBooleanIsPaid');
+    Route::post('/renter/changePaymentBooleanIsPaid', 'PaymentsController@changeBooleanIsPaid');
     Route::get('/getFilteredPayments', 'PaymentsController@getFilteredPayments');
     Route::post('/changeInvoiceBooleanIsPaid', 'InvoicesController@changeBooleanIsPaid');
 });
