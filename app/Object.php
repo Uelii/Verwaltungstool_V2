@@ -15,7 +15,7 @@ class Object extends Model
      * @var array
      */
     protected $fillable = [
-        'building_id', 'name', 'description', 'living_space', 'number_of_rooms', 'floor_room_number', 'rent'
+        'building_id', 'name', 'description', 'living_space', 'number_of_rooms', 'floor_room_number', 'rent', 'user_id'
     ];
 
     /*One-to-many relation between buildings and objects*/
@@ -29,9 +29,5 @@ class Object extends Model
 
     public function invoices() {
         return $this->hasMany('immogate\Invoice');
-    }
-
-    public function getSumOfServiceCharges(){
-
     }
 }

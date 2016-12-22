@@ -9,10 +9,17 @@ use immogate\Building;
 use immogate\Payment;
 use Session;
 use DB;
-use Carbon\Carbon;
+use Auth;
 
 class PaymentsController extends Controller
 {
+    /*
+    * Get id of current user
+    */
+    public function getUserId(){
+        return Auth::user()->id;
+    }
+
     public function changeBooleanIsPaid(Request $request){
 
         $payment = Payment::findOrFail($request->paymentId);
@@ -44,12 +51,10 @@ class PaymentsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $buildings = Building::all();
-        $payments = Payment::all();
+    public function index(){
+        $payments = Payment::all()->where('user_id', '=', $this->getUserId());
 
-        return view('payments.index', compact('payments', 'buildings'));
+        return view('payments.index', compact('payments'));
     }
 
     /**
@@ -57,11 +62,10 @@ class PaymentsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        $buildings = Building::all();
-        $objects = Object::all();
-        $renter = Renter::all();
+    public function create(){
+        $buildings = Building::all()->where('user_id', '=', $this->getUserId());
+        $objects = Object::all()->where('user_id', '=', $this->getUserId());
+        $renter = Renter::all()->where('user_id', '=', $this->getUserId());
 
         return view('payments.create', compact('objects', 'renter', 'buildings'));
     }
@@ -72,8 +76,7 @@ class PaymentsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request){
         /*Validate Input*/
         $this->validate($request, [
             'renter_id' => 'required',
@@ -82,18 +85,19 @@ class PaymentsController extends Controller
             'date' => 'required|date'
         ]);
 
-        /*Create record in database*/
-        $payment = new Payment();
-        $payment->renter_id = $request->renter_id;
-        $payment->amount_total = $request->amount_total;
-        $payment->amount_paid = $request->amount_paid;
-        if($request->amount_paid >= $payment->amount_total){
-            $payment->is_paid = 1;
+        $input = $request->all();
+        $input['user_id'] = $this->getUserId();
+
+        unset($input['building_id']);
+
+        if($request->amount_paid >= $request->amount_total){
+            $input['is_paid'] = 1;
         } else {
-            $payment->is_paid = 0;
+            $input['is_paid'] = 0;
         }
-        $payment->date = $request->date;
-        $payment->save();
+
+        /*Create record in database*/
+        Payment::create($input);
 
         return redirect()->route('payments.index')->with(compact('payments'))->with('success_message', 'Payment successfully added!');
     }
@@ -104,8 +108,7 @@ class PaymentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
+    public function show($id){
         /*If the record has been found, access view*/
         $payment = Payment::findOrFail($id);
 
@@ -118,16 +121,11 @@ class PaymentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
+    public function edit($id){
         /*If the record has been found, access view*/
         $payment = Payment::findOrFail($id);
 
-        /*Get all other renter except the one which is going to be edited*/
-        $renter = Renter::where('id', '!=', $payment->renter->id)->get();
-
-
-        return view('payments.edit', compact('payment', 'renter'));
+        return view('payments.edit', compact('payment'));
     }
 
     /**
@@ -137,8 +135,7 @@ class PaymentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id){
         /*Validate Input*/
         $this->validate($request, [
             'amount_paid' => 'required|numeric',
@@ -146,15 +143,17 @@ class PaymentsController extends Controller
 
         /*Update record in database*/
         $payment = Payment::findOrFail($id);
-        $payment->amount_paid = $request->amount_paid;
+        $input = $request->all();
+        $input['user_id'] = $this->getUserId();
 
-        if($request->amount_paid < $payment->amount_total){
-            $payment->is_paid = 0;
-            $payment->save();
+        if($request->amount_paid >= $payment->amount_total){
+            $input['is_paid'] = 1;
         } else {
-            $payment->is_paid = 1;
-            $payment->save();
+            $input['is_paid'] = 0;
         }
+
+        /*Update record in database*/
+        $payment->fill($input)->save();
 
         return redirect()->back()->with('success_message', 'Payment successfully updated!');
     }
@@ -165,8 +164,7 @@ class PaymentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
+    public function destroy($id){
         /*Delete record in database*/
         $payment = Payment::findOrFail($id);
         $payment->delete();

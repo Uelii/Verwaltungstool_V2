@@ -75,7 +75,7 @@
                                         <p><b>Description: </b>{{ $object->description }}</p>
                                         <p><b>Sqm: </b>{{ $object->living_space }}</p>
                                         <p><b>Number of rooms: </b>{{ $object->number_of_rooms }}</p>
-                                        <p><b>Room Number: </b>{{ $object->floor_room_number }}</p>
+                                        <p><b>Room number: </b>{{ $object->floor_room_number }}</p>
                                         <p><b>Rent: </b>p.a. {{ $object->rent }} Fr. / p.m. {{number_format(( $object->rent/12 ), 2)}} Fr.</p>
                                     </div>
                                     <div class="modal-footer">

@@ -7,16 +7,21 @@ use PDF;
 use immogate\Building;
 use immogate\Object;
 use immogate\Renter;
-use immogate\Payment;
-use immogate\Invoice;
 use Carbon\Carbon;
 use DB;
+use Auth;
 
 
-class ReportController extends Controller {
+class ReportController extends Controller
+{
+    /*
+    * Get id of current user
+    */
+    public function getUserId(){
+        return Auth::user()->id;
+    }
 
     public function createPDF(Request $request){
-
         if($request->action == 'create_renter_directory'){
             return $this->createRenterDirectoryPDF($request);
         } elseif($request->action == 'create_heat_and_ancillary_cost_billing'){
@@ -31,9 +36,8 @@ class ReportController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function showReportView()
-    {
-        $buildings = Building::all();
+    public function showReportView(){
+        $buildings = Building::all()->where('user_id', '=', $this->getUserId());
 
         return view('reports.report', compact('buildings'));
     }
@@ -82,7 +86,7 @@ class ReportController extends Controller {
         $pdf = PDF::loadView('pdfs.renter_directory', array(
             'building' => $building,
             'renter_collection' => $renter
-        )); //Es muss zwingend ein array übergeben werden
+        ));
 
         return $pdf->stream();
     }
@@ -96,7 +100,7 @@ class ReportController extends Controller {
         $this->validate($request, [
             'building_id' => 'required',
             'start_date' => 'required|date|date_format:Y-m-d|before:end_date',
-            'end_date' => 'required|date|date_format:Y-m-d|after:start_date|before:tomorrow'
+            'end_date' => 'required|date|date_format:Y-m-d|after:start_date'
         ]);
 
         $start_date = $request->start_date;
@@ -210,7 +214,7 @@ class ReportController extends Controller {
             'total_ancillary_cost' => $total_ancillary_cost,
             'start_date' => $start_date,
             'end_date' => $end_date
-        )); //Es muss zwingend ein array übergeben werden
+        ));
 
         return $pdf->stream();
     }
@@ -336,10 +340,9 @@ class ReportController extends Controller {
             'total_cost' => $total_cost,
             'start_date' => $start_date,
             'end_date' => $end_date
-        )); //Es muss zwingend ein array übergeben werden
+        ));
 
         return $pdf->stream();
-
     }
 }
 

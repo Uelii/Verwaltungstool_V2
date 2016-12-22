@@ -3,18 +3,23 @@
 namespace immogate\Http\Controllers;
 
 use Illuminate\Http\Request;
-use immogate\Renter;
 use immogate\Object;
 use immogate\Building;
-use immogate\Payment;
 use immogate\Invoice;
 use Session;
 use DB;
-use Carbon\Carbon;
 use Config;
+use Auth;
 
 class InvoicesController extends Controller
 {
+    /*
+    * Get id of current user
+    */
+    public function getUserId(){
+        return Auth::user()->id;
+    }
+
     public function getObjectData($id){
         $objects = DB::table('objects')->where('building_id', '=', $id)->get();
 
@@ -22,7 +27,6 @@ class InvoicesController extends Controller
     }
 
     public function changeBooleanIsPaid(Request $request){
-
         $invoice = Invoice::findOrFail($request->invoiceId);
         $invoice->is_paid = 1;
 
@@ -36,9 +40,8 @@ class InvoicesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $invoices = Invoice::all();
+    public function index(){
+        $invoices = Invoice::all()->where('user_id', '=', $this->getUserId());
 
         return view('invoices.index', compact('invoices'));
     }
@@ -48,12 +51,8 @@ class InvoicesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        /*Get all buildings from DB*/
-        $buildings = Building::all();
-
-        /*Get all other invoice-type enums except the one which is already stored in database*/
+    public function create(){
+        $buildings = Building::all()->where('user_id', '=', $this->getUserId());
         $invoice_types_enums = Config::get('enums.invoice_types');
 
         return view('invoices.create', compact('buildings', 'invoice_types_enums'));
@@ -65,28 +64,26 @@ class InvoicesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request){
         /*Validate Input*/
         $this->validate($request, [
-
+            'object_id' => 'required',
+            'invoice_type' => 'required',
+            'amount' => 'required|numeric',
+            'invoice_date' => 'required|date',
+            'payable_until' => 'required|date'
         ]);
 
+        $input = $request->all();
+        $input['user_id'] = $this->getUserId();
+        $input['is_paid'] = 0;
+
+        unset($input['building_id']);
+
         /*Create record in database*/
-        $invoice = new Invoice;
-        $invoice->object_id = $request->object_id;
-        $invoice->amount = $request->amount;
-        $invoice->invoice_date = $request->invoice_date;
-        $invoice->payable_until = $request->payable_until;
-        $invoice->is_paid = 0;
-        $invoice->invoice_type = $request->invoice_type;
-        $invoice->save();
+        Invoice::create($input);
 
-        /*Get data and redirect to specific route with success-message*/
-        $invoices = Invoice::all();
-        $objects = Object::all();
-
-        return redirect()->route('invoices.index')->with(compact('invoices', 'objects'))->with('success_message', 'Invoice successfully added!');
+        return redirect()->route('invoices.index')->with(compact('invoices'))->with('success_message', 'Invoice successfully added!');
     }
 
     /**
@@ -95,8 +92,7 @@ class InvoicesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
+    public function show($id){
         /*If the record has been found, access view*/
         $invoice = Invoice::findOrFail($id);
 
@@ -109,13 +105,16 @@ class InvoicesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
+    public function edit($id){
         /*If the record has been found, access view*/
         $invoice = Invoice::findOrFail($id);
 
-        /*Get all other object except the one which is already stored in database*/
-        $objects = Object::where('id', '!=', $invoice->object->id)->orderBy('name', 'asc')->get();
+        /*Get all other objects except the one which is already stored in database*/
+        $objects = DB::table('objects')
+            ->where('id', '!=', $invoice->object->id)
+            ->where('user_id', '=', $this->getUserId())
+            ->orderBy('name', 'asc')
+            ->get();
 
         /*Get all other invoice-type enums except the one which is already stored in database*/
         $invoice_types_enums = Config::get('enums.invoice_types');
@@ -133,18 +132,23 @@ class InvoicesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id){
         /*Validate Input*/
         $this->validate($request, [
-
+            'object_id' => 'required',
+            'invoice_type' => 'required',
+            'amount' => 'required|numeric',
+            'invoice_date' => 'required|date',
+            'payable_until' => 'required|date'
         ]);
 
+        /*Update record in database*/
+        $invoice = Invoice::findOrFail($id);
         $input = $request->all();
-        $renter = Invoice::findOrFail($id);
+        $input['user_id'] = $this->getUserId();
 
         /*Update record in database*/
-        $renter->fill($input)->save();
+        $invoice->fill($input)->save();
 
         return redirect()->back()->with('success_message', 'Invoice successfully updated!');
     }
@@ -155,8 +159,7 @@ class InvoicesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
+    public function destroy($id){
         /*Delete record in database*/
         $invoice = Invoice::findOrFail($id);
         $invoice->delete();

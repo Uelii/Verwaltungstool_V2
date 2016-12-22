@@ -4,29 +4,28 @@ namespace immogate\Http\Controllers;
 
 use immogate\Building;
 use immogate\Object;
-use immogate\Renter;
-use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Session;
 use Auth;
 
 class BuildingsController extends Controller
 {
-    /*public function getUserId(){
+    /*
+     * Get id of current user
+     */
+    public function getUserId(){
         return Auth::user()->id;
-    }*/
+    }
 
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $buildings = Building::all()/*->where('user_id', '=', $this->getUserId())*/;
-        $objects = Object::all();
+    public function index(){
+        $buildings = Building::all()->where('user_id', '=', $this->getUserId());
 
-        return view('buildings.index', compact('buildings', 'objects'));
+        return view('buildings.index', compact('buildings'));
     }
 
     /**
@@ -34,8 +33,7 @@ class BuildingsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create(){
         return view('buildings.create');
     }
 
@@ -45,8 +43,7 @@ class BuildingsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request){
         /*Validate Input*/
         $this->validate($request, [
             'name' => 'required|max:30|regex:/^[(0-9\a-zäöüéèàA-Z\ÄÖÜs\s\-\')]+$/u',
@@ -58,15 +55,13 @@ class BuildingsController extends Controller
 
         /*Create record in database*/
         $input = $request->all();
-
-        /*$input['user_id'] = $this->getUserId();*/
+        $input['user_id'] = $this->getUserId();
         Building::create($input);
 
         /*Get data and redirect to specific route with success-message*/
-        $buildings = Building::all();
-        $objects = Object::all();
+        $buildings = Building::all()->where('user_id', '=', $this->getUserId());
 
-        return redirect()->route('buildings.index')->with(compact('buildings', 'objects'))->with('success_message', 'Building successfully added!');
+        return redirect()->route('buildings.index')->with(compact('buildings'))->with('success_message', 'Building successfully added!');
     }
 
     /**
@@ -75,14 +70,12 @@ class BuildingsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
+    public function show($id){
         /*If the record has been found, access view*/
         $building = Building::findOrFail($id);
-        $objects = Object::all();
-        $renter = Renter::all();
+        $objects = Object::all()->where('user_id', '=', $this->getUserId());
 
-        return view('buildings.show', compact('building', 'objects', 'renter'));
+        return view('buildings.show', compact('building', 'objects'));
     }
 
     /**
@@ -91,8 +84,7 @@ class BuildingsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
+    public function edit($id){
         /*If the record has been found, access view*/
         $building = Building::findOrFail($id);
 
@@ -106,10 +98,7 @@ class BuildingsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        $building = Building::findOrFail($id);
-
+    public function update(Request $request, $id){
         /*Validate Input*/
         $this->validate($request, [
             'name' => 'required|max:30|regex:/^[(0-9\a-zäöüéèàA-Z\ÄÖÜs\s\-\')]+$/u',
@@ -120,7 +109,9 @@ class BuildingsController extends Controller
         ]);
 
         /*Update record in database*/
+        $building = Building::findOrFail($id);
         $input = $request->all();
+        $input['user_id'] = $this->getUserId();
         $building->fill($input)->save();
 
         return redirect()->back()->with('success_message', 'Building successfully updated!');
@@ -132,8 +123,7 @@ class BuildingsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
+    public function destroy($id){
         /*Delete record in database*/
         $building = Building::findOrFail($id);
         $building->delete();

@@ -15,7 +15,7 @@ class Payment extends Model
      * @var array
      */
     protected $fillable = [
-        'building_id','renter_id', 'amount_total', 'amount_payed', 'is_payed', 'date'
+        'building_id','renter_id', 'amount_total', 'amount_paid', 'is_paid', 'date', 'user_id'
     ];
 
     public function building() {
@@ -25,16 +25,4 @@ class Payment extends Model
     public function renter() {
         return $this->belongsTo('immogate\Renter');
     }
-
-    public function getDatabaseValueAmountTotal(){
-        return $this->attributes['amount_total'];
-    }
-
-    /*public function getFormattedAmountTotal($amount){
-        return $this->attributes['amount_total'] = sprintf('Fr. %s', number_format($amount, 2));
-    }
-
-    public function getFormattedAmountPaid($amount){
-        return $this->attributes['amount_paid'] = sprintf('Fr. %s', number_format($amount, 2));
-    }*/
 }

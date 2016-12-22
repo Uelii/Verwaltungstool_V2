@@ -15,7 +15,7 @@ class Invoice extends Model
      * @var array
      */
     protected $fillable = [
-        'building_id', 'object_id', 'amount', 'invoice_date', 'payable_until', 'is_paid', 'invoice_type'
+        'building_id', 'object_id', 'amount', 'invoice_date', 'payable_until', 'is_paid', 'invoice_type', 'user_id'
     ];
 
     /*One-to-many relation between invoices and objects*/
@@ -25,9 +25,5 @@ class Invoice extends Model
 
     public function building() {
         return $this->belongsTo('immogate\Building');
-    }
-
-    public function getFormattedInvoiceAmount(){
-        return number_format($this->attributes['amount'], 2, '.', '');
     }
 }

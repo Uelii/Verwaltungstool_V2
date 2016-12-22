@@ -6,14 +6,20 @@ use Illuminate\Http\Request;
 use immogate\Renter;
 use immogate\Object;
 use immogate\Building;
-use immogate\Payment;
 use Session;
 use DB;
-use Carbon\Carbon;
 use Config;
+use Auth;
 
 class RenterController extends Controller
 {
+    /*
+    * Get id of current user
+    */
+    public function getUserId(){
+        return Auth::user()->id;
+    }
+
     /*
      * Fill in Street, Street number, zip code and city into renter creation form
      */
@@ -37,9 +43,8 @@ class RenterController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $renter = Renter::all();
+    public function index(){
+        $renter = Renter::all()->where('user_id', '=', $this->getUserId());
 
         return view('renter.index', compact('renter'));
     }
@@ -49,10 +54,12 @@ class RenterController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create(){
         /*Order objects and get all buildings from DB*/
-        $objects = DB::table('objects')->orderBy('name', 'asc')->get();
+        $objects = DB::table('objects')
+            ->where('user_id', '=', $this->getUserId())
+            ->orderBy('name', 'asc')
+            ->get();
 
         /*Get title-enum values*/
         $title_enums = Config::get('enums.titles');
@@ -66,8 +73,7 @@ class RenterController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request){
         /*Validate Input*/
         $this->validate($request, [
             'title' => 'required|in:Mr.,Ms.',
@@ -87,6 +93,7 @@ class RenterController extends Controller
         ]);
 
         $input = $request->all();
+        $input['user_id'] = $this->getUserId();
 
         /*Check if a contract end date has been entered*/
         if(empty($input['end_of_contract'])) {
@@ -99,7 +106,7 @@ class RenterController extends Controller
         Renter::create($input);
 
         /*Get data and redirect to specific route with success-message*/
-        $renter = Renter::all();
+        $renter = Renter::all()->where('user_id', '=', $this->getUserId());
 
         return redirect()->route('renter.index')->with(compact('renter'))->with('success_message', 'Renter successfully added!');
     }
@@ -110,8 +117,7 @@ class RenterController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
+    public function show($id){
         /*If the record has been found, access view*/
         $renter = Renter::findOrFail($id);
 
@@ -124,13 +130,16 @@ class RenterController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
+    public function edit($id){
         /*If the record has been found, access view*/
         $renter = Renter::findOrFail($id);
 
         /*Get all other object except the one which is going to be edited*/
-        $objects = Object::where('id', '!=', $renter->object->id)->orderBy('name', 'asc')->get();
+        $objects = DB::table('objects')
+            ->where('id', '!=', $renter->object->id)
+            ->where('user_id', '=', $this->getUserId())
+            ->orderBy('name', 'asc')
+            ->get();
 
         /*Get all other titleenums except the one which is already stored in database*/
         $title_enums = Config::get('enums.titles');
@@ -148,8 +157,7 @@ class RenterController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id){
         /*Validate Input*/
         $this->validate($request, [
             'title' => 'required|in:Mr.,Ms.',
@@ -169,8 +177,9 @@ class RenterController extends Controller
             'is_active' => 'boolean'
         ]);
 
-        $input = $request->all();
         $renter = Renter::findOrFail($id);
+        $input = $request->all();
+        $input['user_id'] = $this->getUserId();
 
         /*Check if a contract end date has been entered*/
         if( empty($input['end_of_contract'])) {
@@ -189,8 +198,7 @@ class RenterController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
+    public function destroy($id){
         /*Delete record in database*/
         $renter = Renter::findOrFail($id);
         $renter->delete();

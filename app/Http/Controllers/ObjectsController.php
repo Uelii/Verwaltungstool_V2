@@ -8,21 +8,26 @@ use immogate\Renter;
 use Illuminate\Http\Request;
 use Session;
 use DB;
+use Auth;
 
 class ObjectsController extends Controller
 {
+    /*
+    * Get id of current user
+    */
+    public function getUserId(){
+        return Auth::user()->id;
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $objects = Object::all();
-        $buildings = Building::all();
-        $renter = Renter::all();
+    public function index(){
+        $objects = Object::all()->where('user_id', '=', $this->getUserId());
 
-        return view('objects.index', compact('objects', 'buildings', 'renter'));
+        return view('objects.index', compact('objects'));
     }
 
     /**
@@ -30,9 +35,11 @@ class ObjectsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        $buildings = DB::table('buildings')->orderBy('name', 'asc')->get();
+    public function create(){
+        $buildings = DB::table('buildings')
+            ->where('user_id', '=', $this->getUserId())
+            ->orderBy('name', 'asc')
+            ->get();
 
         return view('objects.create', compact('buildings'));
     }
@@ -43,8 +50,7 @@ class ObjectsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request){
         /*Validate Input*/
         $this->validate($request, [
             'building_id' => 'required',
@@ -58,14 +64,13 @@ class ObjectsController extends Controller
         
         /*Create record in database*/
         $input = $request->all();
+        $input['user_id'] = $this->getUserId();
         Object::create($input);
 
         /*Get data and redirect to specific route with success-message*/
-        $objects = Object::all();
-        $buildings = Building::all();
-        $renter = Renter::all();
+        $objects = Object::all()->where('user_id', '=', $this->getUserId());
 
-        return redirect()->route('objects.index')->with(compact('objects', 'buildings', 'renter'))->with('success_message', 'Object successfully added!');
+        return redirect()->route('objects.index')->with(compact('objects'))->with('success_message', 'Object successfully added!');
     }
 
     /**
@@ -74,8 +79,7 @@ class ObjectsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
+    public function show($id){
         /*If the record has been found, access view*/
         $object = Object::findOrFail($id);
 
@@ -88,13 +92,16 @@ class ObjectsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
+    public function edit($id){
         /*If the record has been found, access view*/
         $object = Object::findOrFail($id);
 
         /*Get all other buildings except the one which is going to be edited*/
-        $buildings = Building::where('id', '!=', $object->building->id)->orderBy('name', 'asc')->get();
+        $buildings = DB::table('buildings')
+            ->where('user_id', '=', $this->getUserId())
+            ->where('id', '!=', $object->building->id)
+            ->orderBy('name', 'asc')
+            ->get();
 
         return view('objects.edit', compact('object', 'buildings'));
     }
@@ -106,8 +113,7 @@ class ObjectsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id){
         /*Validate Input*/
         $this->validate($request, [
             'building_id' => 'required',
@@ -120,8 +126,9 @@ class ObjectsController extends Controller
         ]);
 
         /*Update record in database*/
-        $input = $request->all();
         $object = Object::findOrFail($id);
+        $input = $request->all();
+        $input['user_id'] = $this->getUserId();
         $object->fill($input)->save();
 
         return redirect()->back()->with('success_message', 'Object successfully updated!');
@@ -133,8 +140,7 @@ class ObjectsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
+    public function destroy($id){
         /*Delete record in database*/
         $object = Object::findOrFail($id);
         $object->delete();

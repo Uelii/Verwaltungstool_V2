@@ -22,7 +22,7 @@ class Renter extends Model
      * @var array
      */
     protected $fillable = [
-        'object_id', 'title', 'first_name', 'last_name', 'email', 'phone_landline', 'phone_mobile_phone', 'street', 'street_number', 'zip_code', 'city', 'is_main_domicile', 'beginning_of_contract', 'end_of_contract', 'is_active'
+        'object_id', 'title', 'first_name', 'last_name', 'email', 'phone_landline', 'phone_mobile_phone', 'street', 'street_number', 'zip_code', 'city', 'is_main_domicile', 'beginning_of_contract', 'end_of_contract', 'is_active', 'user_id'
     ];
 
     public function object() {
